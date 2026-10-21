@@ -18,7 +18,7 @@ final class Disputes
     /**
      * **List disputes**
      *
-     * The disputes buyers opened on the store's payments, as their payment providers reported them: the ones that need an answer first, soonest deadline first, then the rest newest first. `status` is how it reads on the dashboard: `needs_response`, `under_review`, `won`, `lost`, `accepted` or `closed` (ended with no chargeback). `providerStatus` is the provider's own last word, `stage` is `inquiry`, `chargeback`, `claim` (a PayPal case), `pre_arbitration` or `arbitration`, and `dueAt` when the provider stops taking an answer, where it says. `answeredFrom` is where it is answered: `here` (Stripe's, through this API), `provider` (in the provider's own dashboard, named in `answerPlace`) or `none`. `meta.figures` is the dashboard's four: how many need an answer and how many are due within three days, the money in the open ones in the store's currency, how many ended won and lost in the last 90 days, and the orders disputed beside those that took money in that time.
+     * The disputes buyers opened on the store's payments, as their payment providers reported them: the ones that need an answer first, soonest deadline first, then the rest newest first. `status` is how it reads on the dashboard: `needs_response`, `under_review`, `won`, `lost`, `accepted` or `closed` (ended with no chargeback). `providerStatus` is the provider's own last word, `stage` is `inquiry`, `chargeback`, `claim` (a PayPal case), `pre_arbitration` or `arbitration`, and `dueAt` when the provider stops taking an answer, where it says. `answeredFrom` is where it is answered: `here` (through this API: Stripe's, Revolut's, Adyen's, and PayPal's where PayPal is connected with API keys), `provider` (in the provider's own dashboard, named in `answerPlace`) or `none`. `meta.figures` is the dashboard's four: how many need an answer and how many are due within three days, the money in the open ones in the store's currency, how many ended won and lost in the last 90 days, and the orders disputed beside those that took money in that time.
      *
      * Needs the `disputes.read` permission (Read Disputes).
      *
@@ -335,7 +335,7 @@ final class Disputes
     /**
      * **Submit a dispute's answer**
      *
-     * Sends a Stripe dispute's answer to Stripe, which hands it to the card's bank at once: Stripe's evidence fields filled in from what Shoply recorded, Shoply's PDF of it, the store's own files, and the statement. Stripe takes one answer a dispute, so this cannot be taken back. Any draft fields in the body are saved first. Answers 409 `answered_elsewhere` for a dispute with another provider, `not_answerable` for one not waiting on an answer, and `past_due` once its deadline has passed. Stripe refusing it is 502, with `stripe_key` where the store's Stripe key may not write disputes and files, and `provider_refused` otherwise, the dispute back to a draft with `answer.note` saying why. A store sends at most 20 answers or acceptances every 10 minutes.
+     * Sends a dispute's answer to its provider, once: what Shoply recorded, Shoply's PDF of it, the store's own files, and the statement, in each provider's own shape. Stripe's evidence fields; Revolut's files and a challenge whose comment is the statement's first 250 characters; PayPal's evidence, appeal or supporting information, whichever the dispute takes now, with the statement as its notes; Adyen's documents under a defense reason, the statement in the PDF. It cannot be taken back. Any draft fields in the body are saved first. Answers 409 `answered_elsewhere` for a dispute answered in its provider's own dashboard, `not_answerable` for one not waiting on an answer, `past_due` once its deadline has passed, and `file_not_taken` for one of the store's files the provider does not take (Adyen takes no PNG, and a PDF of up to 2 MB). The provider refusing it is 502, with `stripe_key` or `provider_key` where the store's key or app may not answer disputes, and `provider_refused` otherwise, the dispute back to a draft with `answer.note` saying why. A store sends at most 20 answers or acceptances every 10 minutes.
      *
      * Needs the `disputes.write` permission (Answer Disputes).
      *
@@ -366,7 +366,7 @@ final class Disputes
     /**
      * **Accept a dispute**
      *
-     * Concedes a Stripe dispute in Stripe: the buyer keeps the money and the order becomes a chargeback. Cannot be undone. Answers as Submit does when it cannot be done, and counts toward the same 20 every 10 minutes.
+     * Concedes a dispute in its provider (Stripe, Revolut, Adyen, or PayPal's claim, which PayPal refunds from the store's account): the buyer keeps the money and the order becomes a chargeback. Cannot be undone. Answers as Submit does when it cannot be done, and counts toward the same 20 every 10 minutes.
      *
      * Needs the `disputes.write` permission (Answer Disputes).
      *
@@ -489,7 +489,7 @@ final class Disputes
     /**
      * **Add a file to a dispute's answer**
      *
-     * One of the store's own files for the answer, sent as `multipart/form-data` in a field called `file`: a PDF, a PNG or a JPEG, its type read from the file itself. One of each `kind`, a new one in place of the one there was, and all of a dispute's files together up to 4 MB, which with Shoply's PDF is within Stripe's limit. Sent to Stripe as `customer_communication`, `receipt` and `service_documentation`. A store adds at most 30 files every 10 minutes.
+     * One of the store's own files for the answer, sent as `multipart/form-data` in a field called `file`: a PDF, a PNG or a JPEG, its type read from the file itself. One of each `kind`, a new one in place of the one there was, and all of a dispute's files together up to 4 MB, which with Shoply's PDF is within Stripe's limit. Sent to Stripe as `customer_communication`, `receipt` and `service_documentation`, and to Revolut, PayPal and Adyen beside Shoply's PDF. For a dispute answered to Adyen, a PNG is refused as `invalid_type`, and a PDF over 2 MB as `too_large`: Adyen takes neither. A store adds at most 30 files every 10 minutes.
      *
      * Needs the `disputes.write` permission (Answer Disputes).
      *
@@ -746,7 +746,7 @@ final class Disputes
     /**
      * **Change dispute settings**
      *
-     * Changes the settings named and keeps the rest. Accepting small ones and submitting before the deadline are Stripe's alone, the only disputes answered from Shoply, and run every few minutes: a dispute under `acceptUnder` that nobody has started an answer for is accepted, and with a day left an answer is submitted as it stands, or where there is none, only when the buyer opened their order or took a file from the address they paid from. Nothing over `askAbove` is sent or accepted by itself where `askAboveOn` is on.
+     * Changes the settings named and keeps the rest. Accepting small ones and submitting before the deadline are for disputes answered from Shoply (Stripe's, Revolut's, Adyen's, and PayPal's with API keys), and run every few minutes: a dispute under `acceptUnder` that nobody has started an answer for is accepted, and with a day left an answer is submitted as it stands, or where there is none, only when the buyer opened their order or took a file from the address they paid from. Nothing over `askAbove` is sent or accepted by itself where `askAboveOn` is on.
      *
      * Needs the `disputes.write` permission (Answer Disputes).
      *
@@ -754,9 +754,9 @@ final class Disputes
      *
      * - `blacklist`: Blacklist the buyer's email and addresses when a dispute opens.
      * - `takeBackAccess`: Hide what the order delivered from its buyer while a dispute is open, shown again if it is won.
-     * - `acceptSmall`: Accept a Stripe dispute under `acceptUnder` rather than fight it.
+     * - `acceptSmall`: Accept a dispute answered from Shoply under `acceptUnder` rather than fight it.
      * - `acceptUnder`: The amount, above 0.
-     * - `autoSubmit`: Submit a Stripe dispute's answer with a day left.
+     * - `autoSubmit`: Submit the answer of a dispute answered from Shoply with a day left.
      * - `askAboveOn`: Never send or accept one over `askAbove` by itself.
      * - `askAbove`: The amount, above 0, up to 1,000,000.
      * - `emailOpened`: Email the store when one opens, with its deadline.

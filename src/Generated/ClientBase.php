@@ -38,7 +38,10 @@ abstract class ClientBase implements Caller
     public readonly Resources\BrokenLinks $brokenLinks;
     public readonly Resources\Sitemap $sitemap;
     public readonly Resources\CartRecovery $cartRecovery;
+    public readonly Resources\WinBack $winBack;
+    public readonly Resources\Subscribers $subscribers;
     public readonly Resources\Customers $customers;
+    public readonly Resources\CustomerTags $customerTags;
     public readonly Resources\Affiliates $affiliates;
     public readonly Resources\AffiliateProgramme $affiliateProgramme;
     public readonly Resources\Blacklist $blacklist;
@@ -86,7 +89,10 @@ abstract class ClientBase implements Caller
         $this->brokenLinks = new Resources\BrokenLinks($this);
         $this->sitemap = new Resources\Sitemap($this);
         $this->cartRecovery = new Resources\CartRecovery($this);
+        $this->winBack = new Resources\WinBack($this);
+        $this->subscribers = new Resources\Subscribers($this);
         $this->customers = new Resources\Customers($this);
+        $this->customerTags = new Resources\CustomerTags($this);
         $this->affiliates = new Resources\Affiliates($this);
         $this->affiliateProgramme = new Resources\AffiliateProgramme($this);
         $this->blacklist = new Resources\Blacklist($this);

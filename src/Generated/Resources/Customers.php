@@ -18,7 +18,7 @@ final class Customers
     /**
      * **List customers**
      *
-     * The store's customers, a page at a time, each with how many orders they have paid for, what they have spent and their balance.
+     * The store's customers, a page at a time, each with how many orders they have paid for, what they have spent, their balance and their `tags`: Shoply's two first (`vip` and `disputed`, worked out from their orders as they are read), then the store's own.
      *
      * Needs the `customers.read` permission (Read Customers).
      *
@@ -28,7 +28,8 @@ final class Customers
      * - `perPage`: How many a page holds. Left out, it is 20.
      * - `search`: Part of an email address.
      * - `sort`: What the list is ordered by, largest or latest first. Left out, it is "newest".
-     * - `only`: Only customers who are affiliates.
+     * - `only`: Only customers who are affiliates, or who are subscribed to the store's news and offers.
+     * - `tag`: Only customers wearing this tag: `vip`, `disputed`, or the ID of one of the store's own.
      * - `range`: Only customers first seen in this period.
      * - `from`: Only customers first seen on or after this day, as `YYYY-MM-DD`. With `to`, in place of `range`.
      * - `to`: Only customers first seen on or before this day, as `YYYY-MM-DD`.
@@ -39,7 +40,8 @@ final class Customers
      *     perPage?: int,
      *     search?: string,
      *     sort?: 'newest'|'spent'|'orders'|'recent'|'balance',
-     *     only?: 'affiliates',
+     *     only?: 'affiliates'|'subscribed',
+     *     tag?: string,
      *     range?: 'today'|'yesterday'|'7d'|'30d'|'this_week'|'last_week'|'this_month'|'last_month'|'this_year',
      *     from?: string,
      *     to?: string,
@@ -55,7 +57,13 @@ final class Customers
      *     paidOrders: int|float,
      *     lastOrderAt: mixed,
      *     balance: int|float,
-     *     affiliateState: mixed
+     *     affiliateState: mixed,
+     *     tags: list<array{
+     *         id: string,
+     *         name: string,
+     *         tone: string,
+     *         automatic: bool
+     *     }>
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/customers/list-customers
@@ -102,7 +110,7 @@ final class Customers
     /**
      * **Export customers**
      *
-     * The customers the same filters would list, as a CSV file: each one's email, when they were first seen, the orders they paid for and what they spent, their first and last paid order, their store balance, and their affiliate code and balance where they have one. Every customer the filters match is in the file, however many: it is sent as it is read. Add `check=1` for `{ rows }`, how many it would have, which is not counted. A store exports at most 30 files every 10 minutes, orders, customers, fraud events and blacklist rules together, whoever asks: after that the answer is 429.
+     * The customers the same filters would list, as a CSV file: each one's email, when they were first seen, the orders they paid for and what they spent, their first and last paid order, their store balance, their affiliate code and balance where they have one, their tags, and whether they are subscribed to the store's news and offers. Every customer the filters match is in the file, however many: it is sent as it is read. Add `check=1` for `{ rows }`, how many it would have, which is not counted. A store exports at most 30 files every 10 minutes, orders, customers, fraud events and blacklist rules together, whoever asks: after that the answer is 429.
      *
      * Needs the `customers.read` permission (Read Customers). It is one of the heavier reads, and is counted against a smaller budget of its own: 60 a minute for each key.
      *
@@ -110,7 +118,8 @@ final class Customers
      *
      * - `search`: Part of an email address.
      * - `sort`: What the file is ordered by, largest or latest first. Left out, it is "newest".
-     * - `only`: Only customers who are affiliates.
+     * - `only`: Only customers who are affiliates, or who are subscribed to the store's news and offers.
+     * - `tag`: Only customers wearing this tag: `vip`, `disputed`, or the ID of one of the store's own.
      * - `check`: `1` for how many rows the file would have, as `{ rows }`, in place of the file. Not counted against the store's exports, and refused with 429 where none are left.
      * - `range`: Only customers first seen in this period.
      * - `from`: Only customers first seen on or after this day, as `YYYY-MM-DD`. With `to`, in place of `range`.
@@ -120,7 +129,8 @@ final class Customers
      * @param array{
      *     search?: string,
      *     sort?: 'newest'|'spent'|'orders'|'recent'|'balance',
-     *     only?: 'affiliates',
+     *     only?: 'affiliates'|'subscribed',
+     *     tag?: string,
      *     check?: '1',
      *     range?: 'today'|'yesterday'|'7d'|'30d'|'this_week'|'last_week'|'this_month'|'last_month'|'this_year',
      *     from?: string,
@@ -197,7 +207,7 @@ final class Customers
     /**
      * **Get a customer**
      *
-     * One customer: their orders, their balance and its history, whether they are blacklisted, and their affiliate figures if they are one.
+     * One customer: their orders, their balance and its history, their `tags`, whether they are blacklisted, and their affiliate figures if they are one.
      *
      * Needs the `customers.read` permission (Read Customers).
      *
@@ -206,6 +216,12 @@ final class Customers
      * @return array{
      *     balance: int|float,
      *     balanceAtCheckout: bool,
+     *     tags: list<array{
+     *         id: string,
+     *         name: string,
+     *         tone: string,
+     *         automatic: bool
+     *     }>,
      *     balanceHistory: list<array{
      *         id: string,
      *         kind: string,
@@ -264,6 +280,12 @@ final class Customers
      * @return array{
      *     balance: int|float,
      *     balanceAtCheckout: bool,
+     *     tags: list<array{
+     *         id: string,
+     *         name: string,
+     *         tone: string,
+     *         automatic: bool
+     *     }>,
      *     balanceHistory: list<array{
      *         id: string,
      *         kind: string,
@@ -310,6 +332,12 @@ final class Customers
      * @return array{
      *     balance: int|float,
      *     balanceAtCheckout: bool,
+     *     tags: list<array{
+     *         id: string,
+     *         name: string,
+     *         tone: string,
+     *         automatic: bool
+     *     }>,
      *     balanceHistory: list<array{
      *         id: string,
      *         kind: string,
@@ -360,6 +388,12 @@ final class Customers
      * @return array{
      *     balance: int|float,
      *     balanceAtCheckout: bool,
+     *     tags: list<array{
+     *         id: string,
+     *         name: string,
+     *         tone: string,
+     *         automatic: bool
+     *     }>,
      *     balanceHistory: list<array{
      *         id: string,
      *         kind: string,
@@ -384,5 +418,78 @@ final class Customers
     public function unblacklist(string $customerId, array $params = [], array $options = []): mixed
     {
         return $this->caller->call('customers.unblacklist', [$customerId], $params, $options);
+    }
+
+    /**
+     * **Set a customer's tags**
+     *
+     * The customer's own tags become exactly these: any not listed is taken off, any new one is put on, and each is sent as `customer.tagged` or `customer.untagged`. Shoply's two are not set here. Answers their tags.
+     *
+     * Needs the `customers.tags` permission (Change Tags).
+     *
+     * Fields:
+     *
+     * - `tags` (required): The IDs of the store's tags they wear.
+     *
+     * @param string $customerId The customer.
+     * @param array{
+     *     tags: list<string>
+     * } $params
+     * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
+     * @return list<array{
+     *     id: string,
+     *     name: string,
+     *     tone: string,
+     *     automatic: bool
+     * }>
+     * @throws \Shoply\ShoplyException
+     * @see https://docs.shoply.gg/api-reference/customers/set-a-customers-tags
+     */
+    public function setTags(string $customerId, array $params, array $options = []): mixed
+    {
+        return $this->caller->call('customers.setTags', [$customerId], $params, $options);
+    }
+
+    /**
+     * **Put a tag on a customer**
+     *
+     * One of the store's tags on the customer. One they already wear changes nothing. Answers their tags.
+     *
+     * Needs the `customers.tags` permission (Change Tags).
+     *
+     * @param string $customerId The customer.
+     * @param string $tagId The tag.
+     * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
+     * @return list<array{
+     *     id: string,
+     *     name: string,
+     *     tone: string,
+     *     automatic: bool
+     * }>
+     * @throws \Shoply\ShoplyException
+     * @see https://docs.shoply.gg/api-reference/customers/put-a-tag-on-a-customer
+     */
+    public function tag(string $customerId, string $tagId, array $options = []): mixed
+    {
+        return $this->caller->call('customers.tag', [$customerId, $tagId], [], $options);
+    }
+
+    /**
+     * **Take a tag off a customer**
+     *
+     * One of the store's tags off the customer. One they do not wear changes nothing. Answers their tags.
+     *
+     * Needs the `customers.tags` permission (Change Tags).
+     *
+     * @param string $customerId The customer.
+     * @param string $tagId The tag.
+     * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
+     * @return array<mixed>
+     * @throws \Shoply\ShoplyException
+     * @see https://docs.shoply.gg/api-reference/customers/take-a-tag-off-a-customer
+     */
+    public function untag(string $customerId, string $tagId, array $options = []): mixed
+    {
+        return $this->caller->call('customers.untag', [$customerId, $tagId], [], $options);
     }
 }
