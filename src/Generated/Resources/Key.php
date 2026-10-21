@@ -20,6 +20,8 @@ final class Key
      *
      * What the key in the request is: its name, the permissions it carries, the addresses it accepts, and the store it belongs to with that store's ID. Make this your first call. Every other address needs the store's ID, and `api` in the answer is where that store's routes begin.
      *
+     * An app's token is a key of the store it was approved for, and `app` says which app it is (null for the store's own keys): an app connected to many stores asks this to learn which store a token is for.
+     *
      * Any live key may ask it, whatever its permissions.
      *
      * Any live API key may call this, whatever its permissions.
@@ -39,6 +41,7 @@ final class Key
      *         lastUsedAt: mixed,
      *         revokedAt: mixed
      *     },
+     *     app: mixed,
      *     store: array{
      *         id: string,
      *         name: string,

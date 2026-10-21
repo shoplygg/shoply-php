@@ -7,7 +7,7 @@ namespace Shoply;
 use Shoply\Generated\ClientBase;
 
 /**
- * Shoply's API from your own server, with a store's secret API key. Every route of the API
+ * Shoply's API from your own server, with a store's secret API key, or an app's token (OAuth). Every route of the API
  * reference is a method named by its id: `orders.show` is `$shoply->orders->show($orderId)`.
  *
  *     $shoply = new \Shoply\Client(['apiKey' => getenv('SHOPLY_API_KEY')]);
@@ -21,7 +21,7 @@ use Shoply\Generated\ClientBase;
  */
 class Client extends ClientBase
 {
-    public const VERSION = '0.1.0';
+    public const VERSION = '0.2.0';
 
     private Transport $transport;
 
@@ -29,7 +29,8 @@ class Client extends ClientBase
 
     /**
      * @param array{apiKey?: string|false|null, storeId?: string, baseUrl?: string, timeout?: int|float, maxRetries?: int} $options
-     *        apiKey      `shoply_sk_...`, or what getenv() answers. Left out, SHOPLY_API_KEY from the environment.
+     *        apiKey      `shoply_sk_...`, or an app's token (`shoply_at_...`) from OAuth::exchange(), or what
+     *                    getenv() answers. Left out, SHOPLY_API_KEY from the environment.
      *        storeId     the store's ID. Left out, it is asked of the key the first time it is needed.
      *        timeout     how long one try waits for an answer, in seconds. 60.
      *        maxRetries  how many more tries a request that is safe to repeat is given. 2.
@@ -38,8 +39,8 @@ class Client extends ClientBase
     {
         $apiKey = $options['apiKey'] ?? (getenv('SHOPLY_API_KEY') ?: null);
 
-        if (!is_string($apiKey) || !str_starts_with($apiKey, 'shoply_sk_')) {
-            throw new ShoplyException('Pass the store\'s secret API key as `apiKey` (shoply_sk_...), or set SHOPLY_API_KEY.', 0, 'api_key_required');
+        if (!is_string($apiKey) || !(str_starts_with($apiKey, 'shoply_sk_') || str_starts_with($apiKey, 'shoply_at_'))) {
+            throw new ShoplyException('Pass the store\'s secret API key as `apiKey` (shoply_sk_...), or an app\'s token (shoply_at_...), or set SHOPLY_API_KEY.', 0, 'api_key_required');
         }
 
         $this->storeId   = isset($options['storeId']) ? (string) $options['storeId'] : null;

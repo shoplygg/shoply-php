@@ -66,4 +66,21 @@ $buyer->verify(['email' => $email, 'code' => $code]);
 $me = $buyer->show();
 ```
 
+## OAuth
+
+An app that sellers connect to their own stores gets a token by OAuth, and passes it as `apiKey`.
+
+```php
+use Shoply\OAuth;
+
+$pkce = OAuth::pkce();
+$url  = OAuth::authorizeUrl(['clientId' => $clientId, 'redirectUri' => $redirectUri, 'state' => $state, 'codeChallenge' => $pkce['challenge']]);
+
+// Back at your redirect URL:
+$token  = OAuth::exchange(['clientId' => $clientId, 'clientSecret' => $clientSecret, 'code' => $code, 'redirectUri' => $redirectUri, 'codeVerifier' => $pkce['verifier']]);
+$shoply = new Shoply\Client(['apiKey' => $token['accessToken'], 'storeId' => $token['storeId']]);
+```
+
+How apps work: https://docs.shoply.gg/guides/oauth
+
 The whole guide: https://docs.shoply.gg/api-reference/php

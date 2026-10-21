@@ -16,6 +16,7 @@ use Shoply\Client;
 use Shoply\Customer;
 use Shoply\File;
 use Shoply\Generated\Routes;
+use Shoply\OAuth;
 use Shoply\Page;
 use Shoply\ShoplyException;
 use Shoply\Webhooks;
@@ -320,6 +321,42 @@ try {
     $old = Webhooks::sign($body, $secret, time() - 600);
     $check('one signed ten minutes ago is too old', $refused('too_old')($threw(static fn () => Webhooks::verify($body, $old, $secret))));
     $check('unless the tolerance says otherwise', Webhooks::verify($body, $old, $secret, 900)['id'] === 'e1');
+
+    echo "OAuth\n";
+
+    $check('an app\'s token is a key too', $threw(static fn () => new Client(['apiKey' => 'shoply_at_' . str_repeat('a', 48)])) === null);
+
+    $url = OAuth::authorizeUrl(['clientId' => 'shoply_app_0123456789abcdef', 'redirectUri' => 'https://app.example/back', 'state' => 's1', 'codeChallenge' => str_repeat('c', 43)]);
+    parse_str((string) parse_url($url, PHP_URL_QUERY), $asked);
+    $check('the address to send a seller to is the dashboard\'s approval screen', str_starts_with($url, 'https://dashboard.shoply.gg/oauth/authorize/?'), $url);
+    $check('with the app\'s request in it', $asked === ['response_type' => 'code', 'client_id' => 'shoply_app_0123456789abcdef', 'redirect_uri' => 'https://app.example/back', 'state' => 's1', 'code_challenge' => str_repeat('c', 43), 'code_challenge_method' => 'S256'], $asked);
+    $check('no challenge, no method', !str_contains(OAuth::authorizeUrl(['clientId' => 'x', 'redirectUri' => 'https://a.example']), 'code_challenge'));
+
+    $pair = OAuth::pkce();
+    $check('a PKCE pair: the challenge is the base64url of the verifier\'s SHA-256', preg_match('/^[A-Za-z0-9_-]{43}$/', $pair['verifier']) === 1 && $pair['challenge'] === rtrim(strtr(base64_encode(hash('sha256', $pair['verifier'], true)), '+/', '-_'), '=') && $pair['method'] === 'S256');
+    $check('a state is new each time', OAuth::state() !== OAuth::state());
+
+    $fresh();
+    $token = OAuth::exchange(['clientId' => 'shoply_app_0123456789abcdef', 'clientSecret' => 'shoply_cs_secret', 'code' => 'good', 'redirectUri' => 'https://app.example/back', 'baseUrl' => $base]);
+    $sent  = $seen()[0] ?? [];
+    parse_str((string) ($sent['body'] ?? ''), $form);
+    $check('a code is swapped for the token', $token === ['accessToken' => 'shoply_at_' . str_repeat('b', 48), 'tokenType' => 'Bearer', 'scopes' => ['orders.read', 'products.read'], 'storeId' => STORE], $token);
+    $check('as a form, with the secret by HTTP Basic', ($sent['path'] ?? '') === '/v1/oauth/token' && ($sent['headers']['authorization'] ?? '') === 'Basic ' . base64_encode('shoply_app_0123456789abcdef:shoply_cs_secret') && ($form['grant_type'] ?? '') === 'authorization_code' && !isset($form['client_id']), $sent);
+
+    $fresh();
+    OAuth::exchange(['clientId' => 'shoply_app_0123456789abcdef', 'code' => 'good', 'redirectUri' => 'http://127.0.0.1/cb', 'codeVerifier' => str_repeat('v', 43), 'baseUrl' => $base]);
+    $sent = $seen()[0] ?? [];
+    parse_str((string) ($sent['body'] ?? ''), $form);
+    $check('a desktop app sends its client ID and the verifier, and no secret', !isset($sent['headers']['authorization']) && ($form['client_id'] ?? '') === 'shoply_app_0123456789abcdef' && ($form['code_verifier'] ?? '') === str_repeat('v', 43), $sent);
+
+    $e = $threw(static fn () => OAuth::exchange(['clientId' => 'x', 'clientSecret' => 'y', 'code' => 'bad', 'redirectUri' => 'https://a.example', 'baseUrl' => $base]));
+    $check('a refusal is a ShoplyException with OAuth\'s word', $e instanceof ShoplyException && $e->status === 400 && $e->errorCode === 'invalid_grant' && $e->getMessage() === 'The code is not right.');
+
+    $fresh();
+    OAuth::revoke(['clientId' => 'shoply_app_0123456789abcdef', 'clientSecret' => 'shoply_cs_secret', 'token' => 'shoply_at_x', 'baseUrl' => $base]);
+    $sent = $seen()[0] ?? [];
+    parse_str((string) ($sent['body'] ?? ''), $form);
+    $check('a token is given up at /oauth/revoke', ($sent['path'] ?? '') === '/v1/oauth/revoke' && ($form['token'] ?? '') === 'shoply_at_x', $sent);
 } finally {
     proc_terminate($server);
     proc_close($server);

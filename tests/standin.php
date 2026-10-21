@@ -42,6 +42,22 @@ $answer = static function (int $status, mixed $data, array $extra = [], array $h
     exit;
 };
 
+// OAuth's two addresses answer as OAuth does, not in the API's envelope.
+if ($path === '/v1/oauth/token' || $path === '/v1/oauth/revoke') {
+    $form = [];
+    parse_str($raw, $form);
+    header('Content-Type: application/json');
+
+    if (($form['code'] ?? '') === 'bad') {
+        http_response_code(400);
+        echo json_encode(['error' => 'invalid_grant', 'error_description' => 'The code is not right.']);
+        exit;
+    }
+
+    echo $path === '/v1/oauth/revoke' ? '{}' : json_encode(['access_token' => 'shoply_at_' . str_repeat('b', 48), 'token_type' => 'Bearer', 'scope' => 'orders.read products.read', 'store_id' => '11111111-2222-3333-4444-555555555555']);
+    exit;
+}
+
 if ($path === '/v1/key') {
     $answer(200, ['store' => ['id' => '11111111-2222-3333-4444-555555555555']]);
 }
