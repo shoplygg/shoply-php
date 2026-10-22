@@ -80,7 +80,8 @@ final class Store
      *     originCountry: string,
      *     hasDynamicSecret: bool,
      *     dynamicSecretEnd: string,
-     *     updatedAt: string
+     *     updatedAt: string,
+     *     settingsVersion: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/store/get-the-store
@@ -135,6 +136,7 @@ final class Store
      * - `businessPostalCode`: Its postal code.
      * - `businessCountry`: Its country, as a two-letter code.
      * - `invoiceFooter`: A line printed at the foot of every invoice.
+     * - `expectedVersion`: The `settingsVersion` you last read. Sent, the change is refused with `stale_write` only if something this route saves has changed since; the store's other settings (Support Tickets on or off, its tax, its payment options and the like) changing is not that. Use it rather than `expectedUpdatedAt`, which every one of them moves.
      * - `expectedUpdatedAt`: The `updatedAt` you last read. Sent, the change is refused with `stale_write` if the record has changed since. Left out, it is saved whatever happened in between.
      *
      * @param array{
@@ -176,6 +178,7 @@ final class Store
      *     businessPostalCode?: string,
      *     businessCountry?: string,
      *     invoiceFooter?: string,
+     *     expectedVersion?: string,
      *     expectedUpdatedAt?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
@@ -236,7 +239,8 @@ final class Store
      *     originCountry: string,
      *     hasDynamicSecret: bool,
      *     dynamicSecretEnd: string,
-     *     updatedAt: string
+     *     updatedAt: string,
+     *     settingsVersion: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/store/update-the-store
@@ -345,6 +349,7 @@ final class Store
      *     emailStockThreshold: int|float,
      *     emailPayoutsEnabled: bool,
      *     emailCustomPaidEnabled: bool,
+     *     emailTicketsEnabled: bool,
      *     emailDisputeOpenedEnabled: bool,
      *     emailDisputeClosedEnabled: bool,
      *     testEmailEvery: array{
@@ -359,12 +364,14 @@ final class Store
      *     discordReviewsEnabled: bool,
      *     discordPayoutsEnabled: bool,
      *     discordCustomPaidEnabled: bool,
+     *     discordTicketsEnabled: bool,
      *     discordDisputesEnabled: bool,
      *     discordStockThreshold: int|float,
      *     discordFailure: mixed,
      *     storeName: string,
      *     emailAccent: string,
-     *     updatedAt: string
+     *     updatedAt: string,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/store/get-email-and-alert-settings

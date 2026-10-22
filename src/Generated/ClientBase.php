@@ -44,6 +44,7 @@ abstract class ClientBase implements Caller
     public readonly Resources\CustomerTags $customerTags;
     public readonly Resources\Affiliates $affiliates;
     public readonly Resources\AffiliateProgramme $affiliateProgramme;
+    public readonly Resources\Tickets $tickets;
     public readonly Resources\Blacklist $blacklist;
     public readonly Resources\FraudEvents $fraudEvents;
     public readonly Resources\FraudSettings $fraudSettings;
@@ -95,6 +96,7 @@ abstract class ClientBase implements Caller
         $this->customerTags = new Resources\CustomerTags($this);
         $this->affiliates = new Resources\Affiliates($this);
         $this->affiliateProgramme = new Resources\AffiliateProgramme($this);
+        $this->tickets = new Resources\Tickets($this);
         $this->blacklist = new Resources\Blacklist($this);
         $this->fraudEvents = new Resources\FraudEvents($this);
         $this->fraudSettings = new Resources\FraudSettings($this);

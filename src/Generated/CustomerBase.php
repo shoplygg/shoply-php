@@ -12,12 +12,14 @@ abstract class CustomerBase implements Caller
     public readonly Resources\CustomerOrders $orders;
     public readonly Resources\CustomerAffiliate $affiliate;
     public readonly Resources\CustomerSubscriptions $subscriptions;
+    public readonly Resources\CustomerTickets $tickets;
 
     public function __construct()
     {
         $this->orders = new Resources\CustomerOrders($this);
         $this->affiliate = new Resources\CustomerAffiliate($this);
         $this->subscriptions = new Resources\CustomerSubscriptions($this);
+        $this->tickets = new Resources\CustomerTickets($this);
     }
 
     /**
@@ -128,6 +130,7 @@ abstract class CustomerBase implements Caller
      *         imageUrl: mixed
      *     }>,
      *     subscriptions: bool,
+     *     support: bool,
      *     downloads: array{
      *         buttons: array<mixed>,
      *         guideUrl: string,
