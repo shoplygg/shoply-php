@@ -93,7 +93,7 @@ final class Tickets
     /**
      * **Get a support ticket**
      *
-     * A ticket with its `conversation`, oldest first: each message's `from` (`buyer` or `store`), `body`, `pictures` (each one's `name` and the `url` the dashboard reads it at; read it with Get a ticket's picture) and `createdAt`. `customer` is who wrote it, with their tags, `order` the order it is about, `orders` their five latest, and `canReopenUntil` the last moment the buyer can open a resolved ticket again by writing on it. Reading a ticket marks it read, as opening it on the dashboard does.
+     * A ticket with its `conversation`, oldest first: each message's `from` (`buyer` or `store`), `body` (Markdown, as written), `html` (the body as Markdown draws it, escaped: links only to the web or an email, each opening in a new tab, and a picture written in Markdown a link, never loaded), `pictures` (each one's `name` and the `url` the dashboard reads it at; read it with Get a ticket's picture) and `createdAt`. `customer` is who wrote it, with their tags, `order` the order it is about, `orders` their five latest, and `canReopenUntil` the last moment the buyer can open a resolved ticket again by writing on it. Reading a ticket marks it read, as opening it on the dashboard does.
      *
      * Needs the `tickets.read` permission (Read Support Tickets).
      *
@@ -122,6 +122,7 @@ final class Tickets
      *         id: string,
      *         from: string,
      *         body: string,
+     *         html: string,
      *         pictures: array<mixed>,
      *         createdAt: string
      *     }>,
@@ -201,6 +202,7 @@ final class Tickets
      *         id: string,
      *         from: string,
      *         body: string,
+     *         html: string,
      *         pictures: array<mixed>,
      *         createdAt: string
      *     }>,
@@ -271,6 +273,7 @@ final class Tickets
      *         id: string,
      *         from: string,
      *         body: string,
+     *         html: string,
      *         pictures: array<mixed>,
      *         createdAt: string
      *     }>,
@@ -341,6 +344,7 @@ final class Tickets
      *         id: string,
      *         from: string,
      *         body: string,
+     *         html: string,
      *         pictures: array<mixed>,
      *         createdAt: string
      *     }>,

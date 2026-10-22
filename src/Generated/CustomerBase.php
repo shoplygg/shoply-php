@@ -94,6 +94,8 @@ abstract class CustomerBase implements Caller
      *
      * Everything the customer panel's first page shows: the buyer's email, what they have spent, their store balance, their 200 newest orders, and the downloads, files and setup instructions their paid orders hand over.
      *
+     * `downloads.files` and `downloads.instructions` are every paid order's together. `downloads.orders` is the same an order at a time, newest first, as the customer panel shows it: each with what it bought, its own files and its own instructions. The store's `buttons` and `general` notes go with every order.
+     *
      * `affiliate` is null unless the store has an affiliate programme the buyer is in or may join, and `subscriptions` says whether they have ever had one. Keys are not listed here: Get an order has them.
      *
      * Needs the buyer's token: `Authorization: Bearer shoply_ct_...`, from Sign in with the code.
@@ -135,8 +137,24 @@ abstract class CustomerBase implements Caller
      *         buttons: array<mixed>,
      *         guideUrl: string,
      *         files: array<mixed>,
-     *         instructions: array<mixed>,
-     *         general: string
+     *         instructions: list<array{
+     *             productName: string,
+     *             variantName: string,
+     *             text: string
+     *         }>,
+     *         general: string,
+     *         orders: list<array{
+     *             id: string,
+     *             dateCreated: string,
+     *             products: list<string>,
+     *             imageUrl: mixed,
+     *             files: array<mixed>,
+     *             instructions: list<array{
+     *                 productName: mixed,
+     *                 variantName: mixed,
+     *                 text: mixed
+     *             }>
+     *         }>
      *     },
      *     supportUrl: string
      * }

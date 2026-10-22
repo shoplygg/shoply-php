@@ -91,6 +91,7 @@ final class CustomerTickets
      *         id: string,
      *         from: string,
      *         body: string,
+     *         html: string,
      *         pictures: array<mixed>,
      *         createdAt: string
      *     }>,
@@ -117,7 +118,7 @@ final class CustomerTickets
     /**
      * **Get a support ticket**
      *
-     * A ticket with its `conversation`, oldest first: each message's `from` (`buyer` or `store`), `body`, `pictures` and `createdAt`. A picture is named here and shown in the customer panel. `canReopenUntil` is the last moment writing on a resolved ticket opens it again.
+     * A ticket with its `conversation`, oldest first: each message's `from` (`buyer` or `store`), `body` (Markdown, as written), `html` (the body as Markdown draws it, escaped, which is safe to show as it is), `pictures` and `createdAt`. A picture is named here and shown in the customer panel. `canReopenUntil` is the last moment writing on a resolved ticket opens it again.
      *
      * Needs the buyer's token: `Authorization: Bearer shoply_ct_...`, from Sign in with the code.
      *
@@ -145,6 +146,7 @@ final class CustomerTickets
      *         id: string,
      *         from: string,
      *         body: string,
+     *         html: string,
      *         pictures: array<mixed>,
      *         createdAt: string
      *     }>,
@@ -206,6 +208,7 @@ final class CustomerTickets
      *         id: string,
      *         from: string,
      *         body: string,
+     *         html: string,
      *         pictures: array<mixed>,
      *         createdAt: string
      *     }>,
@@ -260,6 +263,7 @@ final class CustomerTickets
      *         id: string,
      *         from: string,
      *         body: string,
+     *         html: string,
      *         pictures: array<mixed>,
      *         createdAt: string
      *     }>,
