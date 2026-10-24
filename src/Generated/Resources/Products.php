@@ -28,7 +28,7 @@ final class Products
      * - `search`: Only products whose name contains this.
      *
      * @param array{
-     *     visibility?: 'public'|'unlisted'|'private',
+     *     visibility?: 'public'|'unlisted'|'private'|'on_hold',
      *     search?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
@@ -117,7 +117,7 @@ final class Products
      * - `name` (required): The product's name.
      * - `slug`: The last part of its address on the storefront. Left out, it is made from the name.
      * - `description`: What the product page says. Plain text with a few marks: a line that starts with `#` is a heading, one that starts with `-` is a point of a list, a blank line ends a paragraph, and `**bold**` and backticks for code work inside a line.
-     * - `visibility`: `public` is listed and can be bought. `unlisted` can be bought by whoever has its link. `private` cannot be bought. Left out, it is "public".
+     * - `visibility`: `public` is listed and can be bought. `unlisted` can be bought by whoever has its link. `private` cannot be bought. `on_hold` is listed as a public product is and cannot be bought: its page says it is on hold, and every checkout refuses it. Left out, it is "public".
      * - `variants` (required): The product's options, 1 to 100 of them, in the order buyers see them. A variant of the product that is not in this list is removed.
      * - `deliveryInstructions`: Text sent to the buyer with every variant of the product once the order is paid, whatever the variant delivers, up to 5,000 characters. A variant's own instructions are sent after it. Empty is none. Left out on an update, it stays as it is.
      * - `categoryIds`: The categories it is in. Left out on an update, they stay as they are.
@@ -135,7 +135,7 @@ final class Products
      *     name: string,
      *     slug?: string,
      *     description?: string,
-     *     visibility?: 'public'|'unlisted'|'private',
+     *     visibility?: 'public'|'unlisted'|'private'|'on_hold',
      *     variants: list<array{
      *         id?: string,
      *         label: string,
@@ -346,7 +346,7 @@ final class Products
      * - `name` (required): The product's name.
      * - `slug`: The last part of its address on the storefront. Left out, it is made from the name.
      * - `description`: What the product page says. Plain text with a few marks: a line that starts with `#` is a heading, one that starts with `-` is a point of a list, a blank line ends a paragraph, and `**bold**` and backticks for code work inside a line.
-     * - `visibility`: `public` is listed and can be bought. `unlisted` can be bought by whoever has its link. `private` cannot be bought. Left out, it is "public".
+     * - `visibility`: `public` is listed and can be bought. `unlisted` can be bought by whoever has its link. `private` cannot be bought. `on_hold` is listed as a public product is and cannot be bought: its page says it is on hold, and every checkout refuses it. Left out, it is "public".
      * - `variants` (required): The product's options, 1 to 100 of them, in the order buyers see them. A variant of the product that is not in this list is removed.
      * - `deliveryInstructions`: Text sent to the buyer with every variant of the product once the order is paid, whatever the variant delivers, up to 5,000 characters. A variant's own instructions are sent after it. Empty is none. Left out on an update, it stays as it is.
      * - `categoryIds`: The categories it is in. Left out on an update, they stay as they are.
@@ -366,7 +366,7 @@ final class Products
      *     name: string,
      *     slug?: string,
      *     description?: string,
-     *     visibility?: 'public'|'unlisted'|'private',
+     *     visibility?: 'public'|'unlisted'|'private'|'on_hold',
      *     variants: list<array{
      *         id?: string,
      *         label: string,
@@ -515,7 +515,7 @@ final class Products
      *
      * @param string $productId The product.
      * @param array{
-     *     visibility: 'public'|'unlisted'|'private'
+     *     visibility: 'public'|'unlisted'|'private'|'on_hold'
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{
@@ -573,7 +573,7 @@ final class Products
      *
      * @param array{
      *     productIds: list<string>,
-     *     visibility?: 'public'|'unlisted'|'private',
+     *     visibility?: 'public'|'unlisted'|'private'|'on_hold',
      *     isBestSeller?: bool,
      *     paymentMethods?: array<string, mixed>,
      *     deliveryInstructions?: string

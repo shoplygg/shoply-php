@@ -69,13 +69,13 @@ final class CartRecovery
      * - `enabled`: Whether Cart Recovery writes to buyers at all.
      * - `firstOn`: Whether the first email is sent.
      * - `firstMinutes`: Minutes after the buyer left. One of 30, 60, 120, 240.
-     * - `firstSubject`: Its subject, up to 150 characters.
+     * - `firstSubject`: Its subject, up to 150 characters. It may hold the email's variables, such as `{{ store.name }}`; one whose marks cannot be read is refused.
      * - `declinedOn`: Whether the declined card email takes the first one's place after a card was turned down.
      * - `declinedMinutes`: Minutes after the decline. One of 5, 15, 30, 60.
-     * - `declinedSubject`: Its subject, up to 150 characters.
+     * - `declinedSubject`: Its subject, up to 150 characters. It may hold the email's variables, such as `{{ store.name }}`; one whose marks cannot be read is refused.
      * - `secondOn`: Whether the second email is sent.
      * - `secondMinutes`: Minutes after the buyer left. One of 720, 1200, 1440, 2880.
-     * - `secondSubject`: Its subject, up to 150 characters.
+     * - `secondSubject`: Its subject, up to 150 characters. It may hold the email's variables, such as `{{ store.name }}`; one whose marks cannot be read is refused.
      * - `secondPercent`: The percent off its coupon. One of 0, 5, 10, 15, 20, 25. 0 sends it with no coupon.
      *
      * @param array{

@@ -28,7 +28,7 @@ final class Orders
      * - `perPage`: How many a page holds, up to 100. Left out, it is 20.
      * - `status`: Only orders in this status.
      * - `gateway`: Only orders paid with this payment method, by its name in the payment methods list.
-     * - `search`: An order's ID, or part of a buyer's email.
+     * - `search`: An order's ID, an imported order's ID on the platform it came from, or part of a buyer's email.
      * - `sort`: What the list is ordered by. Left out, it is "created_at".
      * - `direction`: Which way it is ordered. Left out, it is "desc".
      * - `range`: Only orders placed in this period.
@@ -39,7 +39,7 @@ final class Orders
      * @param array{
      *     page?: int,
      *     perPage?: int,
-     *     status?: 'pending'|'completed'|'refunded'|'cancelled'|'chargeback',
+     *     status?: 'pending'|'completed'|'refunded'|'cancelled'|'chargeback'|'imported',
      *     gateway?: string,
      *     search?: string,
      *     sort?: 'created_at'|'amount'|'email'|'status',
@@ -90,6 +90,7 @@ final class Orders
      *     paidAt: mixed,
      *     note: string,
      *     customFields: array<mixed>,
+     *     imported: mixed,
      *     emailState: string,
      *     emailError: string,
      *     emailAttempts: int|float,
@@ -144,7 +145,7 @@ final class Orders
      *
      * - `status`: Only orders in this status.
      * - `gateway`: Only orders paid with this payment method, by its name in the payment methods list.
-     * - `search`: An order's ID, or part of a buyer's email.
+     * - `search`: An order's ID, an imported order's ID on the platform it came from, or part of a buyer's email.
      * - `sort`: What the list is ordered by. Left out, it is "created_at".
      * - `direction`: Which way it is ordered. Left out, it is "desc".
      * - `range`: Only orders placed in this period.
@@ -155,7 +156,7 @@ final class Orders
      * - `check`: `1` for how many rows the file would have, as `{ rows }`, in place of the file. Not counted against the store's exports, and refused with 429 where none are left.
      *
      * @param array{
-     *     status?: 'pending'|'completed'|'refunded'|'cancelled'|'chargeback',
+     *     status?: 'pending'|'completed'|'refunded'|'cancelled'|'chargeback'|'imported',
      *     gateway?: string,
      *     search?: string,
      *     sort?: 'created_at'|'amount'|'email'|'status',
@@ -180,11 +181,11 @@ final class Orders
     /**
      * **Get an order**
      *
-     * One order with everything its page shows: its lines and what each delivered, its payments, the buyer, its timeline, where it came from, `refund`, which says which ways it can be refunded, and `requests`: what Shoply sent your servers about it, each try of each webhook about the order and each line's dynamic delivery, newest first, with the first 300 characters of what came back. `customPayment` is for an order paid with one of your custom payment methods, and null for any other: the method's name, `status` (`open`, `review` while it waits for you to approve or reject it, `paid` or `rejected`), the amount, and `proof`, what the buyer sent when they said they paid (the reference, whether a proof of payment was sent, and when).
+     * One order with everything its page shows: its lines and what each delivered, its payments, the buyer, its timeline, where it came from, `refund`, which says which ways it can be refunded, and `requests`: what Shoply sent your servers about it, each try of each webhook about the order and each line's dynamic delivery, newest first, with the first 300 characters of what came back. `customPayment` is for an order paid with one of your custom payment methods, and null for any other: the method's name, `status` (`open`, `review` while it waits for you to approve or reject it, `paid` or `rejected`), the amount, and `proof`, what the buyer sent when they said they paid (the reference, whether a proof of payment was sent, and when). An order brought across by Platform Migration is found by its ID on the platform it came from as well, and answers with its own `id`; what it delivered there is in its items' `deliveredKeys`, a line of it each, where that platform says.
      *
      * Needs the `orders.read` permission (Read Orders).
      *
-     * @param string $orderId The order. The ID in a checkout's address is the order's ID.
+     * @param string $orderId The order. The ID in a checkout's address is the order's ID. An imported order's ID on the platform it came from finds it too.
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{
      *     id: string,
@@ -226,6 +227,7 @@ final class Orders
      *     paidAt: string,
      *     note: string,
      *     customFields: array<mixed>,
+     *     imported: mixed,
      *     emailState: string,
      *     emailError: string,
      *     emailAttempts: int|float,
@@ -296,6 +298,10 @@ final class Orders
      *         kind: string,
      *         detail: string,
      *         actor: string,
+     *         by: array{
+     *             name: string,
+     *             kind: string
+     *         },
      *         at: string
      *     }>,
      *     testPayment: bool,

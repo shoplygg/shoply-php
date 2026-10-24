@@ -43,6 +43,7 @@ final class Reviews
      *     rating: int|float,
      *     message: string,
      *     automatic: bool,
+     *     imported: bool,
      *     dateCreated: string,
      *     items: list<array{
      *         productId: string,

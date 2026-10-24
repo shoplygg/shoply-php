@@ -28,7 +28,8 @@ final class CustomerTags
      *     name: string,
      *     tone: string,
      *     automatic: bool,
-     *     customers: int|float
+     *     customers: int|float,
+     *     coupons: int|float
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/customers/list-customer-tags
@@ -97,7 +98,8 @@ final class CustomerTags
      *     name: string,
      *     tone: string,
      *     automatic: bool,
-     *     customers: int|float
+     *     customers: int|float,
+     *     coupons: int|float
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/customers/change-vip-and-disputed-before

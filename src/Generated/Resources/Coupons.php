@@ -53,6 +53,7 @@ final class Coupons
      *     active: bool,
      *     appliesTo: string,
      *     targets: array<mixed>,
+     *     customerTag: mixed,
      *     sort: int|float,
      *     discountGiven: int|float,
      *     revenue: int|float,
@@ -87,6 +88,7 @@ final class Coupons
      * - `categoryId`: The coupon category it is filed in. Left out, it goes in the store's Default category.
      * - `appliesTo`: Every product, or only the ones in `targets`. Left out, it is "all".
      * - `targets`: The products it works on when `appliesTo` is `some`. Each names a product, and optionally one variant of it.
+     * - `customerTag`: Who may use it: empty for anybody with the code, `vip`, or the ID of one of the store's tags. The buyer's email has to wear the tag when the code is applied and when they pay.
      *
      * @param array{
      *     tz?: string,
@@ -102,7 +104,8 @@ final class Coupons
      *     targets?: list<array{
      *         productId: string,
      *         variantId?: string
-     *     }>
+     *     }>,
+     *     customerTag?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{
@@ -120,6 +123,7 @@ final class Coupons
      *     active: bool,
      *     appliesTo: string,
      *     targets: array<mixed>,
+     *     customerTag: mixed,
      *     sort: int|float,
      *     discountGiven: int|float,
      *     revenue: int|float,
@@ -137,7 +141,7 @@ final class Coupons
     /**
      * **Update a coupon**
      *
-     * Saves the coupon whole: send every field as it should be, not only what changed. A field left out goes back to its default. The exceptions are `appliesTo` and `targets`, which stay as they are when `appliesTo` is left out.
+     * Saves the coupon whole: send every field as it should be, not only what changed. A field left out goes back to its default. The exceptions are `appliesTo` and `targets`, which stay as they are when `appliesTo` is left out, and `customerTag`, which stays as it is when left out.
      *
      * Needs the `coupons.write` permission (Change Coupons).
      *
@@ -154,6 +158,7 @@ final class Coupons
      * - `categoryId`: The coupon category it is filed in. Left out, it goes in the store's Default category.
      * - `appliesTo`: Every product, or only the ones in `targets`. Left out, it is "all".
      * - `targets`: The products it works on when `appliesTo` is `some`. Each names a product, and optionally one variant of it.
+     * - `customerTag`: Who may use it: empty for anybody with the code, `vip`, or the ID of one of the store's tags. The buyer's email has to wear the tag when the code is applied and when they pay.
      * - `expectedUpdatedAt`: The `updatedAt` you last read. Sent, the change is refused with `stale_write` if the record has changed since. Left out, it is saved whatever happened in between.
      *
      * @param string $couponId The coupon.
@@ -172,6 +177,7 @@ final class Coupons
      *         productId: string,
      *         variantId?: string
      *     }>,
+     *     customerTag?: string,
      *     expectedUpdatedAt?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
@@ -190,6 +196,7 @@ final class Coupons
      *     active: bool,
      *     appliesTo: string,
      *     targets: array<mixed>,
+     *     customerTag: mixed,
      *     sort: int|float,
      *     discountGiven: int|float,
      *     revenue: int|float,

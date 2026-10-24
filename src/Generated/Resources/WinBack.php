@@ -67,10 +67,10 @@ final class WinBack
      * - `enabled`: Whether Win-Back writes to anybody.
      * - `firstOn`: Whether the first email is sent.
      * - `firstDays`: Days after a buyer's last order. One of 14, 21, 30, 45, 60, 90.
-     * - `firstSubject`: Its subject, up to 150 characters.
+     * - `firstSubject`: Its subject, up to 150 characters. It may hold the email's variables, such as `{{ store.name }}`; one whose marks cannot be read is refused.
      * - `secondOn`: Whether the second email is sent.
      * - `secondDays`: Days after the first. One of 3, 7, 14, 21, 30.
-     * - `secondSubject`: Its subject, up to 150 characters.
+     * - `secondSubject`: Its subject, up to 150 characters. It may hold the email's variables, such as `{{ store.name }}`; one whose marks cannot be read is refused.
      * - `secondPercent`: The percent off its coupon. One of 0, 5, 10, 15, 20, 25. 0 sends it with no coupon.
      * - `audience`: Who is written to: empty for every subscriber, `vip`, or the ID of one of the store's tags.
      *

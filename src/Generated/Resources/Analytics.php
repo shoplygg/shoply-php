@@ -124,7 +124,8 @@ final class Analytics
      *         pending: int|float,
      *         refunded: int|float,
      *         cancelled: int|float,
-     *         chargeback: int|float
+     *         chargeback: int|float,
+     *         imported: int|float
      *     },
      *     statusTotals: array{
      *         completed: array{
@@ -144,6 +145,10 @@ final class Analytics
      *             amount: int|float
      *         },
      *         chargeback: array{
+     *             orders: int|float,
+     *             amount: int|float
+     *         },
+     *         imported: array{
      *             orders: int|float,
      *             amount: int|float
      *         }
