@@ -18,7 +18,7 @@ final class Sales
     /**
      * **List sales**
      *
-     * Every sale the store has, newest first. A store holds up to 30, so the list is not paged.
+     * Every sale the store has, newest first. A store holds as many as its plan does, 150 at most, so the list is not paged.
      *
      * Needs the `sales.read` permission (Read Sales).
      *
@@ -53,7 +53,7 @@ final class Sales
     /**
      * **Create a sale**
      *
-     * Adds a sale. A store holds up to 30.
+     * Adds a sale. A store holds as many as its plan does.
      *
      * Needs the `sales.write` permission (Change Sales).
      *

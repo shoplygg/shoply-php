@@ -83,7 +83,7 @@ final class PaymentMethods
      *
      * Takes a connected method off the checkout, or puts it back. Off keeps its credentials. On is refused for a method that is missing something it needs, which is put right in the dashboard. Answers the list again.
      *
-     * Needs the `payments.write` permission (Change Payment Methods).
+     * Needs the `payments.write` permission (Change Payment Methods). Only a key the store's owner made, or an app the owner connected, can call it: one made by somebody on the store's team is refused (`owner_only`).
      *
      * Fields:
      *
@@ -108,7 +108,7 @@ final class PaymentMethods
      *
      * Sets the order the checkout offers payment methods in. The first is the one most buyers take. Name some of them and they are put in this order in the places they hold now, and the rest stay where they are: a custom payment method between two connected ones stays between them. A custom method is named by its id in `meta.order`. Answers the list again.
      *
-     * Needs the `payments.write` permission (Change Payment Methods).
+     * Needs the `payments.write` permission (Change Payment Methods). Only a key the store's owner made, or an app the owner connected, can call it: one made by somebody on the store's team is refused (`owner_only`).
      *
      * Fields:
      *
@@ -132,7 +132,7 @@ final class PaymentMethods
      *
      * Whether the checkout offers buyers their balance at the store. Answers the list again.
      *
-     * Needs the `payments.write` permission (Change Payment Methods).
+     * Needs the `payments.write` permission (Change Payment Methods). Only a key the store's owner made, or an app the owner connected, can call it: one made by somebody on the store's team is refused (`owner_only`).
      *
      * Fields:
      *

@@ -50,7 +50,7 @@ final class Stock
     /**
      * **Add license keys**
      *
-     * Adds license keys to a variant's stock, up to 5,000 in one request. A variant holds up to 5,000 unsold keys and a store 100,000.
+     * Adds license keys to a variant's stock, up to 5,000 in one request. A variant and a store each hold as many unsold keys as the store's plan does.
      *
      * A key sent twice is stocked twice, which is how one key is sold to several buyers. `duplicates` in the answer counts the ones that matched stock the variant already had, so sending the same batch a second time by mistake shows.
      *
@@ -82,7 +82,7 @@ final class Stock
     /**
      * **Replace a variant's license keys**
      *
-     * Makes the variant's unsold stock exactly the keys sent. Keys already delivered are not touched: they are order history, not stock.
+     * Makes the variant's unsold stock exactly the keys sent. Keys already delivered are not touched: they are order history, not stock. Up to 5,000 keys, and only for a variant with no more than that in stock: one with more is refused with `validation_error`, and its keys are added and deleted instead.
      *
      * Needs the `stock.write` permission (Change Stock).
      *
@@ -176,7 +176,7 @@ final class Stock
      *
      * The first of three steps to give a variant a file to deliver. This one says what the file is and answers a signed address to send it to. Then send the file itself to that address with a `PUT`. Then call "Finish a file upload".
      *
-     * A variant holds up to 3 files of up to 100 MB each, and a store up to 100 files and 5 GB. Accepted: ZIP, RAR, 7z, PDF, MP4, MP3, WAV, EPUB, EXE, DMG, MSI and APK.
+     * How many files a variant and a store hold, how large one may be and how much a store holds in all are the store's plan's. Accepted: ZIP, RAR, 7z, PDF, MP4, MP3, WAV, EPUB, EXE, DMG, MSI and APK.
      *
      * Needs the `stock.write` permission (Change Stock).
      *

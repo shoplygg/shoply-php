@@ -18,7 +18,7 @@ final class ProductImages
     /**
      * **Upload a product picture**
      *
-     * Adds a picture to the product, sent as `multipart/form-data` in a field called `image`. A product holds up to 10. The first one uploaded is the one listings show.
+     * Adds a picture to the product, sent as `multipart/form-data` in a field called `image`. A product holds as many as its store's plan does. The first one uploaded is the one listings show.
      *
      * Needs the `products.write` permission (Change Products).
      *

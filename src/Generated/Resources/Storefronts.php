@@ -18,7 +18,7 @@ final class Storefronts
     /**
      * **List storefronts**
      *
-     * The store's storefronts: each a design of its site, on a theme. One of them is live (`meta.liveId`), which is the one buyers see. A store holds up to 10. `meta.themes` is the themes a new one can start from.
+     * The store's storefronts: each a design of its site, on a theme. One of them is live (`meta.liveId`), which is the one buyers see. A store holds as many as its plan does. `meta.themes` is the themes a new one can start from.
      *
      * Needs the `storefronts.read` permission (Read Storefronts).
      *
@@ -54,7 +54,7 @@ final class Storefronts
      *
      * Adds a storefront as a draft: a theme's starting design, or a copy of one the store already has. Answers the store's storefronts with the new one among them.
      *
-     * Needs the `storefronts.write` permission (Change Storefronts).
+     * Needs the `storefronts.write` permission (Change Storefronts). Only a key the store's owner made, or an app the owner connected, can call it: one made by somebody on the store's team is refused (`owner_only`).
      *
      * Fields:
      *
@@ -97,9 +97,9 @@ final class Storefronts
     /**
      * **Import a storefront**
      *
-     * Makes a new storefront, as a draft, from one that was exported: the JSON document "Export a storefront" answers under `storefront`, sent as `multipart/form-data` in a field called `file`. Nothing in it is trusted: its design is rebuilt from the theme, and each of its files is checked. One thing wrong refuses all of it, and the refusal names the file. `meta.imported` says which storefront it became and how many problems its code has to be fixed before it can be published.
+     * Makes a new storefront, as a draft, from one that was exported: the JSON document "Export a storefront" answers under `storefront`, sent as `multipart/form-data` in a field called `file`. Nothing in it is trusted: its design is rebuilt from the theme, and each of its files is checked. One thing wrong refuses all of it, and the refusal names the file. The document can be up to 50 MB, `import_too_large` past it; a storefront whose files are more than that is imported with fewer, and the rest saved after. `meta.imported` says which storefront it became and how many problems its code has to be fixed before it can be published.
      *
-     * Needs the `storefronts.write` permission (Change Storefronts).
+     * Needs the `storefronts.write` permission (Change Storefronts). Only a key the store's owner made, or an app the owner connected, can call it: one made by somebody on the store's team is refused (`owner_only`).
      *
      * @param array{
      *     file: string|\CURLFile,
@@ -284,7 +284,7 @@ final class Storefronts
      *
      * Removes a storefront that is not the live one. Answers the storefronts that are left.
      *
-     * Needs the `storefronts.write` permission (Change Storefronts).
+     * Needs the `storefronts.write` permission (Change Storefronts). Only a key the store's owner made, or an app the owner connected, can call it: one made by somebody on the store's team is refused (`owner_only`).
      *
      * @param string $storefrontId The storefront.
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
@@ -319,7 +319,7 @@ final class Storefronts
      *
      * Makes this storefront the one buyers see, as it was last published. Answers the store's storefronts again.
      *
-     * Needs the `storefronts.write` permission (Change Storefronts).
+     * Needs the `storefronts.write` permission (Change Storefronts). Only a key the store's owner made, or an app the owner connected, can call it: one made by somebody on the store's team is refused (`owner_only`).
      *
      * Fields:
      *

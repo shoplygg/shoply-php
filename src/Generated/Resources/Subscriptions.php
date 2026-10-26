@@ -199,7 +199,7 @@ final class Subscriptions
     /**
      * **Sell options as subscriptions**
      *
-     * Makes options subscriptions, or changes how often one renews. A change reaches new subscriptions only: a running one renews as it started. A store has up to 200 plans. The answer is every plan the store has.
+     * Makes options subscriptions, or changes how often one renews. A change reaches new subscriptions only: a running one renews as it started. A store has as many subscription options as its plan does. The answer is every plan the store has.
      *
      * Needs the `subscriptions.write` permission (Change Subscriptions).
      *

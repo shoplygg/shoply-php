@@ -18,7 +18,7 @@ final class Team
     /**
      * **Get the team**
      *
-     * The store's teams, each with its `permissions`, how many of them are `sensitive`, the parts of the dashboard it `reach`es, its `people` and how many invites are `waiting`; every `invite` not yet taken up; the store's `owner`, who is on no team and can do everything; and `permissions`, every permission there is in its `groups`, each with its `label`, what it lets a person do (`about`), whether it is `sensitive` and what it `needs`, and the `presets` a team can start from. `limits` says how many teams a store and people a team may have (10 and 30, invites not yet taken up counted among the people), how long a team's `name` may be, how many addresses one invite takes (`perInvite`) and how many days an invite lasts (`inviteDays`).
+     * The store's teams, each with its `permissions`, how many of them are `sensitive`, the parts of the dashboard it `reach`es, its `people` and how many invites are `waiting`; every `invite` not yet taken up; the store's `owner`, who is on no team and can do everything; and `permissions`, every permission there is in its `groups`, each with its `label`, what it lets a person do (`about`), whether it is `sensitive` and what it `needs`, and the `presets` a team can start from. `limits` says how many teams the store and people a team may have on its plan (invites not yet taken up counted among the people), how long a team's `name` may be, how many addresses one invite takes (`perInvite`) and how many days an invite lasts (`inviteDays`).
      *
      * Needs the `team.read` permission (Read the Team).
      *

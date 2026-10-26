@@ -18,7 +18,7 @@ final class Upsells
     /**
      * **List upsells**
      *
-     * Every upsell the store has, a kind at a time in the store's order, with the times each was shown, the paid orders that took it and what those lines came to over a period. A store holds up to 200.
+     * Every upsell the store has, a kind at a time in the store's order, with the times each was shown, the paid orders that took it and what those lines came to over a period. A store holds as many as its plan does.
      *
      * Needs the `upsells.read` permission (Read Upsells).
      *
@@ -84,7 +84,7 @@ final class Upsells
     /**
      * **Create an upsell**
      *
-     * Adds an upsell of one kind. What it needs depends on the kind: see each field. A store holds up to 200.
+     * Adds an upsell of one kind. What it needs depends on the kind: see each field. A store holds as many as its plan does.
      *
      * Needs the `upsells.write` permission (Change Upsells).
      *

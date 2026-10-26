@@ -18,7 +18,7 @@ final class Categories
     /**
      * **List categories**
      *
-     * Every category the store has, in the store's own order, each with the products in it. A store holds up to 150, so the list is not paged.
+     * Every category the store has, in the store's own order, each with the products in it. A store holds as many as its plan does, 500 at most, so the list is not paged.
      *
      * Needs the `categories.read` permission (Read Categories).
      *
@@ -59,7 +59,7 @@ final class Categories
     /**
      * **Create a category**
      *
-     * Adds a category, with the products that go in it. A store holds up to 150.
+     * Adds a category, with the products that go in it. A store holds as many as its plan does.
      *
      * Needs the `categories.write` permission (Change Categories).
      *

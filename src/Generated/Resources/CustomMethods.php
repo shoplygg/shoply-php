@@ -48,7 +48,7 @@ final class CustomMethods
      *
      * Adds a method, after every other at checkout. A store holds up to 10. Answers the new method.
      *
-     * Needs the `payments.write` permission (Change Payment Methods).
+     * Needs the `payments.write` permission (Change Payment Methods). Only a key the store's owner made, or an app the owner connected, can call it: one made by somebody on the store's team is refused (`owner_only`).
      *
      * Fields:
      *
@@ -97,7 +97,7 @@ final class CustomMethods
      *
      * Changes what is sent and keeps the rest. A payment already opened keeps what its buyer was told. Answers the store's custom methods again, as "List custom payment methods" does.
      *
-     * Needs the `payments.write` permission (Change Payment Methods).
+     * Needs the `payments.write` permission (Change Payment Methods). Only a key the store's owner made, or an app the owner connected, can call it: one made by somebody on the store's team is refused (`owner_only`).
      *
      * Fields:
      *
@@ -147,7 +147,7 @@ final class CustomMethods
      *
      * Its orders keep its name. Its ID is never used again. Answers the store's custom methods again, as "List custom payment methods" does.
      *
-     * Needs the `payments.write` permission (Change Payment Methods).
+     * Needs the `payments.write` permission (Change Payment Methods). Only a key the store's owner made, or an app the owner connected, can call it: one made by somebody on the store's team is refused (`owner_only`).
      *
      * @param string $methodId The method, by its ID (`custom_` and 16 hex characters).
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
@@ -176,7 +176,7 @@ final class CustomMethods
      *
      * Answers the store's custom methods again, as "List custom payment methods" does.
      *
-     * Needs the `payments.write` permission (Change Payment Methods).
+     * Needs the `payments.write` permission (Change Payment Methods). Only a key the store's owner made, or an app the owner connected, can call it: one made by somebody on the store's team is refused (`owner_only`).
      *
      * Fields:
      *
@@ -212,7 +212,7 @@ final class CustomMethods
      *
      * Puts the methods named in this order, in the places they hold now among the connected ones. To move one between connected methods, use "Sort payment methods" with its ID. Answers the store's custom methods again, as "List custom payment methods" does.
      *
-     * Needs the `payments.write` permission (Change Payment Methods).
+     * Needs the `payments.write` permission (Change Payment Methods). Only a key the store's owner made, or an app the owner connected, can call it: one made by somebody on the store's team is refused (`owner_only`).
      *
      * Fields:
      *
@@ -247,7 +247,7 @@ final class CustomMethods
      *
      * Sent as `multipart/form-data` in a field called `image`. It replaces the one it had. Answers the store's custom methods again, as "List custom payment methods" does.
      *
-     * Needs the `payments.write` permission (Change Payment Methods).
+     * Needs the `payments.write` permission (Change Payment Methods). Only a key the store's owner made, or an app the owner connected, can call it: one made by somebody on the store's team is refused (`owner_only`).
      *
      * @param string $methodId The method, by its ID (`custom_` and 16 hex characters).
      * @param array{
@@ -270,7 +270,7 @@ final class CustomMethods
      *
      * Answers the store's custom methods again, as "List custom payment methods" does.
      *
-     * Needs the `payments.write` permission (Change Payment Methods).
+     * Needs the `payments.write` permission (Change Payment Methods). Only a key the store's owner made, or an app the owner connected, can call it: one made by somebody on the store's team is refused (`owner_only`).
      *
      * @param string $methodId The method, by its ID (`custom_` and 16 hex characters).
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options

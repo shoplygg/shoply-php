@@ -18,7 +18,7 @@ final class Teams
     /**
      * **Create a team**
      *
-     * A store holds up to 10 teams. A permission marked `sensitive` that the team did not hold before cannot be given with a key: give it on the dashboard, which asks the person to confirm it is them.
+     * A store holds as many teams as its plan does (`limits.teams` in Get the team). A permission marked `sensitive` that the team did not hold before cannot be given with a key: give it on the dashboard, which asks the person to confirm it is them.
      *
      * Needs the `team.write` permission (Manage the Team).
      *

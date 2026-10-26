@@ -18,7 +18,7 @@ final class Products
     /**
      * **List products**
      *
-     * Every product the store has, in the store's own order, each with its variants, pictures, categories and stock counts. A store holds up to 250 products, so the list is not paged.
+     * The store's products, in the store's own order, each with its variants, pictures, categories and stock counts. A store holds as many as its plan does, up to 1,000: ask for them a page at a time with `page` or `perPage`, and `pages` and `total` say how many there are. With neither, every product, in one answer.
      *
      * Needs the `products.read` permission (Read Products).
      *
@@ -26,13 +26,17 @@ final class Products
      *
      * - `visibility`: Only products with this visibility.
      * - `search`: Only products whose name contains this.
+     * - `page`: Which page of the list. The first is 1. Left out, it is 1.
+     * - `perPage`: How many a page holds, up to 100. Asking for a page and not saying is 50. Left out, it is 50.
      *
      * @param array{
      *     visibility?: 'public'|'unlisted'|'private'|'on_hold',
-     *     search?: string
+     *     search?: string,
+     *     page?: int,
+     *     perPage?: int
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
-     * @return list<array{
+     * @return \Shoply\Page<array{
      *     id: string,
      *     storeId: string,
      *     name: string,
@@ -98,7 +102,7 @@ final class Products
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/products/list-products
      */
-    public function list(array $params = [], array $options = []): mixed
+    public function list(array $params = [], array $options = []): \Shoply\Page
     {
         return $this->caller->call('products.list', [], $params, $options);
     }
@@ -106,7 +110,7 @@ final class Products
     /**
      * **Create a product**
      *
-     * Adds a product with its variants. A store holds up to 250 products. Stock is added afterwards, a variant at a time, with the variant IDs in the answer.
+     * Adds a product with its variants. A store holds as many products as its plan does. Stock is added afterwards, a variant at a time, with the variant IDs in the answer.
      *
      * A refusal names the field, and for a variant its place in the list: `variants.0.price`.
      *
