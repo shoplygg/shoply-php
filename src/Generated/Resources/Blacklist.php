@@ -108,7 +108,7 @@ final class Blacklist
     /**
      * **Export blacklist rules**
      *
-     * The rules the same filters would list, as a CSV file, newest first: each one's type, value and note, whether it is in force, when and how it was added, the customer or order it came from, and how many checkouts it has stopped. Every rule the filters match is in the file. Add `check=1` for `{ rows }`, how many it would have, which is not counted. A store exports at most 30 files every 10 minutes, orders, customers, fraud events and blacklist rules together, whoever asks: after that the answer is 429.
+     * The rules the same filters would list, as a CSV file, newest first: each one's type, value and note, whether it is in force, when and how it was added, the customer or order it came from, and how many checkouts it has stopped. Every rule the filters match is in the file. Add `check=1` for `{ rows }`, how many it would have, which is not counted. A store exports at most 30 files every 10 minutes, orders, customers, fraud events, blacklist rules and allowlist entries together, whoever asks: after that the answer is 429.
      *
      * Needs the `fraud.read` permission (Read Fraud Protection). It is one of the heavier reads, and is counted against a smaller budget of its own: 60 a minute for each key.
      *

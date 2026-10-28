@@ -47,6 +47,7 @@ final class Products
      *     image: string,
      *     imageUrl: mixed,
      *     visibility: string,
+     *     planPaused: bool,
      *     sort: int|float,
      *     isBestSeller: bool,
      *     badges: list<array{
@@ -196,6 +197,7 @@ final class Products
      *     image: string,
      *     imageUrl: mixed,
      *     visibility: string,
+     *     planPaused: bool,
      *     sort: int|float,
      *     isBestSeller: bool,
      *     badges: list<array{
@@ -276,6 +278,7 @@ final class Products
      *     image: string,
      *     imageUrl: mixed,
      *     visibility: string,
+     *     planPaused: bool,
      *     sort: int|float,
      *     isBestSeller: bool,
      *     badges: list<array{
@@ -428,6 +431,7 @@ final class Products
      *     image: string,
      *     imageUrl: mixed,
      *     visibility: string,
+     *     planPaused: bool,
      *     sort: int|float,
      *     isBestSeller: bool,
      *     badges: list<array{

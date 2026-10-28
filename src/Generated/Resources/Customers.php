@@ -110,7 +110,7 @@ final class Customers
     /**
      * **Export customers**
      *
-     * The customers the same filters would list, as a CSV file: each one's email, when they were first seen, the orders they paid for and what they spent, their first and last paid order, their store balance, their affiliate code and balance where they have one, their tags, and whether they are subscribed to the store's news and offers. Every customer the filters match is in the file, however many: it is sent as it is read. Add `check=1` for `{ rows }`, how many it would have, which is not counted. A store exports at most 30 files every 10 minutes, orders, customers, fraud events and blacklist rules together, whoever asks: after that the answer is 429.
+     * The customers the same filters would list, as a CSV file: each one's email, when they were first seen, the orders they paid for and what they spent, their first and last paid order, their store balance, their affiliate code and balance where they have one, their tags, and whether they are subscribed to the store's news and offers. Every customer the filters match is in the file, however many: it is sent as it is read. Add `check=1` for `{ rows }`, how many it would have, which is not counted. A store exports at most 30 files every 10 minutes, orders, customers, fraud events, blacklist rules and allowlist entries together, whoever asks: after that the answer is 429.
      *
      * Needs the `customers.read` permission (Read Customers). It is one of the heavier reads, and is counted against a smaller budget of its own: 60 a minute for each key.
      *
@@ -238,6 +238,7 @@ final class Customers
      *     blacklistedBy: array<mixed>,
      *     blacklistRules: int|float,
      *     knownAddresses: int|float,
+     *     trusted: bool,
      *     id: string,
      *     emailAddress: string,
      *     dateCreated: string,
@@ -301,7 +302,8 @@ final class Customers
      *     blacklisted: bool,
      *     blacklistedBy: array<mixed>,
      *     blacklistRules: int|float,
-     *     knownAddresses: int|float
+     *     knownAddresses: int|float,
+     *     trusted: bool
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/customers/change-a-customers-balance
@@ -359,6 +361,7 @@ final class Customers
      *     }>,
      *     blacklistRules: int|float,
      *     knownAddresses: int|float,
+     *     trusted: bool,
      *     added: int|float
      * }
      * @throws \Shoply\ShoplyException
@@ -410,6 +413,7 @@ final class Customers
      *     blacklistedBy: array<mixed>,
      *     blacklistRules: int|float,
      *     knownAddresses: int|float,
+     *     trusted: bool,
      *     removed: int|float
      * }
      * @throws \Shoply\ShoplyException
@@ -418,6 +422,103 @@ final class Customers
     public function unblacklist(string $customerId, array $params = [], array $options = []): mixed
     {
         return $this->caller->call('customers.unblacklist', [$customerId], $params, $options);
+    }
+
+    /**
+     * **Trust a customer**
+     *
+     * Puts the customer's email on the store's allowlist, so its blacklist, blocked countries and VPN rule let them through. An entry already on their email is switched on. Answers the customer, with `trusted`.
+     *
+     * Needs the `customers.write` permission (Change Customers).
+     *
+     * Fields:
+     *
+     * - `note`: Why. Kept with the entry.
+     *
+     * @param string $customerId The customer.
+     * @param array{
+     *     note?: string
+     * } $params
+     * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
+     * @return array{
+     *     balance: int|float,
+     *     balanceAtCheckout: bool,
+     *     tags: list<array{
+     *         id: string,
+     *         name: string,
+     *         tone: string,
+     *         automatic: bool
+     *     }>,
+     *     balanceHistory: list<array{
+     *         id: string,
+     *         kind: string,
+     *         amount: int|float,
+     *         balanceAfter: int|float,
+     *         currencyCode: string,
+     *         note: string,
+     *         orderId: mixed,
+     *         by: string,
+     *         dateCreated: string
+     *     }>,
+     *     affiliate: mixed,
+     *     blacklisted: bool,
+     *     blacklistedBy: array<mixed>,
+     *     blacklistRules: int|float,
+     *     knownAddresses: int|float,
+     *     trusted: bool,
+     *     added: bool
+     * }
+     * @throws \Shoply\ShoplyException
+     * @see https://docs.shoply.gg/api-reference/customers/trust-a-customer
+     */
+    public function trust(string $customerId, array $params = [], array $options = []): mixed
+    {
+        return $this->caller->call('customers.trust', [$customerId], $params, $options);
+    }
+
+    /**
+     * **Stop trusting a customer**
+     *
+     * Takes the allowlist entries on the customer's email, and any made from their page, off. An IP address or range allowed by hand stays.
+     *
+     * Needs the `customers.write` permission (Change Customers).
+     *
+     * @param string $customerId The customer.
+     * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
+     * @return array{
+     *     balance: int|float,
+     *     balanceAtCheckout: bool,
+     *     tags: list<array{
+     *         id: string,
+     *         name: string,
+     *         tone: string,
+     *         automatic: bool
+     *     }>,
+     *     balanceHistory: list<array{
+     *         id: string,
+     *         kind: string,
+     *         amount: int|float,
+     *         balanceAfter: int|float,
+     *         currencyCode: string,
+     *         note: string,
+     *         orderId: mixed,
+     *         by: string,
+     *         dateCreated: string
+     *     }>,
+     *     affiliate: mixed,
+     *     blacklisted: bool,
+     *     blacklistedBy: array<mixed>,
+     *     blacklistRules: int|float,
+     *     knownAddresses: int|float,
+     *     trusted: bool,
+     *     removed: int|float
+     * }
+     * @throws \Shoply\ShoplyException
+     * @see https://docs.shoply.gg/api-reference/customers/stop-trusting-a-customer
+     */
+    public function untrust(string $customerId, array $options = []): mixed
+    {
+        return $this->caller->call('customers.untrust', [$customerId], [], $options);
     }
 
     /**

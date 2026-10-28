@@ -36,7 +36,7 @@ final class FraudEvents
      * @param array{
      *     page?: int,
      *     perPage?: int,
-     *     reason?: 'blacklist'|'vpn'|'country'|'unpaid_limit'|'dispute'|'refund'|'changes',
+     *     reason?: 'blacklist'|'vpn'|'country'|'unpaid_limit'|'dispute'|'allowed'|'refund'|'changes',
      *     search?: string,
      *     range?: 'today'|'yesterday'|'7d'|'30d'|'this_week'|'last_week'|'this_month'|'last_month'|'this_year',
      *     from?: string,
@@ -75,7 +75,7 @@ final class FraudEvents
     /**
      * **Export fraud events**
      *
-     * The events the same filters would list, as a CSV file, newest first: when each happened and how many attempts it gathered, what it was, the email, IP address, country and order, the rule it matched or the change that was made and by whom, and what a lookup of the address already knew (its provider and network, where it is, and whether it looked like a VPN, a data centre or a phone). Nothing is looked up to write the file: an address never looked up has those empty. Every event the filters match is in the file, however many: it is sent as it is read. Add `check=1` for `{ rows }`, how many it would have, which is not counted. A store exports at most 30 files every 10 minutes, orders, customers, fraud events and blacklist rules together, whoever asks: after that the answer is 429.
+     * The events the same filters would list, as a CSV file, newest first: when each happened and how many attempts it gathered, what it was, the email, IP address, country and order, the rule it matched or the change that was made and by whom, and what a lookup of the address already knew (its provider and network, where it is, and whether it looked like a VPN, a data centre or a phone). Nothing is looked up to write the file: an address never looked up has those empty. Every event the filters match is in the file, however many: it is sent as it is read. Add `check=1` for `{ rows }`, how many it would have, which is not counted. A store exports at most 30 files every 10 minutes, orders, customers, fraud events, blacklist rules and allowlist entries together, whoever asks: after that the answer is 429.
      *
      * Needs the `fraud.read` permission (Read Fraud Protection). It is one of the heavier reads, and is counted against a smaller budget of its own: 60 a minute for each key.
      *
@@ -90,7 +90,7 @@ final class FraudEvents
      * - `tz`: The time zone those days are in, as an IANA name. Left out, UTC.
      *
      * @param array{
-     *     reason?: 'blacklist'|'vpn'|'country'|'unpaid_limit'|'dispute'|'refund'|'changes',
+     *     reason?: 'blacklist'|'vpn'|'country'|'unpaid_limit'|'dispute'|'allowed'|'refund'|'changes',
      *     search?: string,
      *     check?: '1',
      *     range?: 'today'|'yesterday'|'7d'|'30d'|'this_week'|'last_week'|'this_month'|'last_month'|'this_year',

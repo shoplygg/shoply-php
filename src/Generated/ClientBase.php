@@ -49,6 +49,7 @@ abstract class ClientBase implements Caller
     public readonly Resources\Team $team;
     public readonly Resources\Teams $teams;
     public readonly Resources\Blacklist $blacklist;
+    public readonly Resources\Allowlist $allowlist;
     public readonly Resources\FraudEvents $fraudEvents;
     public readonly Resources\FraudSettings $fraudSettings;
     public readonly Resources\Disputes $disputes;
@@ -104,6 +105,7 @@ abstract class ClientBase implements Caller
         $this->team = new Resources\Team($this);
         $this->teams = new Resources\Teams($this);
         $this->blacklist = new Resources\Blacklist($this);
+        $this->allowlist = new Resources\Allowlist($this);
         $this->fraudEvents = new Resources\FraudEvents($this);
         $this->fraudSettings = new Resources\FraudSettings($this);
         $this->disputes = new Resources\Disputes($this);
