@@ -57,4 +57,37 @@ final class Key
     {
         return $this->caller->call('key.show', [], [], $options);
     }
+
+    /**
+     * **Revoke the current key**
+     *
+     * Revokes the key in the request, for good: from the next request on it is refused as any revoked key is, and it is listed as revoked under Developers, API Keys. Answers the key as it now is. This is how a program that was handed a key gives it back when it is done with it, as `shoply logout` does.
+     *
+     * An app's token is not revoked here: an app gives its token back at `POST /v1/oauth/revoke`.
+     *
+     * Any live key may ask it, whatever its permissions.
+     *
+     * Any live API key may call this, whatever its permissions.
+     *
+     * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
+     * @return array{
+     *     id: string,
+     *     name: string,
+     *     prefix: string,
+     *     scopes: list<string>,
+     *     allowedIps: array<mixed>,
+     *     allowedDomains: array<mixed>,
+     *     expiresAt: mixed,
+     *     expired: bool,
+     *     createdAt: string,
+     *     lastUsedAt: string,
+     *     revokedAt: string
+     * }
+     * @throws \Shoply\ShoplyException
+     * @see https://docs.shoply.gg/api-reference/api-key/revoke-the-current-key
+     */
+    public function destroy(array $options = []): mixed
+    {
+        return $this->caller->call('key.destroy', [], [], $options);
+    }
 }

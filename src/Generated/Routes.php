@@ -11,6 +11,7 @@ final class Routes
 {
     public const ALL = [
         'key.show' => ['method' => 'GET', 'path' => '/key', 'params' => [], 'query' => [], 'body' => false, 'upload' => NULL, 'file' => false, 'paged' => false, 'customer' => false, 'signedIn' => true, 'idempotent' => false],
+        'key.destroy' => ['method' => 'DELETE', 'path' => '/key', 'params' => [], 'query' => [], 'body' => false, 'upload' => NULL, 'file' => false, 'paged' => false, 'customer' => false, 'signedIn' => true, 'idempotent' => true],
         'store.show' => ['method' => 'GET', 'path' => '/stores/{storeId}', 'params' => [], 'query' => [], 'body' => false, 'upload' => NULL, 'file' => false, 'paged' => false, 'customer' => false, 'signedIn' => true, 'idempotent' => false],
         'store.update' => ['method' => 'PUT', 'path' => '/stores/{storeId}', 'params' => [], 'query' => [], 'body' => true, 'upload' => NULL, 'file' => false, 'paged' => false, 'customer' => false, 'signedIn' => true, 'idempotent' => true],
         'store.setAddress' => ['method' => 'PUT', 'path' => '/stores/{storeId}/url', 'params' => [], 'query' => [], 'body' => true, 'upload' => NULL, 'file' => false, 'paged' => false, 'customer' => false, 'signedIn' => true, 'idempotent' => true],
