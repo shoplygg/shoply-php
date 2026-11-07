@@ -48,6 +48,13 @@ abstract class ClientBase implements Caller
     public readonly Resources\Tickets $tickets;
     public readonly Resources\Team $team;
     public readonly Resources\Teams $teams;
+    public readonly Resources\Resellers $resellers;
+    public readonly Resources\ResellerProducts $resellerProducts;
+    public readonly Resources\ResellerTiers $resellerTiers;
+    public readonly Resources\ResellerInvites $resellerInvites;
+    public readonly Resources\ResellerAnnouncements $resellerAnnouncements;
+    public readonly Resources\ResellerOrders $resellerOrders;
+    public readonly Resources\ResellerTopUps $resellerTopUps;
     public readonly Resources\Blacklist $blacklist;
     public readonly Resources\Allowlist $allowlist;
     public readonly Resources\FraudEvents $fraudEvents;
@@ -104,6 +111,13 @@ abstract class ClientBase implements Caller
         $this->tickets = new Resources\Tickets($this);
         $this->team = new Resources\Team($this);
         $this->teams = new Resources\Teams($this);
+        $this->resellers = new Resources\Resellers($this);
+        $this->resellerProducts = new Resources\ResellerProducts($this);
+        $this->resellerTiers = new Resources\ResellerTiers($this);
+        $this->resellerInvites = new Resources\ResellerInvites($this);
+        $this->resellerAnnouncements = new Resources\ResellerAnnouncements($this);
+        $this->resellerOrders = new Resources\ResellerOrders($this);
+        $this->resellerTopUps = new Resources\ResellerTopUps($this);
         $this->blacklist = new Resources\Blacklist($this);
         $this->allowlist = new Resources\Allowlist($this);
         $this->fraudEvents = new Resources\FraudEvents($this);

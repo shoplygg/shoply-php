@@ -350,6 +350,7 @@ final class Store
      *     emailPayoutsEnabled: bool,
      *     emailCustomPaidEnabled: bool,
      *     emailTicketsEnabled: bool,
+     *     emailResellersEnabled: bool,
      *     emailDisputeOpenedEnabled: bool,
      *     emailDisputeClosedEnabled: bool,
      *     testEmailEvery: array{
@@ -365,6 +366,7 @@ final class Store
      *     discordPayoutsEnabled: bool,
      *     discordCustomPaidEnabled: bool,
      *     discordTicketsEnabled: bool,
+     *     discordResellersEnabled: bool,
      *     discordDisputesEnabled: bool,
      *     discordStockThreshold: int|float,
      *     discordFailure: mixed,
