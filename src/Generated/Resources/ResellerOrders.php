@@ -88,4 +88,51 @@ final class ResellerOrders
     {
         return $this->caller->call('resellerOrders.export', [], $params, $options);
     }
+
+    /**
+     * **Get a reseller order**
+     *
+     * One reseller order whole, as the dashboard's page for it shows it: who bought it (`reseller`, and `boughtBy`, the member of their team), how (`via`), the `total` taken off their balance, `listTotal` (what it came to at the panel's list prices when bought) and `discount` (what their price took off it), both null for an order from before those were kept, and `balanceAfter`. Each of `lines` is an option it bought, with its `unitPrice` and `quantity` and what it delivered: `keys`, `items` (what a dynamic delivery's server handed back, a line each), `instructions`, and `waiting` while a dynamic line is still being fetched. A store's own order or a top-up answers 404.
+     *
+     * Needs the `resellers.read` permission (Read Resellers).
+     *
+     * @param string $orderId The reseller order, by its ID as List reseller orders answers it.
+     * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
+     * @return array{
+     *     id: string,
+     *     status: string,
+     *     via: string,
+     *     currency: string,
+     *     total: int|float,
+     *     listTotal: int|float,
+     *     discount: int|float,
+     *     balanceAfter: int|float,
+     *     createdAt: string,
+     *     reseller: array{
+     *         id: string,
+     *         name: string,
+     *         removed: bool
+     *     },
+     *     boughtBy: string,
+     *     goodsShown: bool,
+     *     lines: list<array{
+     *         productId: string,
+     *         productName: string,
+     *         variantName: string,
+     *         unitPrice: int|float,
+     *         quantity: int|float,
+     *         delivered: int|float,
+     *         keys: list<string>,
+     *         items: array<mixed>,
+     *         waiting: bool,
+     *         instructions: string
+     *     }>
+     * }
+     * @throws \Shoply\ShoplyException
+     * @see https://docs.shoply.gg/api-reference/resellers/get-a-reseller-order
+     */
+    public function get(string $orderId, array $options = []): mixed
+    {
+        return $this->caller->call('resellerOrders.get', [$orderId], [], $options);
+    }
 }
