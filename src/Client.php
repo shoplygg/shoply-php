@@ -21,7 +21,7 @@ use Shoply\Generated\ClientBase;
  */
 class Client extends ClientBase
 {
-    public const VERSION = '0.10.0';
+    public const VERSION = '0.11.0';
 
     private Transport $transport;
 

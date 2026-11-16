@@ -308,6 +308,7 @@ final class Orders
      *     payments: array<mixed>,
      *     invoice: mixed,
      *     disputes: array<mixed>,
+     *     discord: mixed,
      *     review: mixed,
      *     requests: array<mixed>,
      *     customPayment: mixed,

@@ -61,7 +61,8 @@ final class CustomerOrders
      *             files: array<mixed>
      *         }
      *     }>,
-     *     general: string
+     *     general: string,
+     *     discord: mixed
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/customer-api/get-an-order

@@ -351,6 +351,8 @@ final class Store
      *     emailCustomPaidEnabled: bool,
      *     emailTicketsEnabled: bool,
      *     emailResellersEnabled: bool,
+     *     emailPaymentSetupEnabled: bool,
+     *     emailDiscordSetupEnabled: bool,
      *     emailDisputeOpenedEnabled: bool,
      *     emailDisputeClosedEnabled: bool,
      *     testEmailEvery: array{

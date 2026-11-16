@@ -62,6 +62,8 @@ final class Products
      *     deliveryInstructions: string,
      *     blockedPaymentMethods: array<mixed>,
      *     paymentFees: array<mixed>,
+     *     discordRoles: array<mixed>,
+     *     discordLinking: string,
      *     showViewers: bool,
      *     showSales: bool,
      *     salesWindow: string,
@@ -96,7 +98,9 @@ final class Products
      *         customFieldsOn: bool,
      *         customFields: array<mixed>,
      *         sort: int|float,
-     *         blockedPaymentMethods: array<mixed>
+     *         blockedPaymentMethods: array<mixed>,
+     *         discordRoles: array<mixed>,
+     *         discordLinking: string
      *     }>,
      *     runningSubscriptions: int|float
      * }>
@@ -130,6 +134,8 @@ final class Products
      * - `badges`: Up to 3 short labels on the product. Left out on an update, they stay as they are.
      * - `features`: What the product does, as a list. Each entry is a feature on its own or a named group of features. Up to 500 features and 30 groups. Left out on an update, they stay as they are.
      * - `blockedPaymentMethods`: Payment methods the product cannot be bought with, by their names in the payment methods list. Left out on an update, they stay as they are.
+     * - `discordRoles`: Discord roles every variant of the product gives, each as `server ID:role ID`. A product and its variants give up to 25 in all. Left out on an update, they stay as they are.
+     * - `discordLinking`: Whether its buyers must link their Discord at checkout: `store` follows the store's setting, `required` holds Pay until they link, `optional` lets them skip it. Left out on an update, it stays as it is.
      * - `paymentFees`: What a payment method adds to this product's price: a payment method's name, and under it `percent` and `fixed`. A fee can only add. Left out on an update, the fees stay as they are.
      * - `salesWindow`: The period the storefront's "sold" figure for this product counts. Left out, it is "all".
      * - `metadata`: Anything of your own to keep with the product, as JSON. Shoply stores it and does nothing with it. It is answered as text.
@@ -163,6 +169,8 @@ final class Products
      *             options?: list<string>
      *         }>,
      *         blockedPaymentMethods?: list<string>,
+     *         discordRoles?: list<string>,
+     *         discordLinking?: 'product'|'required'|'optional',
      *         sort?: int
      *     }>,
      *     deliveryInstructions?: string,
@@ -179,6 +187,8 @@ final class Products
      *         features?: list<string>
      *     }>,
      *     blockedPaymentMethods?: list<string>,
+     *     discordRoles?: list<string>,
+     *     discordLinking?: 'store'|'required'|'optional',
      *     paymentFees?: array<string, mixed>,
      *     salesWindow?: 'all'|'1h'|'6h'|'12h'|'24h'|'7d'|'30d',
      *     metadata?: array<string, mixed>,
@@ -212,6 +222,8 @@ final class Products
      *     deliveryInstructions: string,
      *     blockedPaymentMethods: array<mixed>,
      *     paymentFees: array<mixed>,
+     *     discordRoles: array<mixed>,
+     *     discordLinking: string,
      *     showViewers: bool,
      *     showSales: bool,
      *     salesWindow: string,
@@ -246,7 +258,9 @@ final class Products
      *         customFieldsOn: bool,
      *         customFields: array<mixed>,
      *         sort: int|float,
-     *         blockedPaymentMethods: array<mixed>
+     *         blockedPaymentMethods: array<mixed>,
+     *         discordRoles: array<mixed>,
+     *         discordLinking: string
      *     }>,
      *     runningSubscriptions: int|float
      * }
@@ -293,6 +307,8 @@ final class Products
      *     deliveryInstructions: string,
      *     blockedPaymentMethods: array<mixed>,
      *     paymentFees: array<mixed>,
+     *     discordRoles: array<mixed>,
+     *     discordLinking: string,
      *     showViewers: bool,
      *     showSales: bool,
      *     salesWindow: string,
@@ -327,7 +343,9 @@ final class Products
      *         customFieldsOn: bool,
      *         customFields: array<mixed>,
      *         sort: int|float,
-     *         blockedPaymentMethods: array<mixed>
+     *         blockedPaymentMethods: array<mixed>,
+     *         discordRoles: array<mixed>,
+     *         discordLinking: string
      *     }>,
      *     runningSubscriptions: int|float
      * }
@@ -361,6 +379,8 @@ final class Products
      * - `badges`: Up to 3 short labels on the product. Left out on an update, they stay as they are.
      * - `features`: What the product does, as a list. Each entry is a feature on its own or a named group of features. Up to 500 features and 30 groups. Left out on an update, they stay as they are.
      * - `blockedPaymentMethods`: Payment methods the product cannot be bought with, by their names in the payment methods list. Left out on an update, they stay as they are.
+     * - `discordRoles`: Discord roles every variant of the product gives, each as `server ID:role ID`. A product and its variants give up to 25 in all. Left out on an update, they stay as they are.
+     * - `discordLinking`: Whether its buyers must link their Discord at checkout: `store` follows the store's setting, `required` holds Pay until they link, `optional` lets them skip it. Left out on an update, it stays as it is.
      * - `paymentFees`: What a payment method adds to this product's price: a payment method's name, and under it `percent` and `fixed`. A fee can only add. Left out on an update, the fees stay as they are.
      * - `salesWindow`: The period the storefront's "sold" figure for this product counts. Left out, it is "all".
      * - `metadata`: Anything of your own to keep with the product, as JSON. Shoply stores it and does nothing with it. It is answered as text.
@@ -396,6 +416,8 @@ final class Products
      *             options?: list<string>
      *         }>,
      *         blockedPaymentMethods?: list<string>,
+     *         discordRoles?: list<string>,
+     *         discordLinking?: 'product'|'required'|'optional',
      *         sort?: int
      *     }>,
      *     deliveryInstructions?: string,
@@ -412,6 +434,8 @@ final class Products
      *         features?: list<string>
      *     }>,
      *     blockedPaymentMethods?: list<string>,
+     *     discordRoles?: list<string>,
+     *     discordLinking?: 'store'|'required'|'optional',
      *     paymentFees?: array<string, mixed>,
      *     salesWindow?: 'all'|'1h'|'6h'|'12h'|'24h'|'7d'|'30d',
      *     metadata?: array<string, mixed>,
@@ -446,6 +470,8 @@ final class Products
      *     deliveryInstructions: string,
      *     blockedPaymentMethods: array<mixed>,
      *     paymentFees: array<mixed>,
+     *     discordRoles: array<mixed>,
+     *     discordLinking: string,
      *     showViewers: bool,
      *     showSales: bool,
      *     salesWindow: string,
@@ -480,7 +506,9 @@ final class Products
      *         customFieldsOn: bool,
      *         customFields: array<mixed>,
      *         sort: int|float,
-     *         blockedPaymentMethods: array<mixed>
+     *         blockedPaymentMethods: array<mixed>,
+     *         discordRoles: array<mixed>,
+     *         discordLinking: string
      *     }>,
      *     runningSubscriptions: int|float
      * }
@@ -578,13 +606,17 @@ final class Products
      * - `isBestSeller`: Whether all of them are marked as best sellers.
      * - `paymentMethods`: A payment method's name, and `block` or `allow`. `block` adds the method to each product's blocked list. `allow` takes it off the product and off every variant of it.
      * - `deliveryInstructions`: Instructions for every variant of all of them, up to 5,000 characters, in place of what each has. Empty takes them off. A variant's own instructions are not touched.
+     * - `discordRoles`: A Discord role as `server ID:role ID`, and `give` or `stop`. `give` adds it to what every variant of each product gives. `stop` takes it off the product and off every variant of it.
+     * - `discordLinking`: Whether buyers of all of them must link their Discord at checkout, for the whole product.
      *
      * @param array{
      *     productIds: list<string>,
      *     visibility?: 'public'|'unlisted'|'private'|'on_hold',
      *     isBestSeller?: bool,
      *     paymentMethods?: array<string, mixed>,
-     *     deliveryInstructions?: string
+     *     deliveryInstructions?: string,
+     *     discordRoles?: array<string, mixed>,
+     *     discordLinking?: 'store'|'required'|'optional'
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{

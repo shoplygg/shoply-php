@@ -733,6 +733,8 @@ final class Disputes
      *     emailOpened: bool,
      *     emailClosed: bool,
      *     discord: bool,
+     *     discordRoles: string,
+     *     discordRolesBack: bool,
      *     currency: string
      * }
      * @throws \Shoply\ShoplyException
@@ -762,6 +764,8 @@ final class Disputes
      * - `emailOpened`: Email the store when one opens, with its deadline.
      * - `emailClosed`: Email the store how one ended.
      * - `discord`: Post both to the store's Discord. Needs a webhook in its notification settings.
+     * - `discordRoles`: What an opened dispute does to a buyer who linked their Discord to the order: `keep` their roles, `take` them, `kick` (take them and remove the buyer from the server), or `ban` them from it.
+     * - `discordRolesBack`: Whether a dispute closed in the store's favour gives the roles back, adds a kicked buyer again and lifts a ban.
      *
      * @param array{
      *     blacklist?: bool,
@@ -773,7 +777,9 @@ final class Disputes
      *     askAbove?: int|float,
      *     emailOpened?: bool,
      *     emailClosed?: bool,
-     *     discord?: bool
+     *     discord?: bool,
+     *     discordRoles?: 'keep'|'take'|'kick'|'ban',
+     *     discordRolesBack?: bool
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{
@@ -787,6 +793,8 @@ final class Disputes
      *     emailOpened: bool,
      *     emailClosed: bool,
      *     discord: bool,
+     *     discordRoles: string,
+     *     discordRolesBack: bool,
      *     currency: string
      * }
      * @throws \Shoply\ShoplyException
