@@ -41,7 +41,8 @@ final class Affiliates
      *     paidOut: int|float,
      *     paidAsCredit: int|float,
      *     joinedThemselves: bool,
-     *     dateCreated: string
+     *     dateCreated: string,
+     *     version: string
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/affiliates/list-affiliates
@@ -92,7 +93,8 @@ final class Affiliates
      *     paidOut: int|float,
      *     paidAsCredit: int|float,
      *     joinedThemselves: bool,
-     *     dateCreated: string
+     *     dateCreated: string,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/affiliates/create-an-affiliate
@@ -142,7 +144,8 @@ final class Affiliates
      *     paidOut: int|float,
      *     paidAsCredit: int|float,
      *     joinedThemselves: bool,
-     *     dateCreated: string
+     *     dateCreated: string,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/affiliates/update-an-affiliate
@@ -179,7 +182,8 @@ final class Affiliates
      *     paidOut: int|float,
      *     paidAsCredit: int|float,
      *     joinedThemselves: bool,
-     *     dateCreated: string
+     *     dateCreated: string,
+     *     version: string
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/affiliates/delete-an-affiliate
@@ -227,7 +231,8 @@ final class Affiliates
      *     paidOut: int|float,
      *     paidAsCredit: int|float,
      *     joinedThemselves: bool,
-     *     dateCreated: string
+     *     dateCreated: string,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/affiliates/change-an-affiliates-balance

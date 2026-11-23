@@ -45,7 +45,8 @@ final class Team
      *         }>,
      *         waiting: int|float,
      *         createdAt: string,
-     *         updatedAt: string
+     *         updatedAt: string,
+     *         version: string
      *     }>,
      *     invites: list<array{
      *         id: string,

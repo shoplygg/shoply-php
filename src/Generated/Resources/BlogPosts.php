@@ -56,7 +56,8 @@ final class BlogPosts
      *             ok: bool,
      *             text: string
      *         }>
-     *     }
+     *     },
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/blog/create-a-blog-post
@@ -99,7 +100,8 @@ final class BlogPosts
      *             ok: bool,
      *             text: string
      *         }>
-     *     }
+     *     },
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/blog/get-a-blog-post
@@ -163,7 +165,8 @@ final class BlogPosts
      *             ok: bool,
      *             text: string
      *         }>
-     *     }
+     *     },
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/blog/update-a-blog-post

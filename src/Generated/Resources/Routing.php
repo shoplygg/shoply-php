@@ -33,7 +33,8 @@ final class Routing
      *         guard: bool,
      *         guardDeclines: int|float,
      *         guardWindow: int|float,
-     *         disputeAlert: int|float
+     *         disputeAlert: int|float,
+     *         version: string
      *     },
      *     processors: list<array{
      *         provider: string,
@@ -50,7 +51,8 @@ final class Routing
      *         day: int|float,
      *         approved: mixed,
      *         disputes: mixed,
-     *         fee: mixed
+     *         fee: mixed,
+     *         version: string
      *     }>,
      *     rules: list<array{
      *         id: string,
@@ -59,7 +61,8 @@ final class Routing
      *         amountOp: mixed,
      *         amount: mixed,
      *         action: string,
-     *         provider: string
+     *         provider: string,
+     *         version: string
      *     }>,
      *     available: array<mixed>,
      *     figures: array{
@@ -128,7 +131,8 @@ final class Routing
      *         guard: bool,
      *         guardDeclines: int|float,
      *         guardWindow: int|float,
-     *         disputeAlert: int|float
+     *         disputeAlert: int|float,
+     *         version: string
      *     },
      *     processors: list<array{
      *         provider: string,
@@ -145,7 +149,8 @@ final class Routing
      *         day: int|float,
      *         approved: mixed,
      *         disputes: mixed,
-     *         fee: mixed
+     *         fee: mixed,
+     *         version: string
      *     }>,
      *     rules: list<array{
      *         id: string,
@@ -154,7 +159,8 @@ final class Routing
      *         amountOp: mixed,
      *         amount: mixed,
      *         action: string,
-     *         provider: string
+     *         provider: string,
+     *         version: string
      *     }>,
      *     available: array<mixed>,
      *     figures: array{
@@ -209,7 +215,8 @@ final class Routing
      *         guard: bool,
      *         guardDeclines: int|float,
      *         guardWindow: int|float,
-     *         disputeAlert: int|float
+     *         disputeAlert: int|float,
+     *         version: string
      *     },
      *     processors: list<array{
      *         provider: string,
@@ -226,7 +233,8 @@ final class Routing
      *         day: int|float,
      *         approved: mixed,
      *         disputes: mixed,
-     *         fee: mixed
+     *         fee: mixed,
+     *         version: string
      *     }>,
      *     rules: array<mixed>,
      *     available: list<array{
@@ -295,7 +303,8 @@ final class Routing
      *         guard: bool,
      *         guardDeclines: int|float,
      *         guardWindow: int|float,
-     *         disputeAlert: int|float
+     *         disputeAlert: int|float,
+     *         version: string
      *     },
      *     processors: list<array{
      *         provider: string,
@@ -312,7 +321,8 @@ final class Routing
      *         day: int|float,
      *         approved: mixed,
      *         disputes: mixed,
-     *         fee: mixed
+     *         fee: mixed,
+     *         version: string
      *     }>,
      *     rules: array<mixed>,
      *     available: array<mixed>,
@@ -362,7 +372,8 @@ final class Routing
      *         guard: bool,
      *         guardDeclines: int|float,
      *         guardWindow: int|float,
-     *         disputeAlert: int|float
+     *         disputeAlert: int|float,
+     *         version: string
      *     },
      *     processors: list<array{
      *         provider: string,
@@ -379,7 +390,8 @@ final class Routing
      *         day: int|float,
      *         approved: mixed,
      *         disputes: mixed,
-     *         fee: mixed
+     *         fee: mixed,
+     *         version: string
      *     }>,
      *     rules: array<mixed>,
      *     available: list<array{
@@ -433,7 +445,8 @@ final class Routing
      *         guard: bool,
      *         guardDeclines: int|float,
      *         guardWindow: int|float,
-     *         disputeAlert: int|float
+     *         disputeAlert: int|float,
+     *         version: string
      *     },
      *     processors: list<array{
      *         provider: string,
@@ -450,7 +463,8 @@ final class Routing
      *         day: int|float,
      *         approved: mixed,
      *         disputes: mixed,
-     *         fee: mixed
+     *         fee: mixed,
+     *         version: string
      *     }>,
      *     rules: list<array{
      *         id: string,
@@ -459,7 +473,8 @@ final class Routing
      *         amountOp: mixed,
      *         amount: mixed,
      *         action: string,
-     *         provider: string
+     *         provider: string,
+     *         version: string
      *     }>,
      *     available: array<mixed>,
      *     figures: array{
@@ -514,7 +529,8 @@ final class Routing
      *         guard: bool,
      *         guardDeclines: int|float,
      *         guardWindow: int|float,
-     *         disputeAlert: int|float
+     *         disputeAlert: int|float,
+     *         version: string
      *     },
      *     processors: list<array{
      *         provider: string,
@@ -531,7 +547,8 @@ final class Routing
      *         day: int|float,
      *         approved: mixed,
      *         disputes: mixed,
-     *         fee: mixed
+     *         fee: mixed,
+     *         version: string
      *     }>,
      *     rules: array<mixed>,
      *     available: array<mixed>,
@@ -597,7 +614,8 @@ final class Routing
      *         guard: bool,
      *         guardDeclines: int|float,
      *         guardWindow: int|float,
-     *         disputeAlert: int|float
+     *         disputeAlert: int|float,
+     *         version: string
      *     },
      *     processors: list<array{
      *         provider: string,
@@ -614,7 +632,8 @@ final class Routing
      *         day: int|float,
      *         approved: mixed,
      *         disputes: mixed,
-     *         fee: mixed
+     *         fee: mixed,
+     *         version: string
      *     }>,
      *     rules: list<array{
      *         id: string,
@@ -623,7 +642,8 @@ final class Routing
      *         amountOp: string,
      *         amount: int|float,
      *         action: string,
-     *         provider: string
+     *         provider: string,
+     *         version: string
      *     }>,
      *     available: array<mixed>,
      *     figures: array{
@@ -689,7 +709,8 @@ final class Routing
      *         guard: bool,
      *         guardDeclines: int|float,
      *         guardWindow: int|float,
-     *         disputeAlert: int|float
+     *         disputeAlert: int|float,
+     *         version: string
      *     },
      *     processors: list<array{
      *         provider: string,
@@ -706,7 +727,8 @@ final class Routing
      *         day: int|float,
      *         approved: mixed,
      *         disputes: mixed,
-     *         fee: mixed
+     *         fee: mixed,
+     *         version: string
      *     }>,
      *     rules: list<array{
      *         id: string,
@@ -715,7 +737,8 @@ final class Routing
      *         amountOp: mixed,
      *         amount: mixed,
      *         action: string,
-     *         provider: string
+     *         provider: string,
+     *         version: string
      *     }>,
      *     available: array<mixed>,
      *     figures: array{
@@ -764,7 +787,8 @@ final class Routing
      *         guard: bool,
      *         guardDeclines: int|float,
      *         guardWindow: int|float,
-     *         disputeAlert: int|float
+     *         disputeAlert: int|float,
+     *         version: string
      *     },
      *     processors: list<array{
      *         provider: string,
@@ -781,7 +805,8 @@ final class Routing
      *         day: int|float,
      *         approved: mixed,
      *         disputes: mixed,
-     *         fee: mixed
+     *         fee: mixed,
+     *         version: string
      *     }>,
      *     rules: array<mixed>,
      *     available: array<mixed>,
@@ -837,7 +862,8 @@ final class Routing
      *         guard: bool,
      *         guardDeclines: int|float,
      *         guardWindow: int|float,
-     *         disputeAlert: int|float
+     *         disputeAlert: int|float,
+     *         version: string
      *     },
      *     processors: list<array{
      *         provider: string,
@@ -854,7 +880,8 @@ final class Routing
      *         day: int|float,
      *         approved: mixed,
      *         disputes: mixed,
-     *         fee: mixed
+     *         fee: mixed,
+     *         version: string
      *     }>,
      *     rules: list<array{
      *         id: string,
@@ -863,7 +890,8 @@ final class Routing
      *         amountOp: mixed,
      *         amount: mixed,
      *         action: string,
-     *         provider: string
+     *         provider: string,
+     *         version: string
      *     }>,
      *     available: array<mixed>,
      *     figures: array{

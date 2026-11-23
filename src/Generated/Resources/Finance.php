@@ -319,7 +319,8 @@ final class Finance
      *     limits: array{
      *         percent: int|float,
      *         fixed: int|float
-     *     }
+     *     },
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/finance/get-payment-fee-rates

@@ -33,7 +33,8 @@ final class ResellerInvites
      *     uses: int|float,
      *     endsAt: string,
      *     enabled: bool,
-     *     live: bool
+     *     live: bool,
+     *     version: string
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/resellers/list-invite-links
@@ -76,7 +77,8 @@ final class ResellerInvites
      *     uses: int|float,
      *     endsAt: mixed,
      *     enabled: bool,
-     *     live: bool
+     *     live: bool,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/resellers/create-an-invite-link
@@ -120,7 +122,8 @@ final class ResellerInvites
      *     uses: int|float,
      *     endsAt: string,
      *     enabled: bool,
-     *     live: bool
+     *     live: bool,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/resellers/update-an-invite-link

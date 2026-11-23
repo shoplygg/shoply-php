@@ -59,7 +59,8 @@ final class CustomerOrders
      *             message: string,
      *             instructions: string,
      *             files: array<mixed>
-     *         }
+     *         },
+     *         addons: array<mixed>
      *     }>,
      *     general: string,
      *     discord: mixed

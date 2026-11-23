@@ -61,7 +61,8 @@ final class Resellers
      *         spent30: int|float,
      *         lastOrderAt: string,
      *         joinedAt: string,
-     *         removedAt: mixed
+     *         removedAt: mixed,
+     *         version: string
      *     }>
      * }
      * @throws \Shoply\ShoplyException
@@ -211,7 +212,8 @@ final class Resellers
      *     spent30: int|float,
      *     lastOrderAt: mixed,
      *     joinedAt: string,
-     *     removedAt: mixed
+     *     removedAt: mixed,
+     *     version: string
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/resellers/list-resellers
@@ -247,6 +249,7 @@ final class Resellers
      *     lastOrderAt: string,
      *     joinedAt: string,
      *     removedAt: mixed,
+     *     version: string,
      *     inviteName: mixed,
      *     team: list<array{
      *         id: string,
@@ -262,7 +265,8 @@ final class Resellers
      *         twoFactor: bool,
      *         verified: bool,
      *         lastSeenAt: mixed,
-     *         joinedAt: string
+     *         joinedAt: string,
+     *         version: string
      *     }>,
      *     catalogue: list<array{
      *         id: string,
@@ -320,6 +324,7 @@ final class Resellers
      *     lastOrderAt: mixed,
      *     joinedAt: string,
      *     removedAt: mixed,
+     *     version: string,
      *     inviteName: mixed,
      *     team: list<array{
      *         id: string,
@@ -335,7 +340,8 @@ final class Resellers
      *         twoFactor: bool,
      *         verified: bool,
      *         lastSeenAt: mixed,
-     *         joinedAt: string
+     *         joinedAt: string,
+     *         version: string
      *     }>,
      *     catalogue: list<array{
      *         id: string,
@@ -413,6 +419,7 @@ final class Resellers
      *     lastOrderAt: mixed,
      *     joinedAt: string,
      *     removedAt: mixed,
+     *     version: string,
      *     inviteName: mixed,
      *     team: list<array{
      *         id: string,
@@ -428,7 +435,8 @@ final class Resellers
      *         twoFactor: bool,
      *         verified: bool,
      *         lastSeenAt: mixed,
-     *         joinedAt: string
+     *         joinedAt: string,
+     *         version: string
      *     }>,
      *     catalogue: list<array{
      *         id: string,
@@ -483,6 +491,7 @@ final class Resellers
      *     lastOrderAt: mixed,
      *     joinedAt: string,
      *     removedAt: mixed,
+     *     version: string,
      *     inviteName: mixed,
      *     team: list<array{
      *         id: string,
@@ -498,7 +507,8 @@ final class Resellers
      *         twoFactor: bool,
      *         verified: bool,
      *         lastSeenAt: mixed,
-     *         joinedAt: string
+     *         joinedAt: string,
+     *         version: string
      *     }>,
      *     catalogue: list<array{
      *         id: string,
@@ -546,6 +556,7 @@ final class Resellers
      *     lastOrderAt: string,
      *     joinedAt: string,
      *     removedAt: mixed,
+     *     version: string,
      *     inviteName: mixed,
      *     team: list<array{
      *         id: string,
@@ -561,7 +572,8 @@ final class Resellers
      *         twoFactor: bool,
      *         verified: bool,
      *         lastSeenAt: mixed,
-     *         joinedAt: string
+     *         joinedAt: string,
+     *         version: string
      *     }>,
      *     catalogue: list<array{
      *         id: string,

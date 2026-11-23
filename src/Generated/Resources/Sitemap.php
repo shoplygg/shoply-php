@@ -35,6 +35,7 @@ final class Sitemap
      *         listed: bool,
      *         priority: string,
      *         changefreq: string,
+     *         version: string,
      *         entries: list<array{
      *             ref: string,
      *             name: string,
@@ -42,7 +43,8 @@ final class Sitemap
      *             changed: string,
      *             on: bool,
      *             priority: string,
-     *             changefreq: string
+     *             changefreq: string,
+     *             version: string
      *         }>
      *     }>
      * }
@@ -86,6 +88,7 @@ final class Sitemap
      *         listed: bool,
      *         priority: string,
      *         changefreq: string,
+     *         version: string,
      *         entries: list<array{
      *             ref: string,
      *             name: string,
@@ -93,7 +96,8 @@ final class Sitemap
      *             changed: string,
      *             on: bool,
      *             priority: string,
-     *             changefreq: string
+     *             changefreq: string,
+     *             version: string
      *         }>
      *     }>
      * }

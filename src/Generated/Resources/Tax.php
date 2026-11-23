@@ -300,7 +300,9 @@ final class Tax
      *         }>
      *     },
      *     limit: int|float,
-     *     maxRate: int|float
+     *     maxRate: int|float,
+     *     version: string,
+     *     ratesVersion: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/tax/get-tax-settings
@@ -598,7 +600,9 @@ final class Tax
      *         }>
      *     },
      *     limit: int|float,
-     *     maxRate: int|float
+     *     maxRate: int|float,
+     *     version: string,
+     *     ratesVersion: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/tax/update-tax-settings
@@ -904,7 +908,9 @@ final class Tax
      *         }>
      *     },
      *     limit: int|float,
-     *     maxRate: int|float
+     *     maxRate: int|float,
+     *     version: string,
+     *     ratesVersion: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/tax/add-or-change-tax-rates
@@ -1208,7 +1214,9 @@ final class Tax
      *         }>
      *     },
      *     limit: int|float,
-     *     maxRate: int|float
+     *     maxRate: int|float,
+     *     version: string,
+     *     ratesVersion: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/tax/remove-a-tax-rate

@@ -45,7 +45,8 @@ final class WinBack
      *     secondDays: int|float,
      *     secondSubject: string,
      *     secondPercent: int|float,
-     *     audience: string
+     *     audience: string,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/email-marketing/get-win-back
@@ -95,7 +96,8 @@ final class WinBack
      *     secondDays: int|float,
      *     secondSubject: string,
      *     secondPercent: int|float,
-     *     audience: string
+     *     audience: string,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/email-marketing/change-win-back

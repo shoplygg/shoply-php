@@ -735,7 +735,8 @@ final class Disputes
      *     discord: bool,
      *     discordRoles: string,
      *     discordRolesBack: bool,
-     *     currency: string
+     *     currency: string,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/disputes/get-dispute-settings
@@ -795,7 +796,8 @@ final class Disputes
      *     discord: bool,
      *     discordRoles: string,
      *     discordRolesBack: bool,
-     *     currency: string
+     *     currency: string,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/disputes/change-dispute-settings

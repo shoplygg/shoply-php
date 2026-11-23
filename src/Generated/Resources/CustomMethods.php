@@ -33,7 +33,8 @@ final class CustomMethods
      *     iconUrl: mixed,
      *     asksProof: bool,
      *     requiresPicture: bool,
-     *     enabled: bool
+     *     enabled: bool,
+     *     version: string
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/custom-payment-methods/list-custom-payment-methods
@@ -82,7 +83,8 @@ final class CustomMethods
      *     iconUrl: mixed,
      *     asksProof: bool,
      *     requiresPicture: bool,
-     *     enabled: bool
+     *     enabled: bool,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/custom-payment-methods/create-a-custom-payment-method
@@ -132,7 +134,8 @@ final class CustomMethods
      *     iconUrl: mixed,
      *     asksProof: bool,
      *     requiresPicture: bool,
-     *     enabled: bool
+     *     enabled: bool,
+     *     version: string
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/custom-payment-methods/update-a-custom-payment-method
@@ -161,7 +164,8 @@ final class CustomMethods
      *     iconUrl: mixed,
      *     asksProof: bool,
      *     requiresPicture: bool,
-     *     enabled: bool
+     *     enabled: bool,
+     *     version: string
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/custom-payment-methods/delete-a-custom-payment-method
@@ -197,7 +201,8 @@ final class CustomMethods
      *     iconUrl: mixed,
      *     asksProof: bool,
      *     requiresPicture: bool,
-     *     enabled: bool
+     *     enabled: bool,
+     *     version: string
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/custom-payment-methods/switch-a-custom-payment-method-on-or-off
@@ -232,7 +237,8 @@ final class CustomMethods
      *     iconUrl: mixed,
      *     asksProof: bool,
      *     requiresPicture: bool,
-     *     enabled: bool
+     *     enabled: bool,
+     *     version: string
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/custom-payment-methods/sort-custom-payment-methods

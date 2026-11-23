@@ -41,6 +41,7 @@ final class BlogCategories
      *     path: string,
      *     description: string,
      *     imageUrl: mixed,
+     *     version: string,
      *     posts: array<mixed>
      * }
      * @throws \Shoply\ShoplyException
@@ -77,7 +78,8 @@ final class BlogCategories
      *     slug: string,
      *     path: string,
      *     description: string,
-     *     imageUrl: mixed
+     *     imageUrl: mixed,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/blog/update-a-blog-category

@@ -30,6 +30,7 @@ final class Blog
      *     path: string,
      *     description: string,
      *     imageUrl: mixed,
+     *     version: string,
      *     posts: list<array{
      *         id: string,
      *         categoryId: string,

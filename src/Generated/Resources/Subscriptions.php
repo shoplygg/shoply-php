@@ -97,7 +97,8 @@ final class Subscriptions
      *     revokeOn: bool,
      *     autoOn: bool,
      *     cardChangeOn: bool,
-     *     chargeTries: int|float
+     *     chargeTries: int|float,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/subscriptions/get-subscription-settings
@@ -159,7 +160,8 @@ final class Subscriptions
      *     revokeOn: bool,
      *     autoOn: bool,
      *     cardChangeOn: bool,
-     *     chargeTries: int|float
+     *     chargeTries: int|float,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/subscriptions/change-subscription-settings
@@ -186,7 +188,8 @@ final class Subscriptions
      *     every: int|float,
      *     unit: string,
      *     running: int|float,
-     *     automatic: int|float
+     *     automatic: int|float,
+     *     version: string
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/subscriptions/list-subscription-plans
@@ -224,7 +227,8 @@ final class Subscriptions
      *     every: int|float,
      *     unit: string,
      *     running: int|float,
-     *     automatic: int|float
+     *     automatic: int|float,
+     *     version: string
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/subscriptions/sell-options-as-subscriptions

@@ -31,7 +31,8 @@ final class Seo
      *     analytics: array{
      *         measurementId: string,
      *         hasSecret: bool
-     *     }
+     *     },
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/search-settings/get-search-settings
@@ -74,7 +75,8 @@ final class Seo
      *     analytics: array{
      *         measurementId: string,
      *         hasSecret: bool
-     *     }
+     *     },
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/search-settings/update-search-settings

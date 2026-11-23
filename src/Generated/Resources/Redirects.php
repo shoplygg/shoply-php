@@ -29,7 +29,8 @@ final class Redirects
      *     to: string,
      *     hits: int|float,
      *     createdAt: string,
-     *     live: bool
+     *     live: bool,
+     *     version: string
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/redirects/list-redirects-and-broken-links
@@ -62,7 +63,8 @@ final class Redirects
      *     to: string,
      *     hits: int|float,
      *     createdAt: string,
-     *     live: bool
+     *     live: bool,
+     *     version: string
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/redirects/create-a-redirect
@@ -96,7 +98,8 @@ final class Redirects
      *     to: string,
      *     hits: int|float,
      *     createdAt: string,
-     *     live: bool
+     *     live: bool,
+     *     version: string
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/redirects/update-a-redirect

@@ -41,7 +41,8 @@ final class Teams
      *     people: array<mixed>,
      *     waiting: int|float,
      *     createdAt: string,
-     *     updatedAt: string
+     *     updatedAt: string,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/teams/create-a-team
@@ -78,7 +79,8 @@ final class Teams
      *     people: array<mixed>,
      *     waiting: int|float,
      *     createdAt: string,
-     *     updatedAt: string
+     *     updatedAt: string,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/teams/update-a-team

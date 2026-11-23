@@ -39,7 +39,8 @@ final class Key
      *         expired: bool,
      *         createdAt: string,
      *         lastUsedAt: mixed,
-     *         revokedAt: mixed
+     *         revokedAt: mixed,
+     *         version: string
      *     },
      *     app: mixed,
      *     store: array{
@@ -81,7 +82,8 @@ final class Key
      *     expired: bool,
      *     createdAt: string,
      *     lastUsedAt: string,
-     *     revokedAt: string
+     *     revokedAt: string,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/api-key/revoke-the-current-key

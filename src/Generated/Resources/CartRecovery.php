@@ -47,7 +47,8 @@ final class CartRecovery
      *     secondOn: bool,
      *     secondMinutes: int|float,
      *     secondSubject: string,
-     *     secondPercent: int|float
+     *     secondPercent: int|float,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/cart-recovery/get-cart-recovery
@@ -103,7 +104,8 @@ final class CartRecovery
      *     secondOn: bool,
      *     secondMinutes: int|float,
      *     secondSubject: string,
-     *     secondPercent: int|float
+     *     secondPercent: int|float,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/cart-recovery/change-cart-recovery

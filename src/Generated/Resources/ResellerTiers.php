@@ -28,7 +28,8 @@ final class ResellerTiers
      *     name: string,
      *     discount: int|float,
      *     resellers: int|float,
-     *     spent30: int|float
+     *     spent30: int|float,
+     *     version: string
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/resellers/list-tiers
@@ -60,7 +61,8 @@ final class ResellerTiers
      *     name: string,
      *     discount: int|float,
      *     resellers: int|float,
-     *     spent30: int|float
+     *     spent30: int|float,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/resellers/create-a-tier
@@ -93,7 +95,8 @@ final class ResellerTiers
      *     name: string,
      *     discount: int|float,
      *     resellers: int|float,
-     *     spent30: int|float
+     *     spent30: int|float,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/resellers/update-a-tier

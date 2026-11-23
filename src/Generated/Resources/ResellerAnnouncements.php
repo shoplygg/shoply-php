@@ -30,7 +30,8 @@ final class ResellerAnnouncements
      *     pinned: bool,
      *     createdAt: string,
      *     updatedAt: string,
-     *     closes: int|float
+     *     closes: int|float,
+     *     version: string
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/resellers/list-announcements
@@ -66,7 +67,8 @@ final class ResellerAnnouncements
      *     pinned: bool,
      *     createdAt: string,
      *     updatedAt: string,
-     *     closes: int|float
+     *     closes: int|float,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/resellers/post-an-announcement
@@ -103,7 +105,8 @@ final class ResellerAnnouncements
      *     pinned: bool,
      *     createdAt: string,
      *     updatedAt: string,
-     *     closes: int|float
+     *     closes: int|float,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/resellers/update-an-announcement
