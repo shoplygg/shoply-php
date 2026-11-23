@@ -369,6 +369,7 @@ final class Store
      *     discordCustomPaidEnabled: bool,
      *     discordTicketsEnabled: bool,
      *     discordResellersEnabled: bool,
+     *     discordPaypalEnabled: bool,
      *     discordDisputesEnabled: bool,
      *     discordStockThreshold: int|float,
      *     discordFailure: mixed,

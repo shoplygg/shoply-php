@@ -26,7 +26,7 @@ final class FraudEvents
      *
      * - `page`: Which page of the list. The first is 1. Left out, it is 1.
      * - `perPage`: How many a page holds. Left out, it is 20.
-     * - `reason`: Only events of this reason. `changes` is every change to the rules and settings.
+     * - `reason`: Only events of this reason. `changes` is every change to the rules and settings; `imported` is a line of another platform's log, brought by Platform Migration.
      * - `search`: Part of an email address, an IP address or a rule's value.
      * - `range`: Only events in this period.
      * - `from`: Only events on or after this day, as `YYYY-MM-DD`. With `to`, in place of `range`.
@@ -36,7 +36,7 @@ final class FraudEvents
      * @param array{
      *     page?: int,
      *     perPage?: int,
-     *     reason?: 'blacklist'|'vpn'|'country'|'unpaid_limit'|'dispute'|'allowed'|'refund'|'changes',
+     *     reason?: 'blacklist'|'vpn'|'country'|'unpaid_limit'|'dispute'|'allowed'|'refund'|'imported'|'changes',
      *     search?: string,
      *     range?: 'today'|'yesterday'|'7d'|'30d'|'this_week'|'last_week'|'this_month'|'last_month'|'this_year',
      *     from?: string,
@@ -81,7 +81,7 @@ final class FraudEvents
      *
      * Fields:
      *
-     * - `reason`: Only events of this reason. `changes` is every change to the rules and settings.
+     * - `reason`: Only events of this reason. `changes` is every change to the rules and settings; `imported` is a line of another platform's log, brought by Platform Migration.
      * - `search`: Part of an email address, an IP address or a rule's value.
      * - `check`: `1` for how many rows the file would have, as `{ rows }`, in place of the file. Not counted against the store's exports, and refused with 429 where none are left.
      * - `range`: Only events in this period.
@@ -90,7 +90,7 @@ final class FraudEvents
      * - `tz`: The time zone those days are in, as an IANA name. Left out, UTC.
      *
      * @param array{
-     *     reason?: 'blacklist'|'vpn'|'country'|'unpaid_limit'|'dispute'|'allowed'|'refund'|'changes',
+     *     reason?: 'blacklist'|'vpn'|'country'|'unpaid_limit'|'dispute'|'allowed'|'refund'|'imported'|'changes',
      *     search?: string,
      *     check?: '1',
      *     range?: 'today'|'yesterday'|'7d'|'30d'|'this_week'|'last_week'|'this_month'|'last_month'|'this_year',

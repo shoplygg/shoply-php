@@ -36,6 +36,7 @@ final class PaymentMethods
      *     originHint: string,
      *     callbackHint: string,
      *     copies: array<mixed>,
+     *     friends: mixed,
      *     authorizeUrl: string,
      *     connected: bool,
      *     enabled: bool,
@@ -65,7 +66,8 @@ final class PaymentMethods
      *         hint: string,
      *         group: string,
      *         needs: string,
-     *         on: bool
+     *         on: bool,
+     *         choices: array<mixed>
      *     }>,
      *     unpaidHours: mixed,
      *     updatedAt: mixed
@@ -155,6 +157,7 @@ final class PaymentMethods
      *     originHint: string,
      *     callbackHint: string,
      *     copies: array<mixed>,
+     *     friends: mixed,
      *     authorizeUrl: string,
      *     connected: bool,
      *     enabled: bool,
@@ -184,7 +187,8 @@ final class PaymentMethods
      *         hint: string,
      *         group: string,
      *         needs: string,
-     *         on: bool
+     *         on: bool,
+     *         choices: array<mixed>
      *     }>,
      *     unpaidHours: mixed,
      *     updatedAt: mixed
@@ -225,6 +229,7 @@ final class PaymentMethods
      *     originHint: string,
      *     callbackHint: string,
      *     copies: array<mixed>,
+     *     friends: mixed,
      *     authorizeUrl: string,
      *     connected: bool,
      *     enabled: bool,
@@ -254,7 +259,8 @@ final class PaymentMethods
      *         hint: string,
      *         group: string,
      *         needs: string,
-     *         on: bool
+     *         on: bool,
+     *         choices: array<mixed>
      *     }>,
      *     unpaidHours: mixed,
      *     updatedAt: string
@@ -296,6 +302,7 @@ final class PaymentMethods
      *     originHint: string,
      *     callbackHint: string,
      *     copies: array<mixed>,
+     *     friends: mixed,
      *     authorizeUrl: string,
      *     connected: bool,
      *     enabled: bool,
@@ -325,7 +332,8 @@ final class PaymentMethods
      *         hint: string,
      *         group: string,
      *         needs: string,
-     *         on: bool
+     *         on: bool,
+     *         choices: array<mixed>
      *     }>,
      *     unpaidHours: int|float,
      *     updatedAt: string

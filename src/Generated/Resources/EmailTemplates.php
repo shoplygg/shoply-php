@@ -100,7 +100,7 @@ final class EmailTemplates
      *
      * Needs the `emails.read` permission (Read Email Templates).
      *
-     * @param string $kind Which email: `receipt`, `invoice`, `reward`, `panel-code`, `balance-code`, `site-code`, `ticket-reply`, `sub-renewal`, `sub-charged`, `sub-due`, `sub-declined`, `sub-paused`, `sub-ended`, `recovery-first`, `recovery-declined`, `recovery-second`, `winback-first`, `winback-second`.
+     * @param string $kind Which email: `receipt`, `receipt-complete`, `invoice`, `reward`, `panel-code`, `balance-code`, `site-code`, `ticket-reply`, `sub-renewal`, `sub-charged`, `sub-due`, `sub-declined`, `sub-paused`, `sub-ended`, `recovery-first`, `recovery-declined`, `recovery-second`, `winback-first`, `winback-second`.
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{
      *     kind: string,
@@ -150,7 +150,7 @@ final class EmailTemplates
      * - `subject`: Its subject, or null for the original.
      * - `expectedUpdatedAt`: The `updatedAt` you read; a template changed since is refused with `stale_write`.
      *
-     * @param string $kind Which email: `receipt`, `invoice`, `reward`, `panel-code`, `balance-code`, `site-code`, `ticket-reply`, `sub-renewal`, `sub-charged`, `sub-due`, `sub-declined`, `sub-paused`, `sub-ended`, `recovery-first`, `recovery-declined`, `recovery-second`, `winback-first`, `winback-second`.
+     * @param string $kind Which email: `receipt`, `receipt-complete`, `invoice`, `reward`, `panel-code`, `balance-code`, `site-code`, `ticket-reply`, `sub-renewal`, `sub-charged`, `sub-due`, `sub-declined`, `sub-paused`, `sub-ended`, `recovery-first`, `recovery-declined`, `recovery-second`, `winback-first`, `winback-second`.
      * @param array{
      *     html?: string,
      *     css?: string,
@@ -206,7 +206,7 @@ final class EmailTemplates
      * - `subject`: A subject to preview in place of what is saved.
      * - `shared`: The look every email gets, in place of what is saved.
      *
-     * @param string $kind Which email: `receipt`, `invoice`, `reward`, `panel-code`, `balance-code`, `site-code`, `ticket-reply`, `sub-renewal`, `sub-charged`, `sub-due`, `sub-declined`, `sub-paused`, `sub-ended`, `recovery-first`, `recovery-declined`, `recovery-second`, `winback-first`, `winback-second`.
+     * @param string $kind Which email: `receipt`, `receipt-complete`, `invoice`, `reward`, `panel-code`, `balance-code`, `site-code`, `ticket-reply`, `sub-renewal`, `sub-charged`, `sub-due`, `sub-declined`, `sub-paused`, `sub-ended`, `recovery-first`, `recovery-declined`, `recovery-second`, `winback-first`, `winback-second`.
      * @param array{
      *     html?: string,
      *     css?: string,
@@ -259,7 +259,7 @@ final class EmailTemplates
      *
      * Needs the `emails.write` permission (Change Email Templates).
      *
-     * @param string $kind Which email: `receipt`, `invoice`, `reward`, `panel-code`, `balance-code`, `site-code`, `ticket-reply`, `sub-renewal`, `sub-charged`, `sub-due`, `sub-declined`, `sub-paused`, `sub-ended`, `recovery-first`, `recovery-declined`, `recovery-second`, `winback-first`, `winback-second`.
+     * @param string $kind Which email: `receipt`, `receipt-complete`, `invoice`, `reward`, `panel-code`, `balance-code`, `site-code`, `ticket-reply`, `sub-renewal`, `sub-charged`, `sub-due`, `sub-declined`, `sub-paused`, `sub-ended`, `recovery-first`, `recovery-declined`, `recovery-second`, `winback-first`, `winback-second`.
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{
      *     kind: string,
