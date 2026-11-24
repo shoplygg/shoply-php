@@ -18,7 +18,7 @@ final class Analytics
     /**
      * **Get the overview**
      *
-     * A period's headline figures (revenue, orders, customers and the rest), the same figures for the period before, and a day by day series. What the dashboard's home page draws.
+     * A period's headline figures (revenue, orders, customers and the rest), the same figures for the period before, and a day by day series. What the dashboard's home page draws. Every figure of money is in the store's currency today (`currencyCode`), its orders alone; what the period took in another currency is `otherCurrencies`, each in its own, never added in or converted. A count that is not money counts every order.
      *
      * Needs the `analytics.read` permission (Read Analytics). It is one of the heavier reads, and is counted against a smaller budget of its own: 60 a minute for each key.
      *
@@ -51,6 +51,7 @@ final class Analytics
      *         inProgress: bool
      *     },
      *     currencyCode: string,
+     *     otherCurrencies: array<mixed>,
      *     totals: array{
      *         revenue: int|float,
      *         orders: int|float,

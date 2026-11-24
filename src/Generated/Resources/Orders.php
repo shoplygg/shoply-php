@@ -315,6 +315,7 @@ final class Orders
      *     customerTotals: array{
      *         totalOrders: int|float,
      *         totalSpend: int|float,
+     *         otherSpend: array<mixed>,
      *         paidOrders: int|float
      *     },
      *     customerOrders: list<array{

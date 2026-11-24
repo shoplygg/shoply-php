@@ -38,7 +38,7 @@ final class Finance
     /**
      * **Get profit**
      *
-     * What the store kept in a period and how that is made up, beside the period before: net sales, the cost of goods, payment fees, affiliate commission, expenses and net profit, twelve months of sales and profit, and every product with what each variant sold and cost. A sale is what the buyer paid: at its sale price, after its coupon and any affiliate link's discount, without tax. Payment fees are worked out from the rates the store typed, never read from a provider, so they can be slightly off. A store makes at most 20 reports every 10 minutes, counting this one, the other report, their files and the dashboard's Generate Report together: after that the answer is 429. Refused with `business_details_required` until the store has its business details.
+     * What the store kept in a period and how that is made up, beside the period before: net sales, the cost of goods, payment fees, affiliate commission, expenses and net profit, twelve months of sales and profit, and every product with what each variant sold and cost. A sale is what the buyer paid: at its sale price, after its coupon and any affiliate link's discount, without tax. Payment fees are worked out from the rates the store typed, never read from a provider, so they can be slightly off. Every figure is in the store's currency today (`currency`), its orders and its expenses alone. What the period took or spent in another currency is `otherCurrencies`, each in its own, and the expenses whose currency is not known are `unknownExpenses`: nothing is added across currencies or converted. A store makes at most 20 reports every 10 minutes, counting this one, the other report, their files and the dashboard's Generate Report together: after that the answer is 429. Refused with `business_details_required` until the store has its business details.
      *
      * Needs the `finance.read` permission (Read Finance). It is one of the heavier reads, and is counted against a smaller budget of its own: 60 a minute for each key.
      *
@@ -129,7 +129,12 @@ final class Finance
      *         uncosted: int|float,
      *         profit: mixed,
      *         costSet: string
-     *     }>
+     *     }>,
+     *     otherCurrencies: array<mixed>,
+     *     unknownExpenses: array{
+     *         count: int|float,
+     *         total: int|float
+     *     }
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/finance/get-profit
@@ -142,7 +147,7 @@ final class Finance
     /**
      * **Get the books**
      *
-     * The books for a period: the profit and loss line by line beside the period before, where the buyers were, and what each payment method took in. Gross sales are at the prices before any sale, and what sales, discounts, refunds and chargebacks took off is a line each; affiliate commission is a cost of sales. Tax collected is not income and is in none of it but the tax report. A store makes at most 20 reports every 10 minutes, counting this one, the other report, their files and the dashboard's Generate Report together: after that the answer is 429. Refused with `business_details_required` until the store has its business details.
+     * The books for a period: the profit and loss line by line beside the period before, where the buyers were, and what each payment method took in. Gross sales are at the prices before any sale, and what sales, discounts, refunds and chargebacks took off is a line each; affiliate commission is a cost of sales. Tax collected is not income and is in none of it but the tax report. The statement is in the store's currency today (`currency`), its orders and its expenses alone. Each other currency the period or the one before took or spent anything in has a statement of its own in `others`, beside the period before in that currency, and the expenses whose currency is not known are `unknownExpenses`. `taxReport` is the same: its rows in the store's currency, then `others`. Nothing is added across currencies or converted. A store makes at most 20 reports every 10 minutes, counting this one, the other report, their files and the dashboard's Generate Report together: after that the answer is 429. Refused with `business_details_required` until the store has its business details.
      *
      * Needs the `finance.read` permission (Read Finance). It is one of the heavier reads, and is counted against a smaller budget of its own: 60 a minute for each key.
      *
@@ -202,6 +207,11 @@ final class Finance
      *         orders: int|float,
      *         expenses: int|float
      *     },
+     *     others: array<mixed>,
+     *     unknownExpenses: array{
+     *         count: int|float,
+     *         total: int|float
+     *     },
      *     countries: list<array{
      *         country: string,
      *         name: string,
@@ -219,9 +229,11 @@ final class Finance
      *         net: int|float
      *     }>,
      *     taxReport: array{
+     *         currency: string,
      *         rows: array<mixed>,
      *         taxable: int|float,
-     *         tax: int|float
+     *         tax: int|float,
+     *         others: array<mixed>
      *     }
      * }
      * @throws \Shoply\ShoplyException

@@ -60,7 +60,7 @@ final class ResellerTopUps
     /**
      * **Export top-ups**
      *
-     * The top-ups the same filters would list, as a CSV file: Top-up ID, Reseller, Paid By, Amount, Currency, Paid With, Status, Opened and Paid. Every row the filters match is in the file, up to 50,000, sent as it is read. Add `check=1` for `{ rows }`, how many it would have, which is not counted. A store exports at most 30 files every 10 minutes, whatever they are of, whoever asks: after that the answer is 429.
+     * The top-ups the same filters would list, as a CSV file: Top-up ID, Reseller, Paid By, Amount, Currency, Paid With, Status, Opened and Paid. Every row the filters match is in the file, however many, sent as it is read. Add `check=1` for `{ rows }`, how many it would have, which is not counted. A store exports at most 30 files every 10 minutes, whatever they are of, whoever asks: after that the answer is 429.
      *
      * Needs the `resellers.read` permission (Read Resellers). It is one of the heavier reads, and is counted against a smaller budget of its own: 60 a minute for each key.
      *

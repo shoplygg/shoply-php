@@ -18,7 +18,7 @@ final class CustomerTags
     /**
      * **List customer tags**
      *
-     * The store's own tags as `data`, by name, each with `customers`, how many wear it. `meta.automatic` is Shoply's two: VIP's rule (`vipOn`, `vipSpent` in the store's currency, `vipOrders` completed orders, `vipDays` the period, 0 for all time; either number 0 leaves that half out) and `disputedOn`, with `vipCustomers` and `disputedCustomers`, how many wear each today.
+     * The store's own tags as `data`, by name, each with `customers`, how many wear it. `meta.automatic` is Shoply's two: VIP's rule (`vipOn`, `vipSpent` in the store's currency today, counting the orders in it alone, `vipOrders` completed orders in any currency, `vipDays` the period, 0 for all time; either number 0 leaves that half out) and `disputedOn`, with `vipCustomers` and `disputedCustomers`, how many wear each today.
      *
      * Needs the `customers.read` permission (Read Customers).
      *
@@ -82,7 +82,7 @@ final class CustomerTags
      * Fields:
      *
      * - `vipOn`: Whether VIP is put on.
-     * - `vipSpent`: A VIP has spent at least this, in the store's currency, on completed orders. 0 leaves it out.
+     * - `vipSpent`: A VIP has spent at least this on completed orders in the store's currency today, as `totalSpend` counts it: what a buyer paid in another is not counted. 0 leaves it out.
      * - `vipOrders`: Or paid for at least this many orders. 0 leaves it out.
      * - `vipDays`: Over this many days back, 0 for all time.
      * - `disputedOn`: Whether Disputed Before is put on: a dispute on any of their orders, won or lost.

@@ -18,7 +18,7 @@ final class Customers
     /**
      * **List customers**
      *
-     * The store's customers, a page at a time, each with how many orders they have paid for, what they have spent, their balance and their `tags`: Shoply's two first (`vip` and `disputed`, worked out from their orders as they are read), then the store's own.
+     * The store's customers, a page at a time, each with how many orders they have paid for, what they have spent in the store's currency today (`totalSpend`) and in any other (`otherSpend`, never added in or converted), their balance and their `tags`: Shoply's two first (`vip` and `disputed`, worked out from their orders as they are read), then the store's own.
      *
      * Needs the `customers.read` permission (Read Customers).
      *
@@ -54,6 +54,7 @@ final class Customers
      *     dateCreated: string,
      *     totalOrders: int|float,
      *     totalSpend: int|float,
+     *     otherSpend: array<mixed>,
      *     paidOrders: int|float,
      *     lastOrderAt: mixed,
      *     balance: int|float,
@@ -94,6 +95,7 @@ final class Customers
      *     dateCreated: string,
      *     totalOrders: int|float,
      *     totalSpend: int|float,
+     *     otherSpend: array<mixed>,
      *     paidOrders: int|float,
      *     lastOrderAt: mixed,
      *     balance: int|float,
@@ -110,7 +112,7 @@ final class Customers
     /**
      * **Export customers**
      *
-     * The customers the same filters would list, as a CSV file: each one's email, when they were first seen, the orders they paid for and what they spent, their first and last paid order, their store balance, their affiliate code and balance where they have one, their tags, and whether they are subscribed to the store's news and offers. Every customer the filters match is in the file, however many: it is sent as it is read. Add `check=1` for `{ rows }`, how many it would have, which is not counted. A store exports at most 30 files every 10 minutes, orders, customers, fraud events, blacklist rules and allowlist entries together, whoever asks: after that the answer is 429.
+     * The customers the same filters would list, as a CSV file: each one's email, when they were first seen, the orders they paid for and what they spent in the store's currency today, with what they spent in any other in a column of its own, their first and last paid order, their store balance, their affiliate code and balance where they have one, their tags, and whether they are subscribed to the store's news and offers. Every customer the filters match is in the file, however many: it is sent as it is read. Add `check=1` for `{ rows }`, how many it would have, which is not counted. A store exports at most 30 files every 10 minutes, orders, customers, fraud events, blacklist rules and allowlist entries together, whoever asks: after that the answer is 429.
      *
      * Needs the `customers.read` permission (Read Customers). It is one of the heavier reads, and is counted against a smaller budget of its own: 60 a minute for each key.
      *
@@ -207,7 +209,7 @@ final class Customers
     /**
      * **Get a customer**
      *
-     * One customer: their orders, their balance and its history, their `tags`, whether they are blacklisted, and their affiliate figures if they are one.
+     * One customer: their orders, what they have spent in the store's currency today (`totalSpend`, over `paidInCurrency` of their paid orders) and in any other (`otherSpend`), their balance and its history, their `tags`, whether they are blacklisted, and their affiliate figures if they are one.
      *
      * Needs the `customers.read` permission (Read Customers).
      *
@@ -244,7 +246,9 @@ final class Customers
      *     dateCreated: string,
      *     totalOrders: int|float,
      *     totalSpend: int|float,
+     *     otherSpend: array<mixed>,
      *     paidOrders: int|float,
+     *     paidInCurrency: int|float,
      *     lastOrderAt: mixed,
      *     currencyCode: string,
      *     ordersTruncated: bool,

@@ -18,7 +18,7 @@ final class Expenses
     /**
      * **List expenses**
      *
-     * A period's expenses, newest first, up to 2,000 of them. `meta.totals` is what the expenses matched come to, counting every one, and `meta.groups` the same by category. Refused with `business_details_required` until the store has its business details.
+     * A period's expenses, newest first, up to 2,000 of them, each with the `currency` its amount is in (null where it is not known). `meta.totals` is what the expenses matched in the store's currency today (`meta.currency`) come to, counting every one, and `meta.groups` the same by category. `meta.otherCurrencies` is what those in each other currency come to, and those whose currency is not known (`currency` null), never added in or converted. `meta.listedOf` is how many the filters match, whatever their currency. Refused with `business_details_required` until the store has its business details.
      *
      * Needs the `expenses.read` permission (Read Expenses).
      *
@@ -55,6 +55,7 @@ final class Expenses
      *     method: string,
      *     reference: string,
      *     amount: int|float,
+     *     currency: string,
      *     entered: mixed,
      *     productId: mixed,
      *     recurring: bool,
@@ -117,6 +118,7 @@ final class Expenses
      *     method: string,
      *     reference: string,
      *     amount: int|float,
+     *     currency: string,
      *     entered: mixed,
      *     productId: mixed,
      *     recurring: bool,
@@ -136,7 +138,7 @@ final class Expenses
     /**
      * **Get an expense summary**
      *
-     * A period's spending at a glance: the total beside the period before, what repeats, the largest category, how many have receipts, twelve months of totals and what is coming up. Refused with `business_details_required` until the store has its business details.
+     * A period's spending at a glance: the total beside the period before, what repeats, the largest category, how many have receipts, twelve months of totals and what is coming up. The figures are in the store's currency today; `otherCurrencies` is what the period spent in each other currency, and in none known. Refused with `business_details_required` until the store has its business details.
      *
      * Needs the `expenses.read` permission (Read Expenses). It is one of the heavier reads, and is counted against a smaller budget of its own: 60 a minute for each key.
      *
@@ -165,9 +167,11 @@ final class Expenses
      *     },
      *     spent: int|float,
      *     previous: int|float,
+     *     otherCurrencies: array<mixed>,
      *     recurring: array{
      *         count: int|float,
-     *         monthly: int|float
+     *         monthly: int|float,
+     *         others: array<mixed>
      *     },
      *     largest: array{
      *         name: string,
@@ -291,7 +295,7 @@ final class Expenses
     /**
      * **Update an expense**
      *
-     * Changes an expense. A field left out stays as it is. Refused with `business_details_required` until the store has its business details.
+     * Changes an expense. A field left out stays as it is. An expense keeps the currency its amount was typed in, the store's of that moment, while its amount stays as it was; a new amount is in the store's currency today. Refused with `business_details_required` until the store has its business details.
      *
      * Needs the `expenses.write` permission (Change Expenses).
      *
@@ -307,6 +311,7 @@ final class Expenses
      * - `note`: A note, up to 255 characters.
      * - `reference`: An invoice number or the like, up to 160 characters.
      * - `productId`: A product this expense is a cost of.
+     * - `amountCurrency`: With its amount as it was, the currency that amount is in: for an expense whose currency is not known (`currency` null), or to put right one that is wrong. Nothing is converted. With a new `amount` it is not read: a new amount is in the store's currency today.
      *
      * @param string $expenseId The expense.
      * @param array{
@@ -319,7 +324,8 @@ final class Expenses
      *     category?: string,
      *     note?: string,
      *     reference?: string,
-     *     productId?: string
+     *     productId?: string,
+     *     amountCurrency?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{
@@ -335,6 +341,7 @@ final class Expenses
      *     method: string,
      *     reference: string,
      *     amount: int|float,
+     *     currency: string,
      *     entered: mixed,
      *     productId: mixed,
      *     recurring: bool,

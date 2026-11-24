@@ -18,7 +18,7 @@ final class RecurringExpenses
     /**
      * **List recurring expenses**
      *
-     * The expenses that come round every month or year, with the day each is next due. A store holds up to 100. Refused with `business_details_required` until the store has its business details.
+     * The expenses that come round every month or year, with the day each is next due and the `currency` its amount is in (null where it is not known). A store holds up to 100. `meta.running` is what the running ones come to a month, a yearly one as a twelfth: `monthly` those in the store's currency today, `others` those in each other currency and those not known, never added in or converted, and `count` every one. Refused with `business_details_required` until the store has its business details.
      *
      * Needs the `expenses.read` permission (Read Expenses).
      *
@@ -31,6 +31,7 @@ final class RecurringExpenses
      *     method: string,
      *     reference: string,
      *     amount: int|float,
+     *     currency: string,
      *     cadence: string,
      *     onDay: int|float,
      *     nextOn: string,
@@ -57,7 +58,7 @@ final class RecurringExpenses
      * Fields:
      *
      * - `payee` (required): Who is paid, up to 120 characters.
-     * - `amount` (required): How much each time, in the store's currency.
+     * - `amount` (required): How much each time, in the store's currency today.
      * - `cadence` (required): How often it comes round.
      * - `nextOn` (required): The day it is next due, as `YYYY-MM-DD`.
      * - `method`: How it is paid.
@@ -84,6 +85,7 @@ final class RecurringExpenses
      *     method: string,
      *     reference: string,
      *     amount: int|float,
+     *     currency: string,
      *     cadence: string,
      *     onDay: int|float,
      *     nextOn: string,
@@ -103,20 +105,21 @@ final class RecurringExpenses
     /**
      * **Update a recurring expense**
      *
-     * Changes a recurring expense. A field left out stays as it is. The expenses it has already written are not changed. Refused with `business_details_required` until the store has its business details.
+     * Changes a recurring expense. A field left out stays as it is. The expenses it has already written are not changed. It keeps the currency its amount was typed in while its amount stays as it was; a new amount is in the store's currency today. Refused with `business_details_required` until the store has its business details.
      *
      * Needs the `expenses.write` permission (Change Expenses).
      *
      * Fields:
      *
      * - `payee` (required): Who is paid, up to 120 characters.
-     * - `amount` (required): How much each time, in the store's currency.
+     * - `amount` (required): How much each time, in the store's currency today.
      * - `cadence` (required): How often it comes round.
      * - `nextOn` (required): The day it is next due, as `YYYY-MM-DD`.
      * - `method`: How it is paid.
      * - `categoryId`: The expense category it is filed in.
      * - `note`: A note, up to 255 characters.
      * - `reference`: A reference, up to 160 characters.
+     * - `amountCurrency`: With its amount as it was, the currency that amount is in: for one whose currency is not known (`currency` null), or to put right one that is wrong. Nothing is converted. The expenses it writes from then on are in it; those it has written keep theirs.
      *
      * @param string $recurringId The recurring expense.
      * @param array{
@@ -127,7 +130,8 @@ final class RecurringExpenses
      *     method?: 'card'|'bank'|'crypto'|'paypal'|'cash'|'other',
      *     categoryId?: string,
      *     note?: string,
-     *     reference?: string
+     *     reference?: string,
+     *     amountCurrency?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{
@@ -138,6 +142,7 @@ final class RecurringExpenses
      *     method: string,
      *     reference: string,
      *     amount: int|float,
+     *     currency: string,
      *     cadence: string,
      *     onDay: int|float,
      *     nextOn: string,
@@ -211,6 +216,7 @@ final class RecurringExpenses
      *         method: string,
      *         reference: string,
      *         amount: int|float,
+     *         currency: string,
      *         cadence: string,
      *         onDay: int|float,
      *         nextOn: string,

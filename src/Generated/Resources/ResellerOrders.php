@@ -62,7 +62,7 @@ final class ResellerOrders
     /**
      * **Export reseller orders**
      *
-     * The orders the same filters would list, as a CSV file: Order ID, Reseller, Bought By, Product, Variant, Quantity, Total, Currency, Bought With and Date. No delivered key is in it. Every row the filters match is in the file, up to 50,000, sent as it is read. Add `check=1` for `{ rows }`, how many it would have, which is not counted. A store exports at most 30 files every 10 minutes, whatever they are of, whoever asks: after that the answer is 429.
+     * The orders the same filters would list, as a CSV file: Order ID, Reseller, Bought By, Product, Variant, Quantity, Total, Currency, Bought With and Date. No delivered key is in it. Every row the filters match is in the file, however many, sent as it is read. Add `check=1` for `{ rows }`, how many it would have, which is not counted. A store exports at most 30 files every 10 minutes, whatever they are of, whoever asks: after that the answer is 429.
      *
      * Needs the `resellers.read` permission (Read Resellers). It is one of the heavier reads, and is counted against a smaller budget of its own: 60 a minute for each key.
      *
