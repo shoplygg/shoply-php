@@ -83,11 +83,13 @@ final class ResellerTiers
      *
      * - `name` (required): What the tier is called, up to 40 characters.
      * - `discount` (required): What it takes off every Reseller Price, in percent: 0.01 to 99.99.
+     * - `expectedVersion`: The tier's `version` you last read. Sent, the change is refused with `stale_write` if it has changed since. Left out, it is saved whatever happened in between.
      *
      * @param string $tierId The tier.
      * @param array{
      *     name: string,
-     *     discount: int|float
+     *     discount: int|float,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{

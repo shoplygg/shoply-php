@@ -52,23 +52,26 @@ final class Stock
      *
      * Adds license keys to a variant's stock, up to 5,000 in one request. A variant and a store each hold as many unsold keys as the store's plan does.
      *
-     * A key sent twice is stocked twice, which is how one key is sold to several buyers. `duplicates` in the answer counts the ones that matched stock the variant already had, so sending the same batch a second time by mistake shows.
+     * A key that would go to more than one buyer is a duplicate: one the variant delivered before, one it has in stock, or one sent twice in the same request. A request with any is refused with `duplicate_keys`, which counts each kind (`sold`, `inStock`, `repeated`), and nothing is added, unless `duplicates` says what to do. `skip` adds the rest and leaves them out; `keep` stocks every one, which is how one key is sold to several buyers. In the answer, `duplicates` counts the ones stocked and `leftOut` the ones left out.
      *
      * Needs the `stock.write` permission (Change Stock).
      *
      * Fields:
      *
      * - `keys` (required): The keys, one an entry, each up to 500 characters with no line break in it.
+     * - `duplicates`: What to do with a key that would go to more than one buyer. `ask` refuses the request with `duplicate_keys`. Left out, it is "ask".
      *
      * @param string $variantId The variant.
      * @param array{
-     *     keys: list<string>
+     *     keys: list<string>,
+     *     duplicates?: 'ask'|'skip'|'keep'
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{
      *     added: int|float,
      *     skipped: int|float,
      *     duplicates: int|float,
+     *     leftOut: int|float,
      *     available: int|float
      * }
      * @throws \Shoply\ShoplyException
@@ -84,17 +87,23 @@ final class Stock
      *
      * Makes the variant's unsold stock exactly the keys sent. Keys already delivered are not touched: they are order history, not stock. Up to 5,000 keys, and only for a variant with no more than that in stock: one with more is refused with `validation_error`, and its keys are added and deleted instead.
      *
+     * A key the variant delivered before, or one sent twice, would go to more than one buyer, and is refused with `duplicate_keys` as Add license keys refuses it, unless `duplicates` says `skip` or `keep`. A key that is in the stock being replaced is not one.
+     *
      * Needs the `stock.write` permission (Change Stock).
      *
      * Fields:
      *
      * - `keys` (required): The keys the variant is to have in stock, one an entry. An empty list empties the stock.
      * - `expectedAvailable`: How many unsold keys you last read. Sent, the change is refused with `stale_write` if that number has changed, so a key sold in the meantime is not put back.
+     * - `expectedStock`: The `stock` a list of the variant's keys answered beside its first page, read with no search (in `meta`). Sent, the change is refused with `stale_write` if any of those keys was sold or removed, or another added, since: a sale and an addition together leave the count the same.
+     * - `duplicates`: What to do with a key that would go to more than one buyer. `ask` refuses the request with `duplicate_keys`. Left out, it is "ask".
      *
      * @param string $variantId The variant.
      * @param array{
      *     keys: list<string>,
-     *     expectedAvailable?: int
+     *     expectedAvailable?: int,
+     *     expectedStock?: string,
+     *     duplicates?: 'ask'|'skip'|'keep'
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return mixed
@@ -203,12 +212,12 @@ final class Stock
     /**
      * **Finish a file upload**
      *
-     * The last step of adding a file: says the file has been sent. Shoply checks it arrived and is the size that was said, and from then on buyers of the variant receive it.
+     * The last step of adding a file: says the file has been sent. Shoply checks it arrived and is the size that was said, and from then on buyers of the variant receive it. For a new version started with "Start replacing a file", the answer is the file it replaced, under that file's own `id`, now with the new version's name and size.
      *
      * Needs the `stock.write` permission (Change Stock).
      *
      * @param string $variantId The variant.
-     * @param string $fileId The file, as "Start a file upload" named it.
+     * @param string $fileId The file, as "Start a file upload" or "Start replacing a file" named it.
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return mixed
      * @throws \Shoply\ShoplyException
@@ -220,9 +229,39 @@ final class Stock
     }
 
     /**
+     * **Start replacing a file**
+     *
+     * The first of three steps to put a new version of a file in its place, the same three as adding one: this one says what the new version is and answers a signed address to send it to, then send it there with a `PUT`, then call "Finish a file upload" with the `id` this step answered.
+     *
+     * Once it is finished, everybody who bought the file downloads the new version, buyers of past orders too. The file keeps its own `id`, and every download link already sent goes on working. Until then they download the old one, so an upload that fails or is never finished changes nothing. It takes the old file's place rather than one more, so it counts against the variant's and the store's files as the old one did, and against the store's storage by the difference in size.
+     *
+     * Needs the `stock.write` permission (Change Stock).
+     *
+     * Fields:
+     *
+     * - `name` (required): The new version's name, with its ending. Buyers download it under this name from then on.
+     * - `size` (required): Its size in bytes.
+     *
+     * @param string $variantId The variant.
+     * @param string $fileId The file to replace.
+     * @param array{
+     *     name: string,
+     *     size: int
+     * } $params
+     * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
+     * @return mixed
+     * @throws \Shoply\ShoplyException
+     * @see https://docs.shoply.gg/api-reference/stock/start-replacing-a-file
+     */
+    public function replaceFile(string $variantId, string $fileId, array $params, array $options = []): mixed
+    {
+        return $this->caller->call('stock.replaceFile', [$variantId, $fileId], $params, $options);
+    }
+
+    /**
      * **Delete a file**
      *
-     * Removes a file from the variant. Buyers who already have a link to it can no longer download it.
+     * Takes a file off the variant: buyers from now on are not sent it. Buyers who already paid for it keep downloading it, and it still counts against the store's file storage while they do. To give everybody a new version instead, use "Start replacing a file".
      *
      * Needs the `stock.write` permission (Change Stock).
      *

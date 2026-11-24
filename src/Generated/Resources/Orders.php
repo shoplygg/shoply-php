@@ -282,7 +282,8 @@ final class Orders
      *         record: array{
      *             available: bool,
      *             why: string
-     *         }
+     *         },
+     *         subscription: mixed
      *     },
      *     productSlug: string,
      *     imageUrl: mixed,
@@ -410,6 +411,8 @@ final class Orders
      *
      * Send an `Idempotency-Key` with this request. The order is marked refunded only once the payment provider has said the money is on its way, or the buyer has been credited.
      *
+     * A refund does not end a subscription the order started or renews: it carries on and renews as before, unless `cancelSubscription` says to cancel it too. Which subscription that is, while it is running, is `refund.subscription` on the order.
+     *
      * Needs the `orders.refund` permission (Refund Orders).
      *
      * Fields:
@@ -417,18 +420,21 @@ final class Orders
      * - `destination` (required): `source`: back through the payment provider, to what paid. `balance`: credit on the buyer's balance at the store. `record`: only marked as refunded, because you returned the money yourself.
      * - `reason` (required): Why.
      * - `amount`: For `balance` only: how much to credit, from 0.01 up to what was paid, with at most 2 decimals. Left out, all of it.
+     * - `cancelSubscription`: Also cancel the running subscription this order started or renews, now, once the refund has gone through. Needs the `subscriptions.write` permission as well, asked before anything is refunded. `subscriptionCancelled` in the answer says whether one was. Left out, it is false.
      *
      * @param string $orderId The order. The ID in a checkout's address is the order's ID.
      * @param array{
      *     destination: 'source'|'balance'|'record',
      *     reason: 'requested'|'duplicate'|'fraudulent'|'other',
-     *     amount?: int|float
+     *     amount?: int|float,
+     *     cancelSubscription?: bool
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{
      *     id: string,
      *     status: string,
-     *     destination: string
+     *     destination: string,
+     *     subscriptionCancelled: bool
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/orders/refund-an-order

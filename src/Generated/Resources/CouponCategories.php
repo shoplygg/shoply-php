@@ -97,11 +97,13 @@ final class CouponCategories
      *
      * - `name` (required): Its name.
      * - `description`: A note for whoever manages the store.
+     * - `expectedUpdatedAt`: The `updatedAt` you last read. Sent, the change is refused with `stale_write` if the record has changed since. Left out, it is saved whatever happened in between.
      *
      * @param string $categoryId The coupon category.
      * @param array{
      *     name: string,
-     *     description?: string
+     *     description?: string,
+     *     expectedUpdatedAt?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{

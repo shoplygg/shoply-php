@@ -271,6 +271,7 @@ final class Upsells
      * - `firstOrders`: A checkout offer only, since the checkout is where the buyer is known: offered only to a buyer who has never paid at the store. Left out, it is false.
      * - `hideOwned`: A checkout offer only: not offered to a buyer who has bought it before. Left out, it is false.
      * - `enabled`: Whether it is offered. Left out, it is true.
+     * - `expectedUpdatedAt`: The `updatedAt` you last read. Sent, the change is refused with `stale_write` if the record has changed since. Left out, it is saved whatever happened in between.
      *
      * @param string $upsellId The upsell.
      * @param array{
@@ -298,7 +299,8 @@ final class Upsells
      *     endsAt?: string,
      *     firstOrders?: bool,
      *     hideOwned?: bool,
-     *     enabled?: bool
+     *     enabled?: bool,
+     *     expectedUpdatedAt?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{

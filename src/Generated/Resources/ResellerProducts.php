@@ -35,7 +35,8 @@ final class ResellerProducts
      *     minQty: int|float,
      *     dailyCap: int|float,
      *     maxDiscount: mixed,
-     *     enabled: bool
+     *     enabled: bool,
+     *     held: bool
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/resellers/list-what-the-panel-sells
@@ -55,9 +56,11 @@ final class ResellerProducts
      * Fields:
      *
      * - `rows` (required): One a product option: `variantId`; `price`, its Reseller Price, above 0 and up to 1,000,000; `minQty`, the fewest bought at once, 1 to 1,000 (1 when left out); `dailyCap`, the most one reseller may buy of it in a day, or null for no cap; `maxDiscount`, the most off it in percent, or null for no limit (left out, as it was); `enabled`, whether it is on sale (true when left out).
+     * - `expectedVersion`: The `version` of the panel's products you last read. Sent, the change is refused with `stale_write` if a row has changed since. Left out, it is saved whatever happened in between.
      *
      * @param array{
-     *     rows: list<array<string, mixed>>
+     *     rows: list<array<string, mixed>>,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return list<array{
@@ -72,7 +75,8 @@ final class ResellerProducts
      *     minQty: int|float,
      *     dailyCap: int|float,
      *     maxDiscount: mixed,
-     *     enabled: bool
+     *     enabled: bool,
+     *     held: bool
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/resellers/sell-products-on-the-panel
@@ -143,7 +147,7 @@ final class ResellerProducts
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{
-     *     '7502259b-6fc7-41f3-9052-c8675b99433a': list<array{
+     *     '212a0544-bad6-44f0-b3f1-bc71394a59e2': list<array{
      *         label: string,
      *         color: string,
      *         kind: string

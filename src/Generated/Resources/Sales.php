@@ -177,6 +177,7 @@ final class Sales
      * - `exceptions`: Up to 100 coupons or coupon categories that `couponRule` is turned around for.
      * - `enabled`: Whether the sale runs when its time comes. Left out, it is true.
      * - `showBar`: Whether the storefront shows the sale's countdown bar. Left out, it is true.
+     * - `expectedUpdatedAt`: The `updatedAt` you last read. Sent, the change is refused with `stale_write` if the record has changed since. Left out, it is saved whatever happened in between.
      *
      * @param string $saleId The sale.
      * @param array{
@@ -197,7 +198,8 @@ final class Sales
      *         id: string
      *     }>,
      *     enabled?: bool,
-     *     showBar?: bool
+     *     showBar?: bool,
+     *     expectedUpdatedAt?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return mixed

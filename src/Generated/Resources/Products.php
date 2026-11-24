@@ -91,6 +91,7 @@ final class Products
      *         maxQuantity: int|float,
      *         stock: int|float,
      *         keyCount: int|float,
+     *         fileCount: int|float,
      *         deliveryMethods: list<string>,
      *         deliveryType: string,
      *         deliveryInstructions: string,
@@ -251,6 +252,7 @@ final class Products
      *         maxQuantity: int|float,
      *         stock: int|float,
      *         keyCount: int|float,
+     *         fileCount: int|float,
      *         deliveryMethods: list<string>,
      *         deliveryType: string,
      *         deliveryInstructions: string,
@@ -336,6 +338,7 @@ final class Products
      *         maxQuantity: int|float,
      *         stock: int|float,
      *         keyCount: int|float,
+     *         fileCount: int|float,
      *         deliveryMethods: list<string>,
      *         deliveryType: string,
      *         deliveryInstructions: string,
@@ -360,7 +363,7 @@ final class Products
     /**
      * **Update a product**
      *
-     * Saves the product whole, as its editor does: send every field as it should be. `variants` is the complete list. An entry with an `id` changes that variant, an entry without one is added, and a variant left out is removed with its unsold stock. A variant buyers have received license keys from cannot be removed.
+     * Saves the product whole, as its editor does: send every field as it should be. `variants` is the complete list. An entry with an `id` changes that variant, an entry without one is added, and a variant left out is removed with its unsold stock, which needs the `stock.write` permission as well where it holds unsold keys or files. Buyers keep what they paid for: the keys delivered to them stay with their orders, and the files they bought stay on their orders to download.
      *
      * Read the product first and send it back changed. The fields that say "stay as they are" are the only ones that may be left out.
      *
@@ -499,6 +502,7 @@ final class Products
      *         maxQuantity: int|float,
      *         stock: int|float,
      *         keyCount: int|float,
+     *         fileCount: int|float,
      *         deliveryMethods: list<string>,
      *         deliveryType: string,
      *         deliveryInstructions: string,
@@ -523,7 +527,7 @@ final class Products
     /**
      * **Delete a product**
      *
-     * Removes the product with its variants, pictures and unsold stock. Refused for a product buyers have received license keys from, since those keys are part of their orders: set its visibility to `private` instead.
+     * Removes the product with its variants, pictures and unsold stock, which needs the `stock.write` permission as well where it holds unsold keys or files. Buyers keep what they paid for: the keys delivered to them stay with their orders, and the files they bought stay on their orders to download.
      *
      * Needs the `products.write` permission (Change Products).
      *
@@ -633,7 +637,7 @@ final class Products
     /**
      * **Delete many products**
      *
-     * Deletes each product as deleting one does. A product buyers have received license keys from is kept, and the answer names the ones that stayed.
+     * Deletes each product as deleting one does, and none of them without the `stock.write` permission where any holds unsold keys or files. `kept` in the answer is always empty: nothing is kept since November 24, 2026.
      *
      * Needs the `products.write` permission (Change Products).
      *

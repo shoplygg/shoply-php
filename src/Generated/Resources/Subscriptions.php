@@ -130,6 +130,7 @@ final class Subscriptions
      * - `autoOn`: Whether a card paid with through Stripe, Authorize.net, Tagada, Mollie, MONEI, Adyen or Square, or through NMI where its Keep Cards for Subscriptions is on, is kept and each renewal charged to it by itself. Off, every renewal is paid by an emailed link.
      * - `cardChangeOn`: Whether a renewal a buyer pays by its link with another card keeps that card, and a buyer whose card is kept through Stripe may give another on Stripe's own page.
      * - `chargeTries`: How many times a declined card is tried, one a day while the grace days last, from 1 to 5.
+     * - `expectedVersion`: The settings' `version` you last read. Sent, the change is refused with `stale_write` if any of them has changed since. Left out, it is saved whatever happened in between.
      *
      * @param array{
      *     cancelOn?: bool,
@@ -144,7 +145,8 @@ final class Subscriptions
      *     revokeOn?: bool,
      *     autoOn?: bool,
      *     cardChangeOn?: bool,
-     *     chargeTries?: int
+     *     chargeTries?: int,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{
@@ -209,13 +211,15 @@ final class Subscriptions
      * Fields:
      *
      * - `items` (required): The options and how often each renews.
+     * - `expectedVersion`: For a change to one option that is a plan already: that plan's `version` you last read. Sent, the change is refused with `stale_write` if the plan has changed since. Left out, it is saved whatever happened in between.
      *
      * @param array{
      *     items: list<array{
      *         variantId: string,
      *         every: int,
      *         unit: 'day'|'week'|'month'|'year'
-     *     }>
+     *     }>,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return list<array{
