@@ -741,7 +741,7 @@ final class Storefronts
     /**
      * **Publish a storefront's code**
      *
-     * Puts the draft live, its files and its design together, and makes this storefront the one buyers see, as Publish in the code studio does. Send `rev` and `version` from "Get a storefront's code" as you last read it: if either has moved since (somebody saved in the meantime) it is refused with `draft_conflict`, so you never publish what you have not seen. A mistake in a template refuses it with `code_problems`, the mistakes listed in `problems`.
+     * Puts the draft live, its files and its design together, and makes this storefront the one buyers see, as Publish in the code studio does. Send `rev` and `version` from "Get a storefront's code" as you last read it: if either has moved since (somebody saved in the meantime) it is refused with `draft_conflict`, so you never publish what you have not seen. A mistake in a template refuses it with `code_problems`, the mistakes listed in `problems`. Making another storefront the one buyers see is the owner's: a key or a CLI sign-in somebody on the store's team made publishes only the storefront that is live already, and is refused another with `team_permission`.
      *
      * Needs the `storefronts.write` permission (Change Storefronts).
      *

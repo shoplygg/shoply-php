@@ -124,6 +124,7 @@ final class EmailTemplates
      *     css: mixed,
      *     subject: mixed,
      *     updatedAt: mixed,
+     *     version: string,
      *     shared: mixed,
      *     baseCss: string,
      *     accent: string
@@ -148,6 +149,7 @@ final class EmailTemplates
      * - `html`: The email's HTML, or null for the original.
      * - `css`: Its whole look, or null to follow the shared CSS. The look it would get anyway is saved as null.
      * - `subject`: Its subject, or null for the original.
+     * - `expectedVersion`: The `version` you read. Sent, the change is refused with `stale_write` if its HTML, CSS or subject has changed since, a subject set by Change Cart Recovery or Change Win-Back included. Use it rather than `expectedUpdatedAt`, which neither of those moves.
      * - `expectedUpdatedAt`: The `updatedAt` you read; a template changed since is refused with `stale_write`.
      *
      * @param string $kind Which email: `receipt`, `receipt-complete`, `invoice`, `reward`, `panel-code`, `balance-code`, `site-code`, `ticket-reply`, `sub-renewal`, `sub-charged`, `sub-due`, `sub-declined`, `sub-paused`, `sub-ended`, `recovery-first`, `recovery-declined`, `recovery-second`, `winback-first`, `winback-second`.
@@ -155,6 +157,7 @@ final class EmailTemplates
      *     html?: string,
      *     css?: string,
      *     subject?: string,
+     *     expectedVersion?: string,
      *     expectedUpdatedAt?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
@@ -180,6 +183,7 @@ final class EmailTemplates
      *     css: string,
      *     subject: string,
      *     updatedAt: string,
+     *     version: string,
      *     shared: mixed,
      *     baseCss: string,
      *     accent: string
@@ -283,6 +287,7 @@ final class EmailTemplates
      *     css: mixed,
      *     subject: mixed,
      *     updatedAt: mixed,
+     *     version: string,
      *     shared: mixed,
      *     baseCss: string,
      *     accent: string

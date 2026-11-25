@@ -35,6 +35,7 @@ final class Webhooks
      *     lastStatus: mixed,
      *     dateCreated: string,
      *     updatedAt: string,
+     *     version: string,
      *     recentDeliveries: array<mixed>
      * }>
      * @throws \Shoply\ShoplyException
@@ -76,6 +77,7 @@ final class Webhooks
      *     lastStatus: mixed,
      *     dateCreated: string,
      *     updatedAt: string,
+     *     version: string,
      *     secret: string
      * }
      * @throws \Shoply\ShoplyException
@@ -106,7 +108,8 @@ final class Webhooks
      *     lastDeliveryAt: mixed,
      *     lastStatus: mixed,
      *     dateCreated: string,
-     *     updatedAt: string
+     *     updatedAt: string,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/webhook-endpoints/get-a-webhook-endpoint
@@ -129,13 +132,15 @@ final class Webhooks
      * - `events` (required): The events it is sent, by name, or `["*"]` for every event there is and every one there will be.
      * - `description`: A note for whoever manages the store, up to 160 characters.
      * - `enabled`: Whether events are sent to it. Switched off, nothing is sent, and what happens meanwhile is not kept for it.
+     * - `expectedVersion`: The endpoint's `version` you last read. Sent, the change is refused with `stale_write` if its address, events, note or switch has changed since. Left out, it is saved whatever happened in between.
      *
      * @param string $endpointId The webhook endpoint.
      * @param array{
      *     url: string,
      *     events: list<string>,
      *     description?: string,
-     *     enabled?: bool
+     *     enabled?: bool,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{
@@ -149,7 +154,8 @@ final class Webhooks
      *     lastDeliveryAt: mixed,
      *     lastStatus: mixed,
      *     dateCreated: string,
-     *     updatedAt: string
+     *     updatedAt: string,
+     *     version: string
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/webhook-endpoints/update-a-webhook-endpoint

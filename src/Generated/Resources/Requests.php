@@ -69,7 +69,7 @@ final class Requests
     /**
      * **Get an API request**
      *
-     * One request, with what was sent and what came back. Long bodies are cut short, and values that are secrets or goods (a password, license keys going into stock) are not kept. A request's ID is the `X-Request-Id` header of its answer.
+     * One request, with what was sent and what came back. Long bodies are cut short, and values that are secrets or goods (a password, license keys going into stock) are not kept. The two bodies are answered only to a key that holds the scope of what the request did, and `bodiesWithheld` is true where they were kept back. A request's ID is the `X-Request-Id` header of its answer.
      *
      * Needs the `logs.read` permission (Read API Requests).
      *
@@ -93,7 +93,8 @@ final class Requests
      *     },
      *     createdAt: string,
      *     requestBody: mixed,
-     *     responseBody: string
+     *     responseBody: string,
+     *     bodiesWithheld: bool
      * }
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/api-requests/get-an-api-request

@@ -147,7 +147,7 @@ final class ResellerProducts
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{
-     *     '212a0544-bad6-44f0-b3f1-bc71394a59e2': list<array{
+     *     'e4d31280-6335-4561-8cd8-312acfcdde7f': list<array{
      *         label: string,
      *         color: string,
      *         kind: string

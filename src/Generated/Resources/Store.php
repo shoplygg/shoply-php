@@ -353,6 +353,7 @@ final class Store
      *     emailResellersEnabled: bool,
      *     emailPaymentSetupEnabled: bool,
      *     emailDiscordSetupEnabled: bool,
+     *     emailDomainEnabled: bool,
      *     emailDisputeOpenedEnabled: bool,
      *     emailDisputeClosedEnabled: bool,
      *     testEmailEvery: array{

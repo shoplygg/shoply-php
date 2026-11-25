@@ -18,7 +18,7 @@ final class Teams
     /**
      * **Create a team**
      *
-     * A store holds as many teams as its plan does (`limits.teams` in Get the team). A permission marked `sensitive` that the team did not hold before cannot be given with a key: give it on the dashboard, which asks the person to confirm it is them.
+     * A store holds as many teams as its plan does (`limits.teams` in Get the team). A key does this as whoever made it: a key somebody on the store's team made gives, takes away and changes only what their own team holds, as they can on the dashboard, and is refused with `team_beyond` otherwise. A permission marked `sensitive` that the team did not hold before cannot be given with a key: give it on the dashboard, which asks the person to confirm it is them.
      *
      * Needs the `team.write` permission (Manage the Team).
      *
@@ -55,7 +55,7 @@ final class Teams
     /**
      * **Update a team**
      *
-     * Saves the team whole: its name and its permissions. Its people can do what it now holds from their next request. A permission marked `sensitive` that the team did not hold before cannot be given with a key: give it on the dashboard, which asks the person to confirm it is them.
+     * Saves the team whole: its name and its permissions. Its people can do what it now holds from their next request. The API keys and CLI sign-ins a person on the team made lose what their team no longer holds, and are revoked when nothing is left or the team does not hold `dev.keys`; an app they connected is disconnected when the team does not hold all it was given, or `dev.apps`. A key does this as whoever made it: a key somebody on the store's team made gives, takes away and changes only what their own team holds, as they can on the dashboard, and is refused with `team_beyond` otherwise. A permission marked `sensitive` that the team did not hold before cannot be given with a key: give it on the dashboard, which asks the person to confirm it is them.
      *
      * Needs the `team.write` permission (Manage the Team).
      *

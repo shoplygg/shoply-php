@@ -109,7 +109,7 @@ final class Team
     /**
      * **List activity**
      *
-     * Who did what at the store on the dashboard, the newest first, fifty a page: each line's `summary` ("Refunded order ..."), who did it as they were then (`name`, `email`, `team`, which is null for the owner), its `area` of the dashboard, and what it was about (`subject`). Every change and every export is a line, the owner's included; what a key does is not, and is in List API requests. Kept 365 days.
+     * Who did what at the store on the dashboard, the newest first, fifty a page: each line's `summary` ("Refunded order ..."), who did it as they were then (`name`, `email`, `team`, which is null for the owner), its `area` of the dashboard, and what it was about (`subject`). Every change and every export is a line, the owner's included. What a key does is not, and is in List API requests, except a change to the team, which is a line under whoever made the key, saying which key. Kept 365 days.
      *
      * Needs the `team.read` permission (Read the Team).
      *
@@ -128,15 +128,12 @@ final class Team
      * @return \Shoply\Page<array{
      *     id: string,
      *     userId: string,
-     *     name: string,
+     *     name: mixed,
      *     email: string,
-     *     team: string,
+     *     team: mixed,
      *     area: string,
      *     summary: string,
-     *     subject: array{
-     *         kind: string,
-     *         id: string
-     *     },
+     *     subject: mixed,
      *     at: string
      * }>
      * @throws \Shoply\ShoplyException
@@ -241,7 +238,7 @@ final class Team
     /**
      * **Move somebody to another team**
      *
-     * They can do what the other team can from their next request. Not onto a team that holds a sensitive permission: do that on the dashboard.
+     * They can do what the other team can from their next request. The API keys and CLI sign-ins a person on the team made lose what their team no longer holds, and are revoked when nothing is left or the team does not hold `dev.keys`; an app they connected is disconnected when the team does not hold all it was given, or `dev.apps`. Not onto a team that holds a sensitive permission: do that on the dashboard.
      *
      * Needs the `team.write` permission (Manage the Team).
      *
@@ -278,7 +275,7 @@ final class Team
     /**
      * **Remove somebody from the team**
      *
-     * They can no longer reach the store. The API keys they made and the apps they connected stop working with them (`keysStopped` says how many), and the webhooks those made are deleted.
+     * They can no longer reach the store. The API keys they made and the apps they connected stop working with them (`keysStopped` says how many), the webhooks those made and the ones they added on the dashboard are deleted, and the invites they sent and nobody has taken up are cancelled.
      *
      * Needs the `team.write` permission (Manage the Team).
      *

@@ -70,7 +70,8 @@ final class PaymentMethods
      *         choices: array<mixed>
      *     }>,
      *     unpaidHours: mixed,
-     *     updatedAt: mixed
+     *     updatedAt: mixed,
+     *     version: mixed
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/payment-methods/list-payment-methods
@@ -191,7 +192,8 @@ final class PaymentMethods
      *         choices: array<mixed>
      *     }>,
      *     unpaidHours: mixed,
-     *     updatedAt: mixed
+     *     updatedAt: mixed,
+     *     version: mixed
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/payment-methods/switch-paying-with-balance-on-or-off
@@ -263,7 +265,8 @@ final class PaymentMethods
      *         choices: array<mixed>
      *     }>,
      *     unpaidHours: mixed,
-     *     updatedAt: string
+     *     updatedAt: string,
+     *     version: string
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/payment-methods/set-how-long-an-unpaid-order-is-kept
@@ -336,7 +339,8 @@ final class PaymentMethods
      *         choices: array<mixed>
      *     }>,
      *     unpaidHours: int|float,
-     *     updatedAt: string
+     *     updatedAt: string,
+     *     version: string
      * }>
      * @throws \Shoply\ShoplyException
      * @see https://docs.shoply.gg/api-reference/payment-methods/set-a-payment-methods-own-time-for-an-unpaid-order
