@@ -324,11 +324,13 @@ final class Tax
      * - `collect`: Whether tax is charged at checkout.
      * - `included`: Whether the store's prices already include the tax. Off, it is added on top.
      * - `business`: Whether a business buyer's VAT number takes the tax off, when the EU's register confirms it and it is from another country than the store's.
+     * - `expectedVersion`: The `version` you last read. Sent, the change is refused with `stale_write` if any of these settings has changed since; the rates have a `ratesVersion` of their own. Left out, it is saved whatever happened in between.
      *
      * @param array{
      *     collect?: bool,
      *     included?: bool,
-     *     business?: bool
+     *     business?: bool,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{
@@ -622,13 +624,15 @@ final class Tax
      * Fields:
      *
      * - `places` (required): The places.
+     * - `expectedVersion`: The `ratesVersion` you last read. Sent, the change is refused with `stale_write` if a rate has changed since. Left out, it is saved whatever happened in between.
      *
      * @param array{
      *     places: list<array{
      *         country: string,
      *         region?: string,
      *         rate?: int|float
-     *     }>
+     *     }>,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{

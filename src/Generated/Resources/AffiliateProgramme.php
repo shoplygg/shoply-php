@@ -56,6 +56,7 @@ final class AffiliateProgramme
      * - `ownLinks`: Whether an affiliate may change the code their link ends in.
      * - `toStore`: Whether an affiliate may move commission to their store balance.
      * - `payouts`: Whether an affiliate may ask for a payout.
+     * - `expectedVersion`: The programme's `version` (`meta.version`) you last read. Sent, the change is refused with `stale_write` if any of its settings has changed since. Left out, it is saved whatever happened in between.
      *
      * @param array{
      *     enabled?: bool,
@@ -64,7 +65,8 @@ final class AffiliateProgramme
      *     selfSignup?: bool,
      *     ownLinks?: bool,
      *     toStore?: bool,
-     *     payouts?: bool
+     *     payouts?: bool,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{

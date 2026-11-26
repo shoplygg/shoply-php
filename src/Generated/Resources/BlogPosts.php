@@ -128,6 +128,7 @@ final class BlogPosts
      * - `coverAlt`: What its cover picture shows, for readers who cannot see it.
      * - `seoTitle`: Its own title in search results. Empty is its title.
      * - `seoDescription`: Its own description in search results. Empty is the start of its text.
+     * - `expectedVersion`: The post's `version` you last read. Sent, the change is refused with `stale_write` if the post has changed since. Left out, it is saved whatever happened in between.
      *
      * @param string $postId The post.
      * @param array{
@@ -138,7 +139,8 @@ final class BlogPosts
      *     categoryId?: string,
      *     coverAlt?: string,
      *     seoTitle?: string,
-     *     seoDescription?: string
+     *     seoDescription?: string,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{

@@ -78,6 +78,7 @@ final class CartRecovery
      * - `secondMinutes`: Minutes after the buyer left. One of 720, 1200, 1440, 2880.
      * - `secondSubject`: Its subject, up to 150 characters. It may hold the email's variables, such as `{{ store.name }}`; one whose marks cannot be read is refused.
      * - `secondPercent`: The percent off its coupon. One of 0, 5, 10, 15, 20, 25. 0 sends it with no coupon.
+     * - `expectedVersion`: The `version` you last read. Sent, the change is refused with `stale_write` if any of these settings has changed since. Left out, it is saved whatever happened in between.
      *
      * @param array{
      *     enabled?: bool,
@@ -90,7 +91,8 @@ final class CartRecovery
      *     secondOn?: bool,
      *     secondMinutes?: int,
      *     secondSubject?: string,
-     *     secondPercent?: int
+     *     secondPercent?: int,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{

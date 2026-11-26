@@ -144,13 +144,15 @@ final class Allowlist
      * - `value` (required): What to match.
      * - `note`: Why, up to 500 characters.
      * - `enabled`: Whether the entry is in force. Left out, it is true.
+     * - `expectedUpdatedAt`: The entry's `updatedAt` you last read. Sent, the change is refused with `stale_write` if the entry has changed since. Left out, it is saved whatever happened in between.
      *
      * @param string $entryId The entry.
      * @param array{
      *     type: 'email'|'ip'|'cidr',
      *     value: string,
      *     note?: string,
-     *     enabled?: bool
+     *     enabled?: bool,
+     *     expectedUpdatedAt?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{

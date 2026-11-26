@@ -79,11 +79,13 @@ final class ExpenseCategories
      *
      * - `name` (required): Its name.
      * - `icon`: Its icon. Left out, it stays as it is.
+     * - `expectedUpdatedAt`: The category's `updatedAt` you last read. Sent, the change is refused with `stale_write` if the category has changed since. Left out, it is saved whatever happened in between.
      *
      * @param string $categoryId The expense category.
      * @param array{
      *     name: string,
-     *     icon?: string
+     *     icon?: string,
+     *     expectedUpdatedAt?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{

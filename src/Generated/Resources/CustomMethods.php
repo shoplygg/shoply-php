@@ -111,6 +111,7 @@ final class CustomMethods
      * - `asksProof`: Whether the buyer is asked for a reference or a proof of payment, at least one.
      * - `requiresPicture`: Whether a proof of payment is required, whatever else is sent. Needs `asksProof`.
      * - `enabled`: Whether the checkout offers it.
+     * - `expectedVersion`: The method's `version` you last read. Sent, the change is refused with `stale_write` if the method has changed since. Left out, it is saved whatever happened in between.
      *
      * @param string $methodId The method, by its ID (`custom_` and 16 hex characters).
      * @param array{
@@ -121,7 +122,8 @@ final class CustomMethods
      *     redirectUrl?: string,
      *     asksProof?: bool,
      *     requiresPicture?: bool,
-     *     enabled?: bool
+     *     enabled?: bool,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return list<array{

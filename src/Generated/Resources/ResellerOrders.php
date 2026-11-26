@@ -92,7 +92,7 @@ final class ResellerOrders
     /**
      * **Get a reseller order**
      *
-     * One reseller order whole, as the dashboard's page for it shows it: who bought it (`reseller`, and `boughtBy`, the member of their team), how (`via`), the `total` taken off their balance, `listTotal` (what it came to at the panel's list prices when bought) and `discount` (what their price took off it), both null for an order from before those were kept, and `balanceAfter`. Each of `lines` is an option it bought, with its `unitPrice` and `quantity` and what it delivered: `keys`, `items` (what a dynamic delivery's server handed back, a line each), `instructions`, and `waiting` while a dynamic line is still being fetched. A store's own order or a top-up answers 404.
+     * One reseller order whole, as the dashboard's page for it shows it: who bought it (`reseller`, and `boughtBy`, the member of their team), how (`via`), the `total` taken off their balance, `listTotal` (what it came to at the panel's list prices when bought) and `discount` (what their price took off it), both null for an order from before those were kept, and `balanceAfter`. Each of `lines` is an option it bought, with its `unitPrice` and `quantity` and what it delivered: `keys`, `items` (what a dynamic delivery's server handed back, a line each), `instructions`, and `waiting` while a dynamic line is still being fetched. What it delivered is answered only to a key that also holds `orders.read`, as a store order's is: to any other, `keys` and `items` are empty, `instructions` is empty, `delivered` says how many, and `goodsShown` is false. A store's own order or a top-up answers 404.
      *
      * Needs the `resellers.read` permission (Read Resellers).
      *

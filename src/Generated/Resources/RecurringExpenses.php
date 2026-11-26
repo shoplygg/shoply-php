@@ -120,6 +120,7 @@ final class RecurringExpenses
      * - `note`: A note, up to 255 characters.
      * - `reference`: A reference, up to 160 characters.
      * - `amountCurrency`: With its amount as it was, the currency that amount is in: for one whose currency is not known (`currency` null), or to put right one that is wrong. Nothing is converted. The expenses it writes from then on are in it; those it has written keep theirs.
+     * - `expectedUpdatedAt`: The recurring expense's `updatedAt` you last read. Sent, the change is refused with `stale_write` if it has changed since. Left out, it is saved whatever happened in between.
      *
      * @param string $recurringId The recurring expense.
      * @param array{
@@ -131,7 +132,8 @@ final class RecurringExpenses
      *     categoryId?: string,
      *     note?: string,
      *     reference?: string,
-     *     amountCurrency?: string
+     *     amountCurrency?: string,
+     *     expectedUpdatedAt?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{

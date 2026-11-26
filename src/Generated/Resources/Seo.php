@@ -57,6 +57,7 @@ final class Seo
      * - `indexNow`: Whether search engines are told when a product, a post or a page changes.
      * - `measurementId`: The Google Analytics property paid orders are sent to, as `G-XXXXXXXXXX`. Empty stops sending them.
      * - `apiSecret`: That property's Measurement Protocol API secret. It is never answered back.
+     * - `expectedVersion`: The `version` you last read. Sent, the change is refused with `stale_write` if any of these settings has changed since. Left out, it is saved whatever happened in between.
      *
      * @param array{
      *     googleVerification?: string,
@@ -64,7 +65,8 @@ final class Seo
      *     aiCrawlers?: bool,
      *     indexNow?: bool,
      *     measurementId?: string,
-     *     apiSecret?: string
+     *     apiSecret?: string,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{

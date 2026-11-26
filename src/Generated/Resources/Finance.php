@@ -352,13 +352,15 @@ final class Finance
      * Fields:
      *
      * - `rates` (required): A rate a provider.
+     * - `expectedVersion`: The `version` of the payment costs you last read. Sent, the change is refused with `stale_write` if any of them has changed since. Left out, it is saved whatever happened in between.
      *
      * @param array{
      *     rates: list<array{
      *         provider: string,
      *         percent?: int|float,
      *         fixed?: int|float
-     *     }>
+     *     }>,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return list<array{

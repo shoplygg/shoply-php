@@ -117,13 +117,15 @@ final class Affiliates
      * - `commission`: The share of each order they earn, in percent: above 0, up to 90. It is taken on what the buyer paid for the products, after every discount, before fees and tax.
      * - `discount`: What their link takes off for the buyer, in percent: 0 to 90. Left out, it is 0.
      * - `active`: Whether their link works. Switched off, it takes nothing off and earns nothing.
+     * - `expectedVersion`: The affiliate's `version` you last read. Sent, the change is refused with `stale_write` if what this saves of them has changed since. Left out, it is saved whatever happened in between.
      *
      * @param string $affiliateId The affiliate.
      * @param array{
      *     code?: string,
      *     commission?: int|float,
      *     discount?: int|float,
-     *     active?: bool
+     *     active?: bool,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{

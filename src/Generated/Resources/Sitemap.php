@@ -68,12 +68,14 @@ final class Sitemap
      * - `listed`: Whether the sitemap lists it.
      * - `priority`: Its priority, from `0.1` to `1.0`.
      * - `changefreq`: How often it changes.
+     * - `expectedVersion`: The kind's `version` (in `kinds`) you last read. Sent, the change is refused with `stale_write` if that kind's rule has changed since. Left out, it is saved whatever happened in between.
      *
      * @param string $kind The kind: `pages`, `categories`, `products` or `blog`.
      * @param array{
      *     listed?: bool,
      *     priority?: string,
-     *     changefreq?: 'always'|'hourly'|'daily'|'weekly'|'monthly'|'yearly'|'never'
+     *     changefreq?: 'always'|'hourly'|'daily'|'weekly'|'monthly'|'yearly'|'never',
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{
@@ -120,6 +122,7 @@ final class Sitemap
      *
      * - `kind` (required): The kind the address is of.
      * - `ref` (required): Which address of that kind, as "Get the sitemap" names it.
+     * - `expectedVersion`: The entry's `version` (in its kind's `entries`) you last read. Sent, the change is refused with `stale_write` if the entry has changed since. Left out, it is saved whatever happened in between.
      * - `listed`: Whether the sitemap lists it.
      * - `priority`: Its priority, from `0.1` to `1.0`.
      * - `changefreq`: How often it changes.
@@ -127,6 +130,7 @@ final class Sitemap
      * @param array{
      *     kind: 'pages'|'categories'|'products'|'blog',
      *     ref: string,
+     *     expectedVersion?: string,
      *     listed?: bool,
      *     priority?: string,
      *     changefreq?: 'always'|'hourly'|'daily'|'weekly'|'monthly'|'yearly'|'never'

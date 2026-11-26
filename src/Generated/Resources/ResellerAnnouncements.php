@@ -90,12 +90,14 @@ final class ResellerAnnouncements
      * - `title` (required): Its title, up to 100 characters.
      * - `body` (required): What it says, up to 1,000 characters.
      * - `pinned`: Whether it is shown first, before the newer ones. Left out, it is false.
+     * - `expectedVersion`: The announcement's `version` you last read. Sent, the change is refused with `stale_write` if the announcement has changed since. Left out, it is saved whatever happened in between.
      *
      * @param string $announcementId The announcement.
      * @param array{
      *     title: string,
      *     body: string,
-     *     pinned?: bool
+     *     pinned?: bool,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{

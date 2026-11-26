@@ -767,6 +767,7 @@ final class Disputes
      * - `discord`: Post both to the store's Discord. Needs a webhook in its notification settings.
      * - `discordRoles`: What an opened dispute does to a buyer who linked their Discord to the order: `keep` their roles, `take` them, `kick` (take them and remove the buyer from the server), or `ban` them from it.
      * - `discordRolesBack`: Whether a dispute closed in the store's favour gives the roles back, adds a kicked buyer again and lifts a ban.
+     * - `expectedVersion`: The `version` you last read. Sent, the change is refused with `stale_write` if any of these settings has changed since. Left out, it is saved whatever happened in between.
      *
      * @param array{
      *     blacklist?: bool,
@@ -780,7 +781,8 @@ final class Disputes
      *     emailClosed?: bool,
      *     discord?: bool,
      *     discordRoles?: 'keep'|'take'|'kick'|'ban',
-     *     discordRolesBack?: bool
+     *     discordRolesBack?: bool,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{

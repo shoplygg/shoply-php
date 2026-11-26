@@ -85,11 +85,13 @@ final class Redirects
      *
      * - `from` (required): The address that has nothing at it, as a path on the store (`/old-page`). A whole address of the store is cut down to its path.
      * - `to` (required): Where it leads, as a path on the store. A redirect never leaves the store, and never leads to an address that is itself redirected.
+     * - `expectedVersion`: The redirect's `version` you last read. Sent, the change is refused with `stale_write` if the redirect has changed since. Left out, it is saved whatever happened in between.
      *
      * @param string $redirectId The redirect.
      * @param array{
      *     from: string,
-     *     to: string
+     *     to: string,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return list<array{

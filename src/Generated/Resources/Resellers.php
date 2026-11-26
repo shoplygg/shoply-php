@@ -106,11 +106,13 @@ final class Resellers
      * - `enabled`: Whether the panel is on.
      * - `currency`: The currency its prices and balances are in, as a three-letter code.
      * - `minTopup`: The smallest top-up a reseller can make, 5.00 to 100,000.00.
+     * - `expectedVersion`: The settings' `version` (`meta.version`) you last read. Sent, the change is refused with `stale_write` if any of them has changed since. Left out, it is saved whatever happened in between.
      *
      * @param array{
      *     enabled?: bool,
      *     currency?: string,
-     *     minTopup?: int|float
+     *     minTopup?: int|float,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{
@@ -299,12 +301,14 @@ final class Resellers
      * - `tierId`: Their tier. Empty, none.
      * - `discount`: Their own discount off every Reseller Price, in percent, 0.01 to 99.99, in place of their tier's. Null or empty, none.
      * - `status`: Whether they can buy and top up.
+     * - `expectedVersion`: The reseller's `version` you last read. Sent, the change is refused with `stale_write` if what this saves of them has changed since. Left out, it is saved whatever happened in between.
      *
      * @param string $resellerId The reseller.
      * @param array{
      *     tierId?: string,
      *     discount?: int|float,
-     *     status?: 'active'|'paused'
+     *     status?: 'active'|'paused',
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{
@@ -467,11 +471,13 @@ final class Resellers
      * Fields:
      *
      * - `permissions` (required): What they may do, by name: `products.view`, `products.buy`, `orders.view`, `orders.keys`, `balance.view`, `balance.topup`, `api.keys`, `api.urls`, `team.view`, `team.manage`, `alerts.manage`.
+     * - `expectedVersion`: The member's `version` (in the reseller's `team`) you last read. Sent, the change is refused with `stale_write` if the member has changed since. Left out, it is saved whatever happened in between.
      *
      * @param string $resellerId The reseller.
      * @param string $memberId The member, from the reseller's `team`.
      * @param array{
-     *     permissions: list<string>
+     *     permissions: list<string>,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{

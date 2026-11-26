@@ -123,11 +123,13 @@ final class CustomerTags
      *
      * - `name`: Its name, up to 32 characters.
      * - `tone`: Its colour.
+     * - `expectedVersion`: The tag's `version` you last read. Sent, the change is refused with `stale_write` if the tag has changed since. Left out, it is saved whatever happened in between.
      *
      * @param string $tagId The tag.
      * @param array{
      *     name?: string,
-     *     tone?: 'neutral'|'primary'|'success'|'warning'|'danger'
+     *     tone?: 'neutral'|'primary'|'success'|'warning'|'danger',
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{

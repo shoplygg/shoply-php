@@ -27,7 +27,7 @@ abstract class CustomerBase implements Caller
      *
      * Emails a six-digit code to the address a buyer typed, for them to type back with Sign in with the code. The code works for 10 minutes, five tries.
      *
-     * The answer is the same for any address, and a code is only mailed to an address that has orders at the store, so this cannot be used to find out who has bought there. One address is sent a code a minute at most, five an hour and ten a day: past that the answer is `code_cooldown` with `resendIn`, the seconds to wait. A store sends 60 codes an hour at most, and past that, or on a busy hour for the whole platform, the answer is `store_busy`.
+     * The answer is the same for any address, and a code is only mailed to an address that has orders at the store, so this cannot be used to find out who has bought there. One address is sent a code a minute at most, five an hour and ten a day: past that the answer is `code_cooldown` with `resendIn`, the seconds to wait. A store sends 60 codes an hour at most, and past that the answer is `store_busy`. Other stores' codes never count against it.
      *
      * Call it from the buyer's own device. It is counted for the address that asks, 10 an hour, so a server asking for every buyer would run out at once.
      *

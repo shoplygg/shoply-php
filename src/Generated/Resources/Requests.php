@@ -69,7 +69,7 @@ final class Requests
     /**
      * **Get an API request**
      *
-     * One request, with what was sent and what came back. Long bodies are cut short, and values that are secrets or goods (a password, license keys going into stock) are not kept. The two bodies are answered only to a key that holds the scope of what the request did, and `bodiesWithheld` is true where they were kept back. A request's ID is the `X-Request-Id` header of its answer.
+     * One request, with what was sent and what came back. Long bodies are cut short. A secret is never kept, in what was sent, what came back or the query: a value under a name that says it is one (a password, a signing secret, a token) and a value shaped like one under any name (an API key, a join link) is `[not kept]`. Nor are license keys going into stock. The two bodies are answered only to a key that holds the scope of what the request did, and `bodiesWithheld` is true where they were kept back. A request's ID is the `X-Request-Id` header of its answer.
      *
      * Needs the `logs.read` permission (Read API Requests).
      *

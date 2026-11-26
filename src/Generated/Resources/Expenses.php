@@ -312,6 +312,7 @@ final class Expenses
      * - `reference`: An invoice number or the like, up to 160 characters.
      * - `productId`: A product this expense is a cost of.
      * - `amountCurrency`: With its amount as it was, the currency that amount is in: for an expense whose currency is not known (`currency` null), or to put right one that is wrong. Nothing is converted. With a new `amount` it is not read: a new amount is in the store's currency today.
+     * - `expectedUpdatedAt`: The expense's `updatedAt` you last read. Sent, the change is refused with `stale_write` if the expense has changed since. Left out, it is saved whatever happened in between.
      *
      * @param string $expenseId The expense.
      * @param array{
@@ -325,7 +326,8 @@ final class Expenses
      *     note?: string,
      *     reference?: string,
      *     productId?: string,
-     *     amountCurrency?: string
+     *     amountCurrency?: string,
+     *     expectedUpdatedAt?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{

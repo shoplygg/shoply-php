@@ -109,6 +109,7 @@ final class Routing
      * - `guardDeclines`: How many of the window's payments declined pause a processor, from 1 to `guardWindow`.
      * - `guardWindow`: How many of its last routed payments are judged, from 5 to 200.
      * - `disputeAlert`: The percent of a processor's paid orders disputed that the store is told of, once a week at most, above 0 and up to 100. Empty or null for none. Nothing is moved for it.
+     * - `expectedVersion`: The `settings.version` you last read. Sent, the change is refused with `stale_write` if what this saves has changed since. Left out, it is saved whatever happened in between.
      *
      * @param array{
      *     enabled?: bool,
@@ -118,7 +119,8 @@ final class Routing
      *     guard?: bool,
      *     guardDeclines?: int,
      *     guardWindow?: int,
-     *     disputeAlert?: int|float
+     *     disputeAlert?: int|float,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{
@@ -283,6 +285,7 @@ final class Routing
      * - `capDay`: The most it is given in a UTC day. No more than `capMonth`.
      * - `minOrder`: The smallest order it is given.
      * - `maxOrder`: The largest order it is given. At least `minOrder`.
+     * - `expectedVersion`: The processor's `version` (in `processors`) you last read. Sent, the change is refused with `stale_write` if that processor has changed since. Left out, it is saved whatever happened in between.
      *
      * @param string $provider The processor, by its payment method's name in "List payment methods".
      * @param array{
@@ -290,7 +293,8 @@ final class Routing
      *     capMonth?: int|float,
      *     capDay?: int|float,
      *     minOrder?: int|float,
-     *     maxOrder?: int|float
+     *     maxOrder?: int|float,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{
@@ -688,6 +692,7 @@ final class Routing
      * - `amount`: For `amount`: the amount, in the store's currency.
      * - `action` (required): `only`: such orders go to this processor and no other. `never`: they never go to it.
      * - `provider` (required): The processor the rule is about, one in the routing.
+     * - `expectedVersion`: The rule's `version` (in `rules`) you last read. Sent, the change is refused with `stale_write` if the rule has changed since. Left out, it is saved whatever happened in between.
      *
      * @param string $ruleId The rule.
      * @param array{
@@ -696,7 +701,8 @@ final class Routing
      *     amountOp?: 'over'|'under',
      *     amount?: int|float,
      *     action: 'only'|'never',
-     *     provider: string
+     *     provider: string,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{

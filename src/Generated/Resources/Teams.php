@@ -63,11 +63,13 @@ final class Teams
      *
      * - `name` (required): What the team is called, up to 40 characters, once a store.
      * - `permissions` (required): What its people may do, by name (List the team answers every permission in `permissions`). What a permission leans on is added with it: `stock.edit` brings `stock.view` and `products.view`.
+     * - `expectedVersion`: The team's `version` (in `teams`) you last read. Sent, the change is refused with `stale_write` if the team has changed since. Left out, it is saved whatever happened in between.
      *
      * @param string $teamId The team, by its ID.
      * @param array{
      *     name: string,
-     *     permissions: list<string>
+     *     permissions: list<string>,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{

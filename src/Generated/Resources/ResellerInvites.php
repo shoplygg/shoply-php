@@ -102,6 +102,7 @@ final class ResellerInvites
      * - `maxUses`: How many may join through it, 1 to 100,000. Empty or left out, no limit.
      * - `endsAt`: When it stops working, as a date and time. Empty or left out, never.
      * - `enabled`: Whether it works. Left out, it is true.
+     * - `expectedVersion`: The link's `version` you last read. Sent, the change is refused with `stale_write` if the link has changed since. Left out, it is saved whatever happened in between.
      *
      * @param string $inviteId The invite link.
      * @param array{
@@ -109,7 +110,8 @@ final class ResellerInvites
      *     tierId?: string,
      *     maxUses?: int,
      *     endsAt?: string,
-     *     enabled?: bool
+     *     enabled?: bool,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{

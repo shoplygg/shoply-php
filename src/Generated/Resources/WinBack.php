@@ -74,6 +74,7 @@ final class WinBack
      * - `secondSubject`: Its subject, up to 150 characters. It may hold the email's variables, such as `{{ store.name }}`; one whose marks cannot be read is refused.
      * - `secondPercent`: The percent off its coupon. One of 0, 5, 10, 15, 20, 25. 0 sends it with no coupon.
      * - `audience`: Who is written to: empty for every subscriber, `vip`, or the ID of one of the store's tags.
+     * - `expectedVersion`: The `version` you last read. Sent, the change is refused with `stale_write` if any of these settings has changed since. Left out, it is saved whatever happened in between.
      *
      * @param array{
      *     enabled?: bool,
@@ -84,7 +85,8 @@ final class WinBack
      *     secondDays?: int,
      *     secondSubject?: string,
      *     secondPercent?: int,
-     *     audience?: string
+     *     audience?: string,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{

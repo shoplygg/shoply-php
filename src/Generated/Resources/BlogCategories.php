@@ -64,12 +64,14 @@ final class BlogCategories
      * - `name` (required): The category's name.
      * - `description`: What it is about. Shown on the blog's own page.
      * - `slug`: The part of its address after `/blog/`. Left out, it is made from the name. A post and a category cannot share one.
+     * - `expectedVersion`: The category's `version` you last read. Sent, the change is refused with `stale_write` if the category has changed since. Left out, it is saved whatever happened in between.
      *
      * @param string $categoryId The blog category.
      * @param array{
      *     name: string,
      *     description?: string,
-     *     slug?: string
+     *     slug?: string,
+     *     expectedVersion?: string
      * } $params
      * @param array{idempotencyKey?: string, timeout?: int|float, maxRetries?: int, headers?: array<string, string>} $options
      * @return array{
